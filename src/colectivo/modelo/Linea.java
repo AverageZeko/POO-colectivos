@@ -2,6 +2,7 @@ package colectivo.modelo;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Linea {
@@ -31,6 +32,10 @@ public class Linea {
 
 	public void agregarFrecuencia(int diaSemana, LocalTime hora) {
 		frecuencias.add(new Frecuencia(diaSemana, hora));
+	}
+
+	public List<Frecuencia> getFrecuencias() {
+		return Collections.unmodifiableList(frecuencias);
 	}
 
 	public String getCodigo() {
