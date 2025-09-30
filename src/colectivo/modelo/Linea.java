@@ -24,6 +24,18 @@ public class Linea {
 		this.paradas = new ArrayList<Parada>();
 		this.frecuencias = new ArrayList<Frecuencia>();
 	}
+	
+	public List<LocalTime> getHorasFrecuenciaPorDia(int diaSemana) {
+	    List<LocalTime> horas = new ArrayList<>();
+	    for (Frecuencia f : frecuencias) {
+	        if (f.diaSemana == diaSemana) {
+	            horas.add(f.hora);
+	        }
+	    }
+	    return horas;
+	}
+
+
 
 	public void agregarParada(Parada parada) {
 		paradas.add(parada);
