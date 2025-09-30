@@ -4,10 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
 import java.time.LocalTime;
 
 import colectivo.modelo.Linea;
@@ -17,7 +17,7 @@ import colectivo.modelo.Tramo;
 public class CargarDatos {
 
 	public static Map<Integer, Parada> cargarParadas(String nombreArchivo) throws IOException {
-		Map<Integer, Parada> paradas = new TreeMap<>();
+		Map<Integer, Parada> paradas = new HashMap<>();
 		InputStream inputStream = CargarDatos.class.getClassLoader().getResourceAsStream("resources/" + nombreArchivo);
 		if (inputStream == null) {
 			throw new FileNotFoundException("No fue posible encontrar " + nombreArchivo + " en la carpeta resources del classpath.");
@@ -57,7 +57,7 @@ public class CargarDatos {
 	public static Map<String, Tramo> cargarTramos(String nombreArchivo, Map<Integer, Parada> paradas)
 			throws FileNotFoundException {
 				
-		Map<String, Tramo> tramos = new TreeMap<>();
+		Map<String, Tramo> tramos = new HashMap<>();
 		InputStream inputStream = CargarDatos.class.getClassLoader().getResourceAsStream("resources/" + nombreArchivo);
 		if (inputStream == null) {
 			throw new FileNotFoundException("No fue posible encontrar " + nombreArchivo + " en la carpeta resources del classpath.");
@@ -113,8 +113,8 @@ public class CargarDatos {
 	public static Map<String, Linea> cargarLineas(String nombreArchivo, String nombreArchivoFrecuencia,
 			Map<Integer, Parada> paradas) throws FileNotFoundException {
 
-		Map<String, Linea> lineas = new TreeMap<>();
-		Map<String, List<String[]>> frecuencias = new TreeMap<>();
+		Map<String, Linea> lineas = new HashMap<>();
+		Map<String, List<String[]>> frecuencias = new HashMap<>();
 		InputStream frecuenciaInputStream = CargarDatos.class.getClassLoader().getResourceAsStream("resources/" + nombreArchivoFrecuencia);
 		if (frecuenciaInputStream == null) {
 			throw new FileNotFoundException("No fue posible encontrar " + nombreArchivoFrecuencia + " en la carpeta resources del classpath.");
