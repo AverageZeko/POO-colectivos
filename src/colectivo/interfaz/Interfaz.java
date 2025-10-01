@@ -4,10 +4,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
-
 import java.util.Map;
-import java.util.List;
-import java.util.HashMap;
 
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
@@ -87,7 +84,7 @@ public class Interfaz {
 
     // Mostrar los resultados
     public static void resultado(List<List<Recorrido>> listaRecorridos, Parada paradaOrigen,
-            Parada paradaDestino, int diaSemana) {
+            Parada paradaDestino, LocalTime horaLlegaParada) {
 
         if (listaRecorridos.isEmpty()) {
             System.out.println("No se encontraron recorridos desde " + paradaOrigen.getDireccion() + " hasta "
@@ -102,7 +99,7 @@ public class Interfaz {
         for (List<Recorrido> recorridoCompleto : listaRecorridos) {
             System.out.println("\nRecorrido " + i + ":");
             for (Recorrido r : recorridoCompleto) {
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////
                 // Calculamos la hora del colectivo en la parada origen
                 LocalTime horaColectivoOrigen = null;
                 List<LocalTime> frecuencias = r.getLinea().getHorasFrecuenciaPorDia(diaSemana);
@@ -115,11 +112,11 @@ public class Interfaz {
                 if (horaColectivoOrigen == null && !frecuencias.isEmpty()) {
                     horaColectivoOrigen = frecuencias.get(0);
                 }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////
                 System.out.println("  - Linea: " + r.getLinea().getCodigo());
                 System.out.println("    Recorrido desde " + r.getParadas().get(0).getDireccion()
                         + " hasta " + r.getParadas().get(r.getParadas().size() - 1).getDireccion());
-                System.out.println("    Hora usuario en origen: " + r.getHoraSalida());
+                System.out.println("    Hora usuario en origen: " + horaLlegaParada);
                 System.out.println("    Hora colectivo en origen: "
                         + (horaColectivoOrigen != null ? horaColectivoOrigen : "N/A"));
                 System.out.println("    Tiempo total: " + Tiempo.segundosATiempo (r.getDuracion()) + " min");
