@@ -25,6 +25,8 @@ public class Linea {
 		this.frecuencias = new ArrayList<Frecuencia>();
 	}
 	
+	
+	//creada por nosotros
 	public List<LocalTime> getHorasFrecuenciaPorDia(int diaSemana) {
 	    List<LocalTime> horas = new ArrayList<>();
 	    for (Frecuencia f : frecuencias) {
