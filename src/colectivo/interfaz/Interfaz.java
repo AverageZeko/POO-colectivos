@@ -99,27 +99,14 @@ public class Interfaz {
         for (List<Recorrido> recorridoCompleto : listaRecorridos) {
             System.out.println("\nRecorrido " + i + ":");
             for (Recorrido r : recorridoCompleto) {
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-                // Calculamos la hora del colectivo en la parada origen
-                LocalTime horaColectivoOrigen = null;
-                List<LocalTime> frecuencias = r.getLinea().getHorasFrecuenciaPorDia(diaSemana);
-                for (LocalTime h : frecuencias) {
-                    if (!h.isBefore(r.getHoraSalida())) {
-                        horaColectivoOrigen = h;
-                        break;
-                    }
-                }
-                if (horaColectivoOrigen == null && !frecuencias.isEmpty()) {
-                    horaColectivoOrigen = frecuencias.get(0);
-                }
-//////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                // Solo mostramos la información, sin calcular la hora del colectivo
                 System.out.println("  - Linea: " + r.getLinea().getCodigo());
                 System.out.println("    Recorrido desde " + r.getParadas().get(0).getDireccion()
                         + " hasta " + r.getParadas().get(r.getParadas().size() - 1).getDireccion());
                 System.out.println("    Hora usuario en origen: " + horaLlegaParada);
-                System.out.println("    Hora colectivo en origen: "
-                        + (horaColectivoOrigen != null ? horaColectivoOrigen : "N/A"));
-                System.out.println("    Tiempo total: " + Tiempo.segundosATiempo (r.getDuracion()) + " min");
+                System.out.println("    Hora colectivo en origen: " + "N/A");
+                System.out.println("    Tiempo total: " + Tiempo.segundosATiempo(r.getDuracion()) + " min");
 
                 // Mostrar paradas sin flecha extra al final
                 StringBuilder sb = new StringBuilder();
@@ -132,7 +119,5 @@ public class Interfaz {
             i++;
         }
     }
-
-
 }
 
