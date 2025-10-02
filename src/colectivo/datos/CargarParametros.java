@@ -6,7 +6,6 @@ import java.util.Properties;
 
 public class CargarParametros {
 
-	private static String archivoModificador;
 	private static String archivoLinea;
 	private static String archivoParada;
 	private static String archivoTramo;
@@ -26,9 +25,7 @@ public class CargarParametros {
 			throw new IOException("No fue posible encontrar archivo config.properties en el class path.");
 		}
 		prop.load(entrada);
-		//
-		archivoModificador = prop.getProperty("modificador");
-		//
+
 		archivoLinea = prop.getProperty("linea");
 		archivoParada = prop.getProperty("parada");
 		archivoFrecuencia = prop.getProperty("frecuencia");
@@ -38,13 +35,6 @@ public class CargarParametros {
 			throw new IOException("No todos los parametros fueron encontrados en config.properties.");
 		}
     }
-
-	public static String getArchivoModificador() {
-			if (archivoModificador == null) {
-			throw new IllegalStateException("Los archivos deben ser inicializados primero.");
-		}
-		return archivoModificador;
-	}
 
     public static String getArchivoLinea() {
 		if (archivoLinea == null) {
