@@ -1,5 +1,6 @@
 package colectivo.interfaz;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -83,41 +84,58 @@ public class Interfaz {
     }
 
     // Mostrar los resultados
-    public static void resultado(List<List<Recorrido>> listaRecorridos, Parada paradaOrigen,
-            Parada paradaDestino, LocalTime horaLlegaParada) {
+    public static void resultado(List<List<Recorrido>> listaRecorridos,
+            Parada paradaOrigen,
+            Parada paradaDestino,
+            LocalTime horaLlegaParada) {
 
-        if (listaRecorridos.isEmpty()) {
-            System.out.println("No se encontraron recorridos desde " + paradaOrigen.getDireccion() + " hasta "
-                    + paradaDestino.getDireccion());
-            return;
-        }
-
-        System.out.println("Recorridos disponibles desde " + paradaOrigen.getDireccion() + " hasta "
-                + paradaDestino.getDireccion() + ":");
-
-        int i = 1;
-        for (List<Recorrido> recorridoCompleto : listaRecorridos) {
-            System.out.println("\nRecorrido " + i + ":");
-            for (Recorrido r : recorridoCompleto) {
-
-                // Solo mostramos la información, sin calcular la hora del colectivo
-                System.out.println("  - Linea: " + r.getLinea().getCodigo());
-                System.out.println("    Recorrido desde " + r.getParadas().get(0).getDireccion()
-                        + " hasta " + r.getParadas().get(r.getParadas().size() - 1).getDireccion());
-                System.out.println("    Hora usuario en origen: " + horaLlegaParada);
-                System.out.println("    Hora colectivo en origen: " + "N/A");
-                System.out.println("    Tiempo total: " + Tiempo.segundosATiempo(r.getDuracion()) + " min");
-
-                // Mostrar paradas sin flecha extra al final
-                StringBuilder sb = new StringBuilder();
-                for (int j = 0; j < r.getParadas().size(); j++) {
-                    sb.append(r.getParadas().get(j).getDireccion());
-                    if (j < r.getParadas().size() - 1) sb.append(" -> ");
-                }
-                System.out.println("    Paradas: " + sb);
-            }
-            i++;
-        }
-    }
+if (listaRecorridos.isEmpty()) {
+System.out.println("No se encontraron recorridos desde " + paradaOrigen.getDireccion()
++ " hasta " + paradaDestino.getDireccion());
+return;
 }
 
+System.out.println("Recorridos disponibles desde "
++ paradaOrigen.getDireccion() + " hasta " + paradaDestino.getDireccion() + ":");
+
+int i = 1;
+for (List<Recorrido> recorridoCompleto : listaRecorridos) {
+System.out.println("\nRecorrido " + i + ":");
+
+for (Recorrido r : recorridoCompleto) {
+LocalTime horaSalida = r.getHoraSalida();
+
+// Espera (en segundos)
+long esperaSeg = 0;
+if (horaSalida.isAfter(horaLlegaParada)) {
+esperaSeg = Duration.between(horaLlegaParada, horaSalida).getSeconds();
+}
+
+       int viajeSeg = r.getDuracion();
+long totalSeg = esperaSeg + viajeSeg;
+
+LocalTime horaLlegada = horaSalida.plusSeconds(viajeSeg);
+
+System.out.println("  - Línea: " + r.getLinea().getCodigo());
+System.out.println("    Origen usuario: " + paradaOrigen.getDireccion());
+System.out.println("    Destino: " + paradaDestino.getDireccion());
+System.out.println("    Hora llegada usuario a origen: " + horaLlegaParada);
+System.out.println("    Hora salida colectivo: " + horaSalida);
+System.out.println("    Tiempo de espera: " + Tiempo.segundosATiempo((int) esperaSeg));
+System.out.println("    Tiempo de viaje: " + Tiempo.segundosATiempo(viajeSeg));
+System.out.println("    Duración total: " + Tiempo.segundosATiempo((int) totalSeg));
+System.out.println("    Hora de llegada destino: " + horaLlegada);
+
+// Mostrar paradas
+StringBuilder sb = new StringBuilder();
+for (int j = 0; j < r.getParadas().size(); j++) {
+sb.append(r.getParadas().get(j).getDireccion());
+if (j < r.getParadas().size() - 1) sb.append(" -> ");
+}
+System.out.println("    Paradas: " + sb);
+}
+
+i++;
+}
+}
+}
