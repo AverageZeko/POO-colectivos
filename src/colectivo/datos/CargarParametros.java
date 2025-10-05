@@ -4,18 +4,42 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+
+/**
+ * Clase para leer y cargar parámetros de configuración para la simulación del sistema de colectivos.
+ * <p>
+ * Esta clase lee los nombres de archivos de configuración desde un archivo de propiedades
+ * (config.properties) y proporciona acceso a estos parámetros a través de métodos getter.
+ * config.properties debe estar ubicado en la carpeta resources del classpath
+ * Los parámetros incluyen los nombres de archivos para líneas, paradas, tramos y frecuencias.
+ * Es obligatorio utilizar el metodo {@link #parametros()} para poder acceder a los archivos de texto
+ * <p>
+ */
 public class CargarParametros {
 
+	/** Nombre del archivo de líneas cargado desde config.properties */
 	private static String archivoLinea;
+
+	/** Nombre del archivo de paradas cargado desde config.properties */
 	private static String archivoParada;
+
+	/** Nombre del archivo de tramos cargado desde config.properties */
 	private static String archivoTramo;
+
+	/** Nombre del archivo de frecuencias cargado desde config.properties */
 	private static String archivoFrecuencia;
 	
 
 	/**
-	 * Carga los parametros del archivo "config.properties"
+	 * Carga los parámetros de configuración desde el archivo "config.properties".
+	 * <p>
+	 * Este método debe ser llamado antes de usar cualquiera de los métodos getter.
+	 * Lee el archivo config.properties desde la carpeta resources del classpath
+	 * e inicializa las variables estáticas con los nombres de archivo correspondientes.
+	 * <p>
 	 * 
-	 * @throws IOException
+	 * @throws IOException si el archivo config.properties no se encuentra en el classpath
+	 *                     o si no se pueden leer todas las propiedades requeridas
 	 */
     public static void parametros() throws IOException {
         Properties prop = new Properties();
