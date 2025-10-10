@@ -47,8 +47,9 @@ public class CargarDatos {
 	 * @param nombreArchivo el nombre del archivo a cargar desde la carpeta resources
 	 * @return un Map donde la clave es el código de la parada (Integer) y el valor
 	 *         es el objeto Parada correspondiente
-	 * @throws IOException si ocurre un error al leer el archivo
-	 * @throws FileNotFoundException si el archivo no se encuentra en resources
+	 * @throws FileNotFoundException si ocurre un error al leer el archivo
+	 * @throws IOException si ocurre un error de formateo en las divisiones de la linea
+	 * @throws NumberFormatException si el codigo, latitud o longitud estan mal formateados
 	 * 
 	 * @see colectivo.modelo.Parada
 	 */
@@ -68,8 +69,7 @@ public class CargarDatos {
 
                 String[] partesLinea = lineaActual.split(";");
                 if (partesLinea.length < 4) {
-                    System.err.println("Linea mal formateada: " + lineaActual);
-                    continue;
+					throw new IOException("Linea mal formateada:  " + lineaActual);
                 }
 
                 try {
@@ -105,13 +105,15 @@ public class CargarDatos {
 	 *                las referencias de paradas en los tramos
 	 * @return un Map donde la clave es una String con formato "codigoOrigen->codigoDestino"
 	 *         y el valor es el objeto Tramo correspondiente
-	 * @throws FileNotFoundException si el archivo no se encuentra en resources
+	 * @throws FileNotFoundException si ocurre un error al leer el archivo
+	 * @throws IOException si ocurre un error de formateo en el archivo
+	 * @throws NumberFormatException si el indice de alguna parada, el tiempo o tipo de recorrido fueron mal formateados
 	 * 
 	 * @see colectivo.modelo.Tramo
 	 */
 	public static Map<String, Tramo> cargarTramos(String nombreArchivo, Map<Integer, Parada> paradas)
-			throws FileNotFoundException {
-				
+			throws IOException {
+
 		Map<String, Tramo> tramos = new HashMap<>();
 		InputStream inputStream = CargarDatos.class.getClassLoader().getResourceAsStream("resources/" + nombreArchivo);
 		if (inputStream == null) {
@@ -127,8 +129,7 @@ public class CargarDatos {
 
 				String[] partesLinea = lineaActual.split(";");
 				if (partesLinea.length < 4) {
-					System.err.println("Linea mal formateada: " + lineaActual);
-					continue;
+					throw new IOException("Linea mal formateada:  " + lineaActual);
 				}
 
 				try {
@@ -183,14 +184,17 @@ public class CargarDatos {
 	 *                las referencias de paradas en las líneas
 	 * @return un Map donde la clave es el código de la línea (String) y el valor
 	 *         es el objeto Linea correspondiente con sus paradas y frecuencias
-	 * @throws FileNotFoundException si alguno de los archivos no se encuentra en resources
+	 * @throws FileNotFoundException si ocurre un error al leer el archivo
+	 * @throws IOException si ocurre un error de formateo en el archivo
+	 * @throws NumberFormatException si el codigo de una parada esta mal formateado
+	 * @throws IllegalArgumentException si el tiempo o tipo de recorrido estan mal formateados en la frecuencia
 	 * 
 	 * @see colectivo.modelo.Linea
 	 * @see colectivo.modelo.Linea#agregarParada(Parada)
 	 * @see colectivo.modelo.Linea#agregarFrecuencia(int, LocalTime)
 	 */
 	public static Map<String, Linea> cargarLineas(String nombreArchivo, String nombreArchivoFrecuencia,
-			Map<Integer, Parada> paradas) throws FileNotFoundException {
+			Map<Integer, Parada> paradas) throws IOException {
 
 		Map<String, Linea> lineas = new HashMap<>();
 		Map<String, List<String[]>> frecuencias = new HashMap<>();
@@ -207,8 +211,7 @@ public class CargarDatos {
 				}
 				String[] partesLinea = lineaFrecuencia.split(";");
 				if (partesLinea.length < 3) {
-					System.err.println("Frecuencia mal formateada en linea " + lineaFrecuencia);
-					continue;
+					throw new IOException("Linea mal formateada:  " + lineaFrecuencia);
 				}
 
 				String codigoLinea = partesLinea[0].trim();
@@ -239,8 +242,7 @@ public class CargarDatos {
 
                 String[] partesLinea = lineaArchivo.split(";");
                 if (partesLinea.length < 3) {
-                    System.err.println("Malformed line: " + lineaArchivo);
-                    continue;
+                    throw new IOException("Linea mal formateada:  " + lineaArchivo);
                 }
 
                 String codigoLinea = partesLinea[0].trim();
@@ -248,21 +250,25 @@ public class CargarDatos {
 
 				Linea lineaActual = new Linea(codigoLinea, nombreLinea); 
 
-                for (int i = 2; i < partesLinea.length; i++) {
-                    int codigoParada = Integer.parseInt(partesLinea[i].trim());
-                    if (paradas.containsKey(codigoParada)) {
-						lineaActual.agregarParada(paradas.get(codigoParada));
-                    }
-                }
+				try {
+					for (int i = 2; i < partesLinea.length; i++) {
+						int codigoParada = Integer.parseInt(partesLinea[i].trim());
+						if (paradas.containsKey(codigoParada)) {
+							lineaActual.agregarParada(paradas.get(codigoParada));
+						}
+					}
+				}	catch (NumberFormatException e) {
+					System.err.println("Codigo de parada mal formateado: " + lineaArchivo);
+				}
+
 				if (frecuencias.containsKey(codigoLinea)) {
 					for (String[] detallesFrecuencia : frecuencias.get(codigoLinea)) {
 						try {
 							int diaSemana = Integer.parseInt(detallesFrecuencia[0]);
 							LocalTime inicioRecorrido = LocalTime.parse(detallesFrecuencia[1]);
 							lineaActual.agregarFrecuencia(diaSemana, inicioRecorrido);
-						}	catch (Exception e) {
-							e.printStackTrace();
-							System.err.println("Frecuencia invalida para linea " + codigoLinea);
+						}	catch (IllegalArgumentException e) {
+							System.err.println("Frecuencia invalida para linea: " + frecuencias.get(codigoLinea));
 						}
 					}
 				}	else {
