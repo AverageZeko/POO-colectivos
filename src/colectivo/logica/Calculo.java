@@ -195,7 +195,7 @@ public class Calculo {
     }
 
     /**
-     * Genera una clave única para identificar un tramo entre dos paradas consecutivas.
+     * Recrea la clave única para identificar un tramo entre dos paradas consecutivas.
      *
      * @param a parada de inicio
      * @param b parada de fin
