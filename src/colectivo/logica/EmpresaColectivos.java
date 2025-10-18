@@ -1,21 +1,26 @@
 package colectivo.logica;
 
-import java.io.IOException;
+
 import java.util.Collections;
 import java.util.Map;
-
-import colectivo.datos.CargarDatos;
-import colectivo.datos.CargarParametros;
 import colectivo.modelo.Linea;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Tramo;
+import colectivo.servicio.LineaServicio;
+import colectivo.servicio.LineaServicioImplementacion;
+import colectivo.servicio.ParadaServicio;
+import colectivo.servicio.ParadaServicioImplementacion;
+import colectivo.servicio.TramoServicio;
+import colectivo.servicio.TramoServicioImplementacion;
 
 public class EmpresaColectivos {
     private static EmpresaColectivos empresa = null;
 	private	Map<Integer, Parada> paradas;
 	private	Map<String, Linea> lineas;
 	private	Map<String, Tramo> tramos;
-
+    private LineaServicio lineaServicio;
+    private ParadaServicio paradaServicio;
+    private TramoServicio tramoServicio;
 
     public static EmpresaColectivos getEmpresa() {
         if (empresa == null) {
@@ -28,16 +33,12 @@ public class EmpresaColectivos {
 
     private EmpresaColectivos() {
         super();
-        try {
-            CargarParametros.parametros();
-            paradas = CargarDatos.cargarParadas(CargarParametros.getArchivoParada());
-            lineas = CargarDatos.cargarLineas(CargarParametros.getArchivoLinea(),
-                        CargarParametros.getArchivoFrecuencia(), paradas);
-            tramos = CargarDatos.cargarTramos(CargarParametros.getArchivoTramo(), paradas);
-        } catch (IOException e) {
-            throw new IllegalStateException("No se puedo inicializar objeto EmpresaColectivos", e);
-        }
-
+        paradaServicio = new ParadaServicioImplementacion();
+        lineaServicio = new LineaServicioImplementacion();
+        tramoServicio = new TramoServicioImplementacion();
+        paradas = paradaServicio.buscarParadas();
+        lineas = lineaServicio.buscarLineas(paradas);
+        tramos = tramoServicio.buscarTramos(paradas);
     }
 
     public void agregarParada(Parada parada) {
