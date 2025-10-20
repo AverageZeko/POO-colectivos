@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +13,8 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import colectivo.datos.CargarDatos;
-import colectivo.datos.CargarParametros;
 import colectivo.logica.Calculo;
+import colectivo.logica.EmpresaColectivos;
 import colectivo.modelo.Linea;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
@@ -33,24 +31,16 @@ class TestcalcularRecorrido {
 
 	@BeforeEach
 	void setUp() throws Exception {
-
-		try {
-			CargarParametros.parametros(); // Carga los parametros de texto
-		} catch (IOException e) {
-			System.err.print("Error al cargar parametros");
-			System.exit(-1);
-		}
-
-		paradas = CargarDatos.cargarParadas(CargarParametros.getArchivoParada());
-
-		lineas = CargarDatos.cargarLineas(CargarParametros.getArchivoLinea(), CargarParametros.getArchivoFrecuencia(),
-				paradas);
-
-		tramos = CargarDatos.cargarTramos(CargarParametros.getArchivoTramo(), paradas);
+		// Obtener la instancia de EmpresaColectivos (singleton)
+		EmpresaColectivos empresa = EmpresaColectivos.getEmpresa();
+		
+		// Obtener los datos a través de EmpresaColectivos
+		paradas = empresa.getParadas();
+		lineas = empresa.getLineas();
+		tramos = empresa.getTramos();
 
 		diaSemana = 1; // lunes
 		horaLlegaParada = LocalTime.of(10, 35); // hora de llegada a la parada
-
 	}
 
 	@Test
@@ -82,7 +72,7 @@ class TestcalcularRecorrido {
 			recorrido1 = recorridos.get(0).get(0);
 			recorrido2 = recorridos.get(1).get(0);
 		} else {
-			recorrido1 = recorridos.get(0).get(1);
+			recorrido1 = recorridos.get(1).get(0);
 			recorrido2 = recorridos.get(0).get(0);
 		}
 
@@ -105,7 +95,6 @@ class TestcalcularRecorrido {
 		assertIterableEquals(paradas2, recorrido2.getParadas());
 		assertEquals(LocalTime.of(10, 47, 30), recorrido2.getHoraSalida());
 		assertEquals(180, recorrido2.getDuracion());
-
 	}
 
 	@Test
@@ -242,6 +231,5 @@ class TestcalcularRecorrido {
 		assertIterableEquals(paradas3, recorrido3.getParadas());
 		assertEquals(LocalTime.of(11, 02), recorrido3.getHoraSalida());
 		assertEquals(600, recorrido3.getDuracion());
-
 	}
 }
