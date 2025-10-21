@@ -11,10 +11,7 @@ import colectivo.modelo.Recorrido;
 
 public class Coordinador {
     private EmpresaColectivos empresa;
-    private Parada origen;
-    private Parada destino;
-    private int diaSemana;
-    private LocalTime horaLlegaParada;
+
 
 
     public Coordinador() {
@@ -29,11 +26,8 @@ public class Coordinador {
         this.empresa = empresa;
     }
 
-    public void consulta() {
-    	origen = Interfaz.ingresarParadaOrigen(empresa.getParadas());
-		destino = Interfaz.ingresarParadaDestino(empresa.getParadas());
-		diaSemana = Interfaz.ingresarDiaSemana();
-		horaLlegaParada = Interfaz.ingresarHoraLlegaParada();
+    public void consulta(Parada origen,Parada  destino, int diaSemana, LocalTime horaLlegaParada) {
+
 
         // Realizar c�lculo
 		List<List<Recorrido>> recorridos = Calculo.calcularRecorrido(origen, destino, diaSemana, horaLlegaParada, empresa.getTramos());
