@@ -240,11 +240,12 @@ public class Interfaz extends Application {
             }
 
             int idOrigen = Integer.parseInt(textoOrigen);
+            System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
             Parada paradaOrigen = coordinador.getEmpresa().getParada(idOrigen);
             if (paradaOrigen == null) {
             	throw new IllegalStateException("Parada de origen no encontrada: " + idOrigen);
             } 
-            
+            System.out.println("AAAAAAAAAAAAAA");
             int idDestino = Integer.parseInt(textoDestino);
             Parada paradaDestino = coordinador.getEmpresa().getParada(idDestino);
             if (paradaDestino == null) {
@@ -255,10 +256,12 @@ public class Interfaz extends Application {
             ultimaConsultaParadaOrigen = paradaOrigen;
             ultimaConsultaParadaDestino = paradaDestino;
             ultimaConsultaHoraLlegada = hora;
-            
+
             coordinador.consulta(paradaOrigen, paradaDestino, diaSeleccionadoInt, hora);
 
         } catch (Exception e) {
+        	e.printStackTrace();
+        
             etiquetaAdvertencia.setText("Ocurrió un error: " + e.getMessage());
             etiquetaAdvertencia.setVisible(true);
             rutasCompletas = null;

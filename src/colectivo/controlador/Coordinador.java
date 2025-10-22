@@ -20,7 +20,8 @@ import colectivo.modelo.Recorrido;
 public class Coordinador {
     private EmpresaColectivos empresa;
     private Interfaz interfaz;
-
+    private Calculo calculo;
+    
     public Coordinador() {
 
     }
@@ -37,11 +38,16 @@ public class Coordinador {
         this.interfaz = interfaz;
     }
 
-    public void consulta(Parada origen,Parada  destino, int diaSemana, LocalTime horaLlegaParada) {
-
-		List<List<Recorrido>> recorridos = Calculo.calcularRecorrido(origen, destino, diaSemana, horaLlegaParada, empresa.getTramos());
-
-		interfaz.resultado(recorridos, origen, destino, horaLlegaParada);		
+    public void setCalculo(Calculo calculo) {
+    	this.calculo = calculo;
+    }
+    
+    public void consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
+        // ahora usamos la instancia de Calculo
+        List<List<Recorrido>> recorridos = calculo.calcularRecorrido(
+                origen, destino, diaSemana, horaLlegaParada, empresa.getTramos()
+        );
+        interfaz.resultado(recorridos, origen, destino, horaLlegaParada);
     }
 
     public void iniciar(String[] args) {
