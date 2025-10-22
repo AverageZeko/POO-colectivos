@@ -35,31 +35,31 @@ import javafx.scene.paint.Color;
 public class Interfaz extends Application {
     
     /** El coordinador que maneja la lógica de negocio. */
-    private static Coordinador coordinador;
+    private Coordinador coordinador;
     /** Almacena la lista completa de rutas encontradas en la última consulta. */
-    private static List<List<Recorrido>> rutasCompletas;
+    private List<List<Recorrido>> rutasCompletas;
     /** Índice de la página de resultados que se está mostrando actualmente. */
-    private static int indicePaginaActual;
+    private int indicePaginaActual;
     
     /** Almacena la parada de origen de la última consulta para paginación. */
-    private static Parada ultimaConsultaParadaOrigen;
+    private Parada ultimaConsultaParadaOrigen;
     /** Almacena la parada de destino de la última consulta para paginación. */
-    private static Parada ultimaConsultaParadaDestino;
+    private Parada ultimaConsultaParadaDestino;
     /** Almacena la hora de llegada de la última consulta para paginación. */
-    private static LocalTime ultimaConsultaHoraLlegada;
+    private LocalTime ultimaConsultaHoraLlegada;
 
-    private static TextField campoOrigen;
-    private static TextField campoDestino;
-    private static TextField campoHora;
-    private static Label etiquetaAdvertencia;
-    private static VBox panelDerechoContenido;
-    private static ToggleGroup grupoDiasSemana;
-    private static Button botonAnterior;
-    private static Button botonSiguiente;
-    private static Label etiquetaPagina;
+    private TextField campoOrigen;
+    private TextField campoDestino;
+    private TextField campoHora;
+    private Label etiquetaAdvertencia;
+    private VBox panelDerechoContenido;
+    private ToggleGroup grupoDiasSemana;
+    private Button botonAnterior;
+    private Button botonSiguiente;
+    private Label etiquetaPagina;
 
-    private static BorderPane raiz;
-    private static double tamanoFuenteActual = 12;
+    private BorderPane raiz;
+    private double tamanoFuenteActual = 12;
     private static final double TAMANO_FUENTE_BASE = 12;
     private static final int MAX_INCREMENTOS = 5;
 
@@ -68,7 +68,7 @@ public class Interfaz extends Application {
      * Establece el coordinador para ser utilizado por la interfaz.
      * @param coord El coordinador a inyectar.
      */
-    public static void setCoordinador(Coordinador coord) {
+    public void setCoordinador(Coordinador coord) {
         coordinador = coord;
     }
 
@@ -186,7 +186,7 @@ public class Interfaz extends Application {
      * Cambia el tamaño de la fuente base de la aplicación.
      * @param delta El cambio a aplicar al tamaño de la fuente (positivo o negativo).
      */
-    private static void cambiarFuente(double delta) {
+    private void cambiarFuente(double delta) {
         tamanoFuenteActual += delta;
         if (tamanoFuenteActual < (TAMANO_FUENTE_BASE - MAX_INCREMENTOS)) {
             tamanoFuenteActual = TAMANO_FUENTE_BASE - MAX_INCREMENTOS;
@@ -200,7 +200,7 @@ public class Interfaz extends Application {
     /**
      * Aplica el tamaño de fuente actual al nodo raíz de la escena.
      */
-    private static void actualizarEstiloFuente() {
+    private void actualizarEstiloFuente() {
         if (raiz != null) {
             raiz.setStyle("-fx-font-size: " + tamanoFuenteActual + "pt;");
         }
@@ -273,7 +273,7 @@ public class Interfaz extends Application {
      * @param paradaDestino La parada de destino de la consulta.
      * @param horaLlegaParada La hora de llegada del usuario a la parada de origen.
      */
-    public static void resultado(List<List<Recorrido>> listaRecorridos,
+    public void resultado(List<List<Recorrido>> listaRecorridos,
             Parada paradaOrigen,
             Parada paradaDestino,
             LocalTime horaLlegaParada) {
@@ -294,7 +294,7 @@ public class Interfaz extends Application {
      * Cambia la página de resultados que se está mostrando.
      * @param direccion El cambio de página (-1 para anterior, +1 para siguiente).
      */
-    private static void cambiarPagina(int direccion) {
+    private void cambiarPagina(int direccion) {
         if (rutasCompletas != null && !rutasCompletas.isEmpty()) {
             indicePaginaActual += direccion;
             mostrarPaginaActual(ultimaConsultaParadaOrigen, ultimaConsultaParadaDestino, ultimaConsultaHoraLlegada);
@@ -308,7 +308,7 @@ public class Interfaz extends Application {
      * @param paradaDestino La parada de destino de la consulta.
      * @param horaLlegaParada La hora de llegada del usuario a la parada de origen.
      */
-    private static void mostrarPaginaActual(Parada paradaOrigen, Parada paradaDestino, LocalTime horaLlegaParada) {
+    private void mostrarPaginaActual(Parada paradaOrigen, Parada paradaDestino, LocalTime horaLlegaParada) {
         panelDerechoContenido.getChildren().clear();
         
         List<Recorrido> recorridoCompleto = rutasCompletas.get(indicePaginaActual);
@@ -365,7 +365,7 @@ public class Interfaz extends Application {
     /**
      * Actualiza el estado (etiqueta y habilitación) de los botones de navegación.
      */
-    private static void actualizarControlesNavegacion() {
+    private void actualizarControlesNavegacion() {
         if (rutasCompletas == null || rutasCompletas.isEmpty()) {
             etiquetaPagina.setText("Ruta 0 de 0");
             botonAnterior.setDisable(true);
@@ -382,8 +382,7 @@ public class Interfaz extends Application {
      * @param coord El coordinador a inyectar.
      * @param args Argumentos de la línea de comandos.
      */
-    public static void lanzarAplicacion(Coordinador coord, String[] args) {
-        setCoordinador(coord);
+    public void lanzarAplicacion(String[] args) {
         Application.launch(Interfaz.class, args);
     }
 }

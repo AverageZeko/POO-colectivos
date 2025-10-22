@@ -19,10 +19,7 @@ import colectivo.modelo.Recorrido;
  */
 public class Coordinador {
     private EmpresaColectivos empresa;
-    private Parada origen;
-    private Parada destino;
-    private int diaSemana;
-    private LocalTime horaLlegaParada;
+    private Interfaz interfaz;
 
     public Coordinador() {
 
@@ -36,49 +33,19 @@ public class Coordinador {
         this.empresa = empresa;
     }
 
-    public void setParadaOrigen(Parada parada) {
-        if (parada == null) {
-            return;
-        }
-        origen = parada;
+    public void setInterfaz(Interfaz interfaz) {
+        this.interfaz = interfaz;
     }
 
-    public void setParadaDestino(Parada parada) {
-        if (parada == null) {
-            return;
-        }
-        destino = parada;
-    }
+    public void consulta(Parada origen,Parada  destino, int diaSemana, LocalTime horaLlegaParada) {
 
-    public void setDiaSemana(int dia) {
-        diaSemana = dia;
-    }
-
-    public void setHora(LocalTime hora) {
-        if (hora == null) {
-            return;
-        }
-        horaLlegaParada = hora;
-    }
-
-    /**
-     * Realiza la consulta de recorridos entre las paradas configuradas, en el día y hora indicados.
-     *
-     * <p>Solicita los datos necesarios a la interfaz, realiza el cálculo de recorridos y muestra el resultado
-     * al usuario.</p>
-     */
-    public void consulta() {
-    	origen = Interfaz.ingresarParadaOrigen(empresa.getParadas());
-		destino = Interfaz.ingresarParadaDestino(empresa.getParadas());
-		diaSemana = Interfaz.ingresarDiaSemana();
-		horaLlegaParada = Interfaz.ingresarHoraLlegaParada();
-
-        // Realizar c�lculo
 		List<List<Recorrido>> recorridos = Calculo.calcularRecorrido(origen, destino, diaSemana, horaLlegaParada, empresa.getTramos());
 
-		// Mostrar resultado
-		Interfaz.resultado(recorridos, origen, destino, horaLlegaParada);		
+		interfaz.resultado(recorridos, origen, destino, horaLlegaParada);		
     }
 
+    public void iniciar(String[] args) {
+        interfaz.lanzarAplicacion(args);
+    }
 
 }

@@ -1,8 +1,8 @@
 package colectivo.controlador;
 
 import java.io.IOException;
-
 import colectivo.logica.EmpresaColectivos;
+import colectivo.interfaz.Interfaz;
 
 /**
  * Punto de entrada principal para la aplicación de consultas de recorridos de colectivos.
@@ -14,26 +14,26 @@ import colectivo.logica.EmpresaColectivos;
 public class AplicacionConsultas {
 	private EmpresaColectivos empresa;
 	private Coordinador controlador;
+	private Interfaz interfaz;
 
 	public static void main(String[] args) throws IOException {
 		AplicacionConsultas aplicacion = new AplicacionConsultas();
-		aplicacion.iniciar();
-		aplicacion.consulta();
+		aplicacion.iniciar(args);
+		
 	}
 
 	/**
-	 * Inicializa la empresa y el coordinador, y vincula ambos para la consulta.
+	 * Inicializa el modelo, la vista y el controlador e inicia el programa
 	 */
-	public void iniciar() {
+	public void iniciar(String[] args) {
 		empresa = EmpresaColectivos.getEmpresa();
 		controlador = new Coordinador();
+		interfaz = new Interfaz();
 		controlador.setEmpresa(empresa);
+		controlador.setInterfaz(interfaz);
+		interfaz.setCoordinador(controlador);
+		
+		controlador.iniciar(args);
 	}
-	
-	/**
-	 * Ejecuta la consulta de recorridos a través del coordinador.
-	 */
-	public void consulta() {
-		controlador.consulta();
-	}
+
 }
