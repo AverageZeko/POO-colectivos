@@ -47,11 +47,8 @@ public class Coordinador {
         List<List<Recorrido>> recorridos = calculo.calcularRecorrido(
                 origen, destino, diaSemana, horaLlegaParada, empresa.getTramos()
         );
-        interfaz.resultado(recorridos, origen, destino, horaLlegaParada);
+        Interfaz.resultado(recorridos, origen, destino, horaLlegaParada);
     }
 
-    public void iniciar(String[] args) {
-        interfaz.lanzarAplicacion(args);
-    }
 
 }

@@ -36,11 +36,8 @@ public class AplicacionConsultas {
 		controlador.setEmpresa(empresa);
 		controlador.setInterfaz(interfaz);
 		controlador.setCalculo(calculo);
-		interfaz.setCoordinador(controlador);
 
-		
-		interfaz.lanzarAplicacion(args);
-		//controlador.iniciar(args);
+		Interfaz.lanzarAplicacion(controlador, args);
 	}
 
 }
