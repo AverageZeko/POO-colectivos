@@ -8,19 +8,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
+
+import colectivo.conexion.Factory;
+import colectivo.controlador.Constantes;
 import colectivo.dao.LineaDAO;
+import colectivo.dao.ParadaDAO;
 import colectivo.modelo.Linea;
 import colectivo.modelo.Parada;
 
+/**
+ * DAO secuencial para la gestión y carga de líneas de colectivos desde archivos planos.
+ *
+ * <p>Esta clase se encarga de leer los datos de líneas y sus frecuencias desde archivos
+ * configurados en el archivo de propiedades {@code secuencial.properties}, ubicados en el classpath.
+ * Utiliza la información de paradas obtenida a través de {@link ParadaDAO} para construir
+ * las relaciones entre líneas y paradas.</p>
+ *
+ * <p>Las líneas y frecuencias se cargan una sola vez y se almacenan en memoria para
+ * optimizar el acceso. Si los archivos no se encuentran o contienen errores de formato,
+ * se lanzan excepciones {@link IllegalStateException} descriptivas.</p>
+ */
 public class LineaSecuencialDAO implements LineaDAO {
     private String archivoLinea;
     private String archivoFrecuencia;
     private Map<String, Linea> lineas;
 
+    /**
+     * Constructor que inicializa las rutas de los archivos de líneas y frecuencias
+     * a partir del archivo de propiedades secuencial.
+     *
+     * @throws IllegalStateException si no se encuentran las rutas de los archivos requeridos.
+     */
     public LineaSecuencialDAO() {
         Properties prop = ArchivoSecuencialDAO.leerArchivo();
-        archivoLinea = prop.getProperty("linea");
-        archivoFrecuencia = prop.getProperty("frecuencia");
+        archivoLinea = prop.getProperty(Constantes.LINEA);
+        archivoFrecuencia = prop.getProperty(Constantes.FRECUENCIA);
 		if (archivoLinea == null) {
 			throw new IllegalStateException("Error al cargar archivo de lineas en src/resource.");
 		}
@@ -29,9 +51,20 @@ public class LineaSecuencialDAO implements LineaDAO {
 		}
     }
 
-
-    public Map<String, Linea> buscarLineas(Map<Integer, Parada> paradas) {
+    /**
+     * Carga y devuelve todas las líneas de colectivos junto con sus paradas y frecuencias.
+     *
+     * <p>Lee los datos desde los archivos configurados, construye los objetos {@link Linea}
+     * y los relaciona con las paradas y frecuencias correspondientes.</p>
+     *
+     * @return un {@link Map} con las líneas, indexadas por su código.
+     * @throws IllegalStateException si ocurre algún error de lectura o formato en los archivos, 
+     *          junto con la traza original.
+     */
+    public Map<String, Linea> buscarTodos() {
         if (lineas == null) {
+            ParadaDAO paradaDAO = (ParadaDAO) Factory.getInstancia(Constantes.PARADA);
+            Map<Integer, Parada> paradas = paradaDAO.buscarTodos();
             lineas = new HashMap<>();
             Map<String, List<String[]>> frecuencias = buscarFrecuencias();
         
@@ -65,7 +98,7 @@ public class LineaSecuencialDAO implements LineaDAO {
                             }
                         }
                     }	catch (NumberFormatException e) {
-                        throw new IllegalStateException("Codigo de parada mal formateado: " + lineaArchivo);
+                        throw new IllegalStateException("Codigo de parada mal formateado: " + lineaArchivo, e);
                     }
 
                     if (frecuencias.containsKey(codigoLinea)) {
@@ -75,7 +108,7 @@ public class LineaSecuencialDAO implements LineaDAO {
                                 LocalTime inicioRecorrido = LocalTime.parse(detallesFrecuencia[1]);
                                 lineaActual.agregarFrecuencia(diaSemana, inicioRecorrido);
                             }	catch (IllegalArgumentException e) {
-                                throw new IllegalStateException("Frecuencia invalida para linea: " + frecuencias.get(codigoLinea));
+                                throw new IllegalStateException("Frecuencia invalida para linea: " + frecuencias.get(codigoLinea), e);
                             }
                         }
                     }	else {
@@ -90,6 +123,15 @@ public class LineaSecuencialDAO implements LineaDAO {
     }
 
 
+    /**
+     * Carga las frecuencias de las líneas desde el archivo configurado.
+     *
+     * <p>Devuelve un mapa donde la clave es el código de la línea y el valor es una lista
+     * de arreglos de cadenas con los detalles de frecuencia.</p>
+     *
+     * @return un {@link Map} con las frecuencias por línea.
+     * @throws IllegalStateException si el archivo no se encuentra o contiene errores de formato.
+     */
     private Map<String, List<String[]>> buscarFrecuencias() {
         Map<String, List<String[]>> frecuencias = new HashMap<>();
 		InputStream frecuenciaInputStream = LineaSecuencialDAO.class.getClassLoader().getResourceAsStream("resources/" + archivoFrecuencia);

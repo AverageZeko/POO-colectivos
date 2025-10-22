@@ -1,0 +1,88 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0" version="28.2.7">
+  <diagram name="Page-1" id="KxeiyrzO4CtSw6GLiPh2">
+    <mxGraphModel dx="983" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="us5GVEPsED2vUaVyeWMT-1" value="" style="swimlane;startSize=0;align=center;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="45" y="340" width="835" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-8" value="&lt;div&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;LineaServicio&lt;/div&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-1">
+          <mxGeometry x="55" y="40" width="210" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-9" value="buscarLineas(): Map&amp;lt;String, Linea&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-8">
+          <mxGeometry y="40" width="210" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-19" value="" style="triangle;whiteSpace=wrap;html=1;direction=north;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-1">
+          <mxGeometry x="155" y="110" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-2" value="LineaServicioImplementacion" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-1">
+          <mxGeometry x="20" y="270" width="250" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-3" value="+&amp;nbsp;buscarLineas(): Map&amp;lt;String, Linea&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-2">
+          <mxGeometry y="40" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-4" value="ParadaServicioImplementacion" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-1">
+          <mxGeometry x="290" y="270" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-5" value="+&amp;nbsp;buscarParadas(): Map&amp;lt;String, Parada&amp;gt;" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-4">
+          <mxGeometry y="40" width="230" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-14" value="TramoServicioImplementacion" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-1">
+          <mxGeometry x="550" y="270" width="240" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-15" value="+&amp;nbsp;buscarTodos(): Map&amp;lt;Integer, Parada&amp;gt;" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-14">
+          <mxGeometry y="40" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-22" value="" style="triangle;whiteSpace=wrap;html=1;direction=north;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-1">
+          <mxGeometry x="675" y="110" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-20" value="" style="triangle;whiteSpace=wrap;html=1;direction=north;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-1">
+          <mxGeometry x="420" y="110" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-10" value="&lt;div&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;ParadaServicio&lt;/div&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-1">
+          <mxGeometry x="315" y="40" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-11" value="buscarParadas(): Map&amp;lt;String, Parada&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-10">
+          <mxGeometry y="40" width="230" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-12" value="&lt;div&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;TramoServicio&lt;/div&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-1">
+          <mxGeometry x="585" y="40" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-13" value="buscarTodos(): Map&amp;lt;Integer, Parada&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-12">
+          <mxGeometry y="40" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-17" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;startArrow=none;startFill=0;exitX=0.605;exitY=0.014;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="us5GVEPsED2vUaVyeWMT-1" target="us5GVEPsED2vUaVyeWMT-20" source="us5GVEPsED2vUaVyeWMT-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="450" y="270" as="sourcePoint" />
+            <mxPoint x="457" y="160" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="430" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-16" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.578;exitY=-0.002;exitDx=0;exitDy=0;edgeStyle=orthogonalEdgeStyle;exitPerimeter=0;" edge="1" parent="us5GVEPsED2vUaVyeWMT-1" source="us5GVEPsED2vUaVyeWMT-2" target="us5GVEPsED2vUaVyeWMT-19">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="440" y="280" as="sourcePoint" />
+            <mxPoint x="490" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-23" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;startArrow=none;startFill=0;exitX=0.557;exitY=-0.006;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="us5GVEPsED2vUaVyeWMT-1" source="us5GVEPsED2vUaVyeWMT-14" target="us5GVEPsED2vUaVyeWMT-22">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="645" y="331" as="sourcePoint" />
+            <mxPoint x="646" y="190" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="685" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-6" value="" style="swimlane;startSize=0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="45" y="310" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="us5GVEPsED2vUaVyeWMT-7" value="Servicio" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;" vertex="1" parent="us5GVEPsED2vUaVyeWMT-6">
+          <mxGeometry x="15" width="80" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
