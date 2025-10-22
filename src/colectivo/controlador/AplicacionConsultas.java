@@ -21,7 +21,7 @@ public class AplicacionConsultas {
 		controlador = new Coordinador();
 		controlador.setEmpresa(empresa);
 		interfaz = new Interfaz();
-		interfaz.launchApp(controlador, args);;
+		interfaz.lanzarAplicacion(controlador, args);;
 	}
 
 	

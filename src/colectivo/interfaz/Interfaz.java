@@ -19,7 +19,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -27,218 +26,290 @@ import colectivo.controlador.Coordinador;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
 import colectivo.util.Tiempo;
+import javafx.scene.paint.Color;
 
+/**
+ * Clase principal de la interfaz de usuario para la aplicación de consulta de colectivos.
+ * Gestiona la ventana, la entrada del usuario y la visualización de resultados.
+ */
 public class Interfaz extends Application {
     
-    // --- Campos estáticos para manejar el estado y la UI ---
+    /** El coordinador que maneja la lógica de negocio. */
     private static Coordinador coordinador;
-    private static List<List<Recorrido>> allRoutes;
-    private static int currentPageIndex;
+    /** Almacena la lista completa de rutas encontradas en la última consulta. */
+    private static List<List<Recorrido>> rutasCompletas;
+    /** Índice de la página de resultados que se está mostrando actualmente. */
+    private static int indicePaginaActual;
     
-    private static Parada lastQueryParadaOrigen;
-    private static Parada lastQueryParadaDestino;
-    private static LocalTime lastQueryHoraLlegaParada;
+    /** Almacena la parada de origen de la última consulta para paginación. */
+    private static Parada ultimaConsultaParadaOrigen;
+    /** Almacena la parada de destino de la última consulta para paginación. */
+    private static Parada ultimaConsultaParadaDestino;
+    /** Almacena la hora de llegada de la última consulta para paginación. */
+    private static LocalTime ultimaConsultaHoraLlegada;
 
-    private static TextField locationField;
-    private static TextField destinationField;
-    private static TextField timeField;
-    private static Label warningLabel;
-    private static VBox rightPanelContent;
-    private static ToggleGroup dayOfWeekGroup;
-    private static Button prevButton;
-    private static Button nextButton;
-    private static Label pageLabel;
+    // Componentes de la UI
+    private static TextField campoOrigen;
+    private static TextField campoDestino;
+    private static TextField campoHora;
+    private static Label etiquetaAdvertencia;
+    private static VBox panelDerechoContenido;
+    private static ToggleGroup grupoDiasSemana;
+    private static Button botonAnterior;
+    private static Button botonSiguiente;
+    private static Label etiquetaPagina;
 
+    private static BorderPane raiz;
+    private static double tamanoFuenteActual = 12;
+
+    /**
+     * Establece el coordinador para ser utilizado por la interfaz.
+     * @param coord El coordinador a inyectar.
+     */
     public static void setCoordinador(Coordinador coord) {
         coordinador = coord;
     }
 
+    /**
+     * Método principal de JavaFX, construye y muestra la interfaz gráfica.
+     * @param escenarioPrincipal El escenario principal proporcionado por JavaFX.
+     */
     @Override
-    public void start(Stage primaryStage) {
-        // --- 1. Diseño Principal ---
-        HBox root = new HBox(20);
-        root.setPadding(new Insets(30));
-        root.setAlignment(Pos.TOP_LEFT);
+    public void start(Stage escenarioPrincipal) {
+        raiz = new BorderPane();
+        raiz.setPadding(new Insets(30));
 
-        // --- 2. Panel Izquierdo (Entrada de usuario) ---
-        VBox leftPanel = new VBox(10);
-        leftPanel.setAlignment(Pos.CENTER_LEFT);
+        VBox panelIzquierdo = new VBox(10);
+        panelIzquierdo.setAlignment(Pos.CENTER_LEFT);
 
-        // --- Asignación a campos estáticos ---
-        locationField = new TextField();
-        locationField.setPromptText("e.g., 101");
-        destinationField = new TextField();
-        destinationField.setPromptText("e.g., 202");
-        timeField = new TextField();
-        timeField.setPromptText("HH:mm, e.g., 14:30");
-        dayOfWeekGroup = new ToggleGroup();
-        warningLabel = new Label();
-        warningLabel.setTextFill(Color.RED);
-        warningLabel.setVisible(false);
-        rightPanelContent = new VBox(10);
-        rightPanelContent.setPadding(new Insets(10));
+        campoOrigen = new TextField();
+        campoOrigen.setPromptText("Ej: 101");
+        campoDestino = new TextField();
+        campoDestino.setPromptText("Ej: 202");
+        campoHora = new TextField();
+        campoHora.setPromptText("HH:mm, Ej: 14:30");
+        grupoDiasSemana = new ToggleGroup();
+        etiquetaAdvertencia = new Label();
+        etiquetaAdvertencia.setTextFill(Color.RED);
+        etiquetaAdvertencia.setVisible(false);
+        panelDerechoContenido = new VBox(10);
+        panelDerechoContenido.setPadding(new Insets(10));
 
-        Label locationLabel = new Label("Where are you? (int)");
-        Label destinationLabel = new Label("Where are you going? (int)");
-        Label timeLabel = new Label("What time is it? (LocalTime)");
-        Label dayLabel = new Label("Day of the week:");
+        Label etiquetaOrigen = new Label("¿Dónde estás? (int)");
+        Label etiquetaDestino = new Label("¿A dónde vas? (int)");
+        Label etiquetaHora = new Label("¿Qué hora es? (LocalTime)");
+        Label etiquetaDia = new Label("Día de la semana:");
         
-        RadioButton mon = new RadioButton("Monday");
-        mon.setToggleGroup(dayOfWeekGroup);
-        RadioButton tue = new RadioButton("Tuesday");
-        tue.setToggleGroup(dayOfWeekGroup);
-        RadioButton wed = new RadioButton("Wednesday");
-        wed.setToggleGroup(dayOfWeekGroup);
-        RadioButton thu = new RadioButton("Thursday");
-        thu.setToggleGroup(dayOfWeekGroup);
-        RadioButton fri = new RadioButton("Friday");
-        fri.setToggleGroup(dayOfWeekGroup);
-        RadioButton sat = new RadioButton("Saturday");
-        sat.setToggleGroup(dayOfWeekGroup);
-        RadioButton sun = new RadioButton("Sunday");
-        sun.setToggleGroup(dayOfWeekGroup);
-        VBox dayBox = new VBox(10, mon, tue, wed, thu, fri, sat, sun);
+        RadioButton lun = new RadioButton("Lunes");
+        lun.setToggleGroup(grupoDiasSemana);
+        RadioButton mar = new RadioButton("Martes");
+        mar.setToggleGroup(grupoDiasSemana);
+        RadioButton mie = new RadioButton("Miércoles");
+        mie.setToggleGroup(grupoDiasSemana);
+        RadioButton jue = new RadioButton("Jueves");
+        jue.setToggleGroup(grupoDiasSemana);
+        RadioButton vie = new RadioButton("Viernes");
+        vie.setToggleGroup(grupoDiasSemana);
+        RadioButton sab = new RadioButton("Sábado");
+        sab.setToggleGroup(grupoDiasSemana);
+        RadioButton dom = new RadioButton("Domingo");
+        dom.setToggleGroup(grupoDiasSemana);
+        VBox cajaDias = new VBox(10, lun, mar, mie, jue, vie, sab, dom);
 
-        Button calculateButton = new Button("Calculate");
-        calculateButton.setOnAction(event -> handleCalculation());
+        Button botonCalcular = new Button("Calcular");
+        botonCalcular.setOnAction(event -> manejarCalculo());
 
-        leftPanel.getChildren().addAll(
-            locationLabel, locationField,
-            destinationLabel, destinationField,
-            timeLabel, timeField,
-            dayLabel, dayBox,
-            calculateButton,
-            warningLabel
+        panelIzquierdo.getChildren().addAll(
+            etiquetaOrigen, campoOrigen,
+            etiquetaDestino, campoDestino,
+            etiquetaHora, campoHora,
+            etiquetaDia, cajaDias,
+            botonCalcular,
+            etiquetaAdvertencia
         );
 
-        // --- 3. Panel Derecho (Resultados con paginación) ---
-        BorderPane rightPanelLayout = new BorderPane();
-        rightPanelLayout.setStyle("-fx-border-color: lightgray; -fx-border-width: 1; -fx-border-radius: 5;");
+        BorderPane panelDerechoLayout = new BorderPane();
+        panelDerechoLayout.setStyle("-fx-border-color: lightgray; -fx-border-width: 1; -fx-border-radius: 5;");
         
-        ScrollPane scrollPane = new ScrollPane(rightPanelContent);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setStyle("-fx-background-color: transparent;");
-        rightPanelLayout.setCenter(scrollPane);
+        ScrollPane panelScroll = new ScrollPane(panelDerechoContenido);
+        panelScroll.setFitToWidth(true);
+        panelScroll.setStyle("-fx-background-color: transparent;");
+        panelDerechoLayout.setCenter(panelScroll);
         
-        prevButton = new Button("<< Previous");
-        prevButton.setOnAction(e -> changePage(-1));
-        nextButton = new Button("Next >>");
-        nextButton.setOnAction(e -> changePage(1));
-        pageLabel = new Label("Route 0 of 0");
+        botonAnterior = new Button("« Anterior");
+        botonAnterior.setOnAction(e -> cambiarPagina(-1));
+        botonSiguiente = new Button("Siguiente »");
+        botonSiguiente.setOnAction(e -> cambiarPagina(1));
+        etiquetaPagina = new Label("Ruta 0 de 0");
         
-        HBox navigationBox = new HBox(10, prevButton, pageLabel, nextButton);
-        navigationBox.setAlignment(Pos.CENTER);
-        navigationBox.setPadding(new Insets(10));
-        rightPanelLayout.setBottom(navigationBox);
-        updateNavigationControls();
+        HBox cajaNavegacion = new HBox(10, botonAnterior, etiquetaPagina, botonSiguiente);
+        cajaNavegacion.setAlignment(Pos.CENTER);
+        cajaNavegacion.setPadding(new Insets(10));
+        panelDerechoLayout.setBottom(cajaNavegacion);
+        actualizarControlesNavegacion();
 
-        // --- 5. Configuración Final ---
-        root.getChildren().addAll(leftPanel, rightPanelLayout);
-
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        double sceneWidth = primaryScreenBounds.getWidth() * 0.6;
-        double sceneHeight = primaryScreenBounds.getHeight() * 0.75;
+        Button botonAumentarFuente = new Button("Fuente +");
+        botonAumentarFuente.setOnAction(e -> cambiarFuente(1));
+        Button botonDisminuirFuente = new Button("Fuente -");
+        botonDisminuirFuente.setOnAction(e -> cambiarFuente(-1));
         
-        leftPanel.setPrefWidth(sceneWidth * 0.4);
-        rightPanelLayout.setPrefWidth(sceneWidth * 0.5);
-        VBox.setVgrow(rightPanelLayout, Priority.ALWAYS);
+        HBox cajaControlFuente = new HBox(10, botonDisminuirFuente, botonAumentarFuente);
+        cajaControlFuente.setAlignment(Pos.CENTER_RIGHT);
+        cajaControlFuente.setPadding(new Insets(10, 0, 0, 0));
 
-        Scene scene = new Scene(root, sceneWidth, sceneHeight);
-        primaryStage.setTitle("Data Calculator");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        raiz.setLeft(panelIzquierdo);
+        raiz.setCenter(panelDerechoLayout);
+        raiz.setBottom(cajaControlFuente);
+        BorderPane.setAlignment(cajaControlFuente, Pos.BOTTOM_RIGHT);
+        BorderPane.setMargin(panelIzquierdo, new Insets(0, 20, 0, 0));
+
+        Rectangle2D limitesPantalla = Screen.getPrimary().getVisualBounds();
+        double anchoEscena = limitesPantalla.getWidth() * 0.6;
+        double altoEscena = limitesPantalla.getHeight() * 0.75;
+        
+        panelIzquierdo.setPrefWidth(anchoEscena * 0.4);
+        panelDerechoLayout.setPrefWidth(anchoEscena * 0.5);
+        VBox.setVgrow(panelDerechoLayout, Priority.ALWAYS);
+
+        Scene escena = new Scene(raiz, anchoEscena, altoEscena);
+        escenarioPrincipal.setTitle("Calculadora de Rutas");
+        escenarioPrincipal.setScene(escena);
+        
+        actualizarEstiloFuente();
+        
+        escenarioPrincipal.show();
     }
     
-    private void handleCalculation() {
-        warningLabel.setVisible(false);
-        rightPanelContent.getChildren().clear();
-        allRoutes = null;
-        updateNavigationControls();
+    /**
+     * Cambia el tamaño de la fuente base de la aplicación.
+     * @param delta El cambio a aplicar al tamaño de la fuente (positivo o negativo).
+     */
+    private static void cambiarFuente(double delta) {
+        tamanoFuenteActual += delta;
+        if (tamanoFuenteActual < 8) tamanoFuenteActual = 8;
+        if (tamanoFuenteActual > 24) tamanoFuenteActual = 24;
+        actualizarEstiloFuente();
+    }
 
-        try {
-            String locationText = locationField.getText();
-            String destinationText = destinationField.getText();
-            String timeText = timeField.getText();
-            RadioButton selectedDayRadio = (RadioButton) dayOfWeekGroup.getSelectedToggle();
-
-            if (locationText.isEmpty() || destinationText.isEmpty() || timeText.isEmpty() || selectedDayRadio == null) {
-                throw new Exception("A field is empty or a day is not selected.");
-            }
-            
-            String selectedDayText = selectedDayRadio.getText();
-            int selectedDayInt;
-            switch (selectedDayText) {
-                case "Monday": selectedDayInt = 1; break;
-                case "Tuesday": selectedDayInt = 2; break;
-                case "Wednesday": selectedDayInt = 3; break;
-                case "Thursday": selectedDayInt = 4; break;
-                case "Friday": selectedDayInt = 5; break;
-                case "Saturday": selectedDayInt = 6; break;
-                case "Sunday": selectedDayInt = 7; break;
-                default: throw new IllegalStateException("Unexpected day of week: " + selectedDayText);
-            }
-
-            int currentLocationId = Integer.parseInt(locationText);
-            Parada startParada = coordinador.getEmpresa().getParada(currentLocationId);
-            if (startParada == null) {
-            	throw new IllegalStateException("Starting stop not found: " + currentLocationId);
-            } 
-            
-            int destinationId = Integer.parseInt(destinationText);
-            Parada destinationParada = coordinador.getEmpresa().getParada(destinationId);
-            if (destinationParada == null) {
-            	throw new IllegalStateException("Destination stop not found: " + destinationId);
-            } 
-            LocalTime time = LocalTime.parse(timeText);
-            
-            // Guardar parámetros para la paginación
-            lastQueryParadaOrigen = startParada;
-            lastQueryParadaDestino = destinationParada;
-            lastQueryHoraLlegaParada = time;
-            
-            // Llamar al coordinador, que a su vez llamará a Test.resultado(...)
-            coordinador.consulta(startParada, destinationParada, selectedDayInt, time);
-
-        } catch (Exception e) {
-            warningLabel.setText("An error occurred: " + e.getMessage());
-            warningLabel.setVisible(true);
-            allRoutes = null;
-            updateNavigationControls();
+    /**
+     * Aplica el tamaño de fuente actual al nodo raíz de la escena.
+     */
+    private static void actualizarEstiloFuente() {
+        if (raiz != null) {
+            raiz.setStyle("-fx-font-size: " + tamanoFuenteActual + "pt;");
         }
     }
 
+    /**
+     * Maneja el evento de clic del botón "Calcular".
+     * Recoge las entradas, las valida y llama al coordinador.
+     */
+    private void manejarCalculo() {
+        etiquetaAdvertencia.setVisible(false);
+        panelDerechoContenido.getChildren().clear();
+        rutasCompletas = null;
+        actualizarControlesNavegacion();
+
+        try {
+            String textoOrigen = campoOrigen.getText();
+            String textoDestino = campoDestino.getText();
+            String textoHora = campoHora.getText();
+            RadioButton diaSeleccionadoRadio = (RadioButton) grupoDiasSemana.getSelectedToggle();
+
+            if (textoOrigen.isEmpty() || textoDestino.isEmpty() || textoHora.isEmpty() || diaSeleccionadoRadio == null) {
+                throw new Exception("Un campo está vacío o no se ha seleccionado un día.");
+            }
+            
+            String textoDiaSeleccionado = diaSeleccionadoRadio.getText();
+            int diaSeleccionadoInt;
+            switch (textoDiaSeleccionado) {
+                case "Lunes": diaSeleccionadoInt = 1; break;
+                case "Martes": diaSeleccionadoInt = 2; break;
+                case "Miércoles": diaSeleccionadoInt = 3; break;
+                case "Jueves": diaSeleccionadoInt = 4; break;
+                case "Viernes": diaSeleccionadoInt = 5; break;
+                case "Sábado": diaSeleccionadoInt = 6; break;
+                case "Domingo": diaSeleccionadoInt = 7; break;
+                default: throw new IllegalStateException("Día de la semana inesperado: " + textoDiaSeleccionado);
+            }
+
+            int idOrigen = Integer.parseInt(textoOrigen);
+            Parada paradaOrigen = coordinador.getEmpresa().getParada(idOrigen);
+            if (paradaOrigen == null) {
+            	throw new IllegalStateException("Parada de origen no encontrada: " + idOrigen);
+            } 
+            
+            int idDestino = Integer.parseInt(textoDestino);
+            Parada paradaDestino = coordinador.getEmpresa().getParada(idDestino);
+            if (paradaDestino == null) {
+            	throw new IllegalStateException("Parada de destino no encontrada: " + idDestino);
+            } 
+            LocalTime hora = LocalTime.parse(textoHora);
+            
+            ultimaConsultaParadaOrigen = paradaOrigen;
+            ultimaConsultaParadaDestino = paradaDestino;
+            ultimaConsultaHoraLlegada = hora;
+            
+            coordinador.consulta(paradaOrigen, paradaDestino, diaSeleccionadoInt, hora);
+
+        } catch (Exception e) {
+            etiquetaAdvertencia.setText("Ocurrió un error: " + e.getMessage());
+            etiquetaAdvertencia.setVisible(true);
+            rutasCompletas = null;
+            actualizarControlesNavegacion();
+        }
+    }
+
+    /**
+     * Método estático llamado por el Coordinador para mostrar los resultados de la consulta.
+     * @param listaRecorridos La lista de rutas encontradas.
+     * @param paradaOrigen La parada de origen de la consulta.
+     * @param paradaDestino La parada de destino de la consulta.
+     * @param horaLlegaParada La hora de llegada del usuario a la parada de origen.
+     */
     public static void resultado(List<List<Recorrido>> listaRecorridos,
             Parada paradaOrigen,
             Parada paradaDestino,
             LocalTime horaLlegaParada) {
+        
+        rutasCompletas = listaRecorridos;
+        panelDerechoContenido.getChildren().clear();
 
-        allRoutes = listaRecorridos;
-        rightPanelContent.getChildren().clear();
-
-        if (allRoutes != null && !allRoutes.isEmpty()) {
-            currentPageIndex = 0;
-            displayCurrentPage(paradaOrigen, paradaDestino, horaLlegaParada);
+        if (rutasCompletas != null && !rutasCompletas.isEmpty()) {
+            indicePaginaActual = 0;
+            mostrarPaginaActual(paradaOrigen, paradaDestino, horaLlegaParada);
         } else {
-            rightPanelContent.getChildren().add(new Label("No routes found."));
-            updateNavigationControls();
+            panelDerechoContenido.getChildren().add(new Label("No se encontraron recorridos."));
+            actualizarControlesNavegacion();
         }
     }
 
-    private static void changePage(int direction) {
-        if (allRoutes != null && !allRoutes.isEmpty()) {
-            currentPageIndex += direction;
-            displayCurrentPage(lastQueryParadaOrigen, lastQueryParadaDestino, lastQueryHoraLlegaParada);
+    /**
+     * Cambia la página de resultados que se está mostrando.
+     * @param direccion El cambio de página (-1 para anterior, +1 para siguiente).
+     */
+    private static void cambiarPagina(int direccion) {
+        if (rutasCompletas != null && !rutasCompletas.isEmpty()) {
+            indicePaginaActual += direccion;
+            mostrarPaginaActual(ultimaConsultaParadaOrigen, ultimaConsultaParadaDestino, ultimaConsultaHoraLlegada);
         }
     }
 
-    private static void displayCurrentPage(Parada paradaOrigen, Parada paradaDestino, LocalTime horaLlegaParada) {
-        rightPanelContent.getChildren().clear();
+    /**
+     * Muestra la página de resultados actual en el panel derecho.
+     * Utiliza la traducción exacta solicitada.
+     * * @param paradaOrigen La parada de origen de la consulta.
+     * @param paradaDestino La parada de destino de la consulta.
+     * @param horaLlegaParada La hora de llegada del usuario a la parada de origen.
+     */
+    private static void mostrarPaginaActual(Parada paradaOrigen, Parada paradaDestino, LocalTime horaLlegaParada) {
+        panelDerechoContenido.getChildren().clear();
         
-        List<Recorrido> recorridoCompleto = allRoutes.get(currentPageIndex);
+        List<Recorrido> recorridoCompleto = rutasCompletas.get(indicePaginaActual);
         
-        Label title = new Label("Route Option " + (currentPageIndex + 1) + ":");
-        title.setStyle("-fx-font-weight: bold;");
-        rightPanelContent.getChildren().add(title);
+        Label titulo = new Label("Recorrido " + (indicePaginaActual + 1) + ":");
+        titulo.setStyle("-fx-font-weight: bold;");
+        panelDerechoContenido.getChildren().add(titulo);
         
         for (Recorrido r : recorridoCompleto) {
             LocalTime horaSalida = r.getHoraSalida();
@@ -254,41 +325,58 @@ public class Interfaz extends Application {
             tramoBox.setPadding(new Insets(5, 0, 15, 10));
             tramoBox.setStyle("-fx-border-color: lightblue; -fx-border-width: 0 0 1 0;");
             
-            tramoBox.getChildren().add(new Label("  - Line: " + r.getLinea().getCodigo()));
-            tramoBox.getChildren().add(new Label("    User Origin: " + paradaOrigen.getDireccion()));
-            tramoBox.getChildren().add(new Label("    Destination: " + paradaDestino.getDireccion()));
-            tramoBox.getChildren().add(new Label("    User arrival time at origin: " + horaLlegaParada));
-            tramoBox.getChildren().add(new Label("    Bus departure time: " + horaSalida));
-            tramoBox.getChildren().add(new Label("    Wait time: " + Tiempo.segundosATiempo((int) esperaSeg)));
-            tramoBox.getChildren().add(new Label("    Travel time: " + Tiempo.segundosATiempo(viajeSeg)));
-            tramoBox.getChildren().add(new Label("    Total duration: " + Tiempo.segundosATiempo((int) totalSeg)));
-            tramoBox.getChildren().add(new Label("    Arrival time at destination: " + horaLlegada));
+            tramoBox.getChildren().add(new Label("  - Línea: " + r.getLinea().getCodigo()));
+            tramoBox.getChildren().add(new Label("    Origen usuario: " + paradaOrigen.getDireccion()));
+            tramoBox.getChildren().add(new Label("    Destino: " + paradaDestino.getDireccion()));
+            tramoBox.getChildren().add(new Label("    Hora llegada usuario a origen: " + horaLlegaParada));
+            tramoBox.getChildren().add(new Label("    Hora salida colectivo: " + horaSalida));
+            tramoBox.getChildren().add(new Label("    Tiempo de espera: " + Tiempo.segundosATiempo((int) esperaSeg)));
+            tramoBox.getChildren().add(new Label("    Tiempo de viaje: " + Tiempo.segundosATiempo(viajeSeg)));
+            tramoBox.getChildren().add(new Label("    Duración total: " + Tiempo.segundosATiempo((int) totalSeg)));
+            tramoBox.getChildren().add(new Label("    Hora de llegada destino: " + horaLlegada));
             
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < r.getParadas().size(); j++) {
-                sb.append(r.getParadas().get(j).getDireccion());
-                if (j < r.getParadas().size() - 1) sb.append(" -> ");
+            tramoBox.getChildren().add(new Label("    Paradas:"));
+            VBox stopsBox = new VBox(2);
+            stopsBox.setPadding(new Insets(0, 0, 0, 35));
+            
+            List<Parada> paradas = r.getParadas();
+            if (paradas != null && paradas.size() > 1) {
+                for (int j = 0; j < paradas.size() - 1; j++) {
+                    String segment = paradas.get(j).getDireccion() + " -> " + paradas.get(j + 1).getDireccion();
+                    stopsBox.getChildren().add(new Label(segment));
+                }
+            } else if (paradas != null && paradas.size() == 1) {
+                stopsBox.getChildren().add(new Label(paradas.get(0).getDireccion()));
             }
-            tramoBox.getChildren().add(new Label("    Stops: " + sb.toString()));
             
-            rightPanelContent.getChildren().add(tramoBox);
+            tramoBox.getChildren().add(stopsBox);
+            
+            panelDerechoContenido.getChildren().add(tramoBox);
         }
-        updateNavigationControls();
+        actualizarControlesNavegacion();
     }
     
-    private static void updateNavigationControls() {
-        if (allRoutes == null || allRoutes.isEmpty()) {
-            pageLabel.setText("Route 0 of 0");
-            prevButton.setDisable(true);
-            nextButton.setDisable(true);
+    /**
+     * Actualiza el estado (etiqueta y habilitación) de los botones de navegación.
+     */
+    private static void actualizarControlesNavegacion() {
+        if (rutasCompletas == null || rutasCompletas.isEmpty()) {
+            etiquetaPagina.setText("Ruta 0 de 0");
+            botonAnterior.setDisable(true);
+            botonSiguiente.setDisable(true);
         } else {
-            pageLabel.setText("Route " + (currentPageIndex + 1) + " of " + allRoutes.size());
-            prevButton.setDisable(currentPageIndex <= 0);
-            nextButton.setDisable(currentPageIndex >= allRoutes.size() - 1);
+            etiquetaPagina.setText("Ruta " + (indicePaginaActual + 1) + " de " + rutasCompletas.size());
+            botonAnterior.setDisable(indicePaginaActual <= 0);
+            botonSiguiente.setDisable(indicePaginaActual >= rutasCompletas.size() - 1);
         }
     }
 
-    public static void launchApp(Coordinador coord, String[] args) {
+    /**
+     * Punto de entrada estático para lanzar la aplicación desde una clase externa.
+     * @param coord El coordinador a inyectar.
+     * @param args Argumentos de la línea de comandos.
+     */
+    public static void lanzarAplicacion(Coordinador coord, String[] args) {
         setCoordinador(coord);
         Application.launch(Interfaz.class, args);
     }
