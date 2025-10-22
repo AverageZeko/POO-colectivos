@@ -313,11 +313,23 @@ public class Interfaz extends Application {
         
         List<Recorrido> recorridoCompleto = rutasCompletas.get(indicePaginaActual);
         
+        // Título del recorrido
         Label titulo = new Label("Recorrido " + (indicePaginaActual + 1) + ":");
         titulo.setStyle("-fx-font-weight: bold;");
         panelDerechoContenido.getChildren().add(titulo);
         
-        for (Recorrido r : recorridoCompleto) {
+        // Aviso de trasbordos si hay más de un tramo
+        if (recorridoCompleto.size() > 1) {
+            Label avisoTrasbordo = new Label("⚠ Este recorrido incluye trasbordos: " + (recorridoCompleto.size() - 1) + " transbordo(s).");
+            avisoTrasbordo.setTextFill(Color.DARKRED);
+            avisoTrasbordo.setStyle("-fx-font-weight: bold;");
+            panelDerechoContenido.getChildren().add(avisoTrasbordo);
+        }
+        
+        // Mostrar cada tramo
+        for (int t = 0; t < recorridoCompleto.size(); t++) {
+            Recorrido r = recorridoCompleto.get(t);
+
             LocalTime horaSalida = r.getHoraSalida();
             long esperaSeg = 0;
             if (horaSalida.isAfter(horaLlegaParada)) {
@@ -327,40 +339,46 @@ public class Interfaz extends Application {
             long totalSeg = esperaSeg + viajeSeg;
             LocalTime horaLlegada = horaSalida.plusSeconds(viajeSeg);
 
+            // Origen y destino del tramo
+            List<Parada> paradasTramo = r.getParadas();
+            Parada tramoOrigen = paradasTramo.get(0);
+            Parada tramoDestino = paradasTramo.get(paradasTramo.size() - 1);
+
             VBox tramoBox = new VBox(5);
             tramoBox.setPadding(new Insets(5, 0, 15, 10));
             tramoBox.setStyle("-fx-border-color: lightblue; -fx-border-width: 0 0 1 0;");
+
+            tramoBox.getChildren().add(new Label("Tramo " + (t + 1) + " - Línea: " + r.getLinea().getCodigo()));
+            tramoBox.getChildren().add(new Label("  Origen tramo: " + tramoOrigen.getDireccion()));
+            tramoBox.getChildren().add(new Label("  Destino tramo: " + tramoDestino.getDireccion()));
+            tramoBox.getChildren().add(new Label("  Hora llegada usuario a origen: " + horaLlegaParada));
+            tramoBox.getChildren().add(new Label("  Hora salida colectivo: " + horaSalida));
+            tramoBox.getChildren().add(new Label("  Tiempo de espera: " + Tiempo.segundosATiempo((int) esperaSeg)));
+            tramoBox.getChildren().add(new Label("  Tiempo de viaje: " + Tiempo.segundosATiempo(viajeSeg)));
+            tramoBox.getChildren().add(new Label("  Duración total: " + Tiempo.segundosATiempo((int) totalSeg)));
+            tramoBox.getChildren().add(new Label("  Hora de llegada destino: " + horaLlegada));
             
-            tramoBox.getChildren().add(new Label("  - Línea: " + r.getLinea().getCodigo()));
-            tramoBox.getChildren().add(new Label("    Origen usuario: " + paradaOrigen.getDireccion()));
-            tramoBox.getChildren().add(new Label("    Destino: " + paradaDestino.getDireccion()));
-            tramoBox.getChildren().add(new Label("    Hora llegada usuario a origen: " + horaLlegaParada));
-            tramoBox.getChildren().add(new Label("    Hora salida colectivo: " + horaSalida));
-            tramoBox.getChildren().add(new Label("    Tiempo de espera: " + Tiempo.segundosATiempo((int) esperaSeg)));
-            tramoBox.getChildren().add(new Label("    Tiempo de viaje: " + Tiempo.segundosATiempo(viajeSeg)));
-            tramoBox.getChildren().add(new Label("    Duración total: " + Tiempo.segundosATiempo((int) totalSeg)));
-            tramoBox.getChildren().add(new Label("    Hora de llegada destino: " + horaLlegada));
-            
-            tramoBox.getChildren().add(new Label("    Paradas:"));
+            // Mostrar paradas intermedias
+            tramoBox.getChildren().add(new Label("  Paradas:"));
             VBox stopsBox = new VBox(2);
             stopsBox.setPadding(new Insets(0, 0, 0, 35));
             
-            List<Parada> paradas = r.getParadas();
-            if (paradas != null && paradas.size() > 1) {
-                for (int j = 0; j < paradas.size() - 1; j++) {
-                    String segment = paradas.get(j).getDireccion() + " -> " + paradas.get(j + 1).getDireccion();
+            if (paradasTramo != null && paradasTramo.size() > 1) {
+                for (int j = 0; j < paradasTramo.size() - 1; j++) {
+                    String segment = paradasTramo.get(j).getDireccion() + " -> " + paradasTramo.get(j + 1).getDireccion();
                     stopsBox.getChildren().add(new Label(segment));
                 }
-            } else if (paradas != null && paradas.size() == 1) {
-                stopsBox.getChildren().add(new Label(paradas.get(0).getDireccion()));
+            } else if (paradasTramo != null && paradasTramo.size() == 1) {
+                stopsBox.getChildren().add(new Label(paradasTramo.get(0).getDireccion()));
             }
             
             tramoBox.getChildren().add(stopsBox);
-            
             panelDerechoContenido.getChildren().add(tramoBox);
         }
+
         actualizarControlesNavegacion();
     }
+
     
     /**
      * Actualiza el estado (etiqueta y habilitación) de los botones de navegación.
