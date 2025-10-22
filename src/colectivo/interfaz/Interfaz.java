@@ -48,7 +48,6 @@ public class Interfaz extends Application {
     /** Almacena la hora de llegada de la última consulta para paginación. */
     private static LocalTime ultimaConsultaHoraLlegada;
 
-    // Componentes de la UI
     private static TextField campoOrigen;
     private static TextField campoDestino;
     private static TextField campoHora;
@@ -61,6 +60,9 @@ public class Interfaz extends Application {
 
     private static BorderPane raiz;
     private static double tamanoFuenteActual = 12;
+    private static final double TAMANO_FUENTE_BASE = 12;
+    private static final int MAX_INCREMENTOS = 5;
+
 
     /**
      * Establece el coordinador para ser utilizado por la interfaz.
@@ -186,8 +188,12 @@ public class Interfaz extends Application {
      */
     private static void cambiarFuente(double delta) {
         tamanoFuenteActual += delta;
-        if (tamanoFuenteActual < 8) tamanoFuenteActual = 8;
-        if (tamanoFuenteActual > 24) tamanoFuenteActual = 24;
+        if (tamanoFuenteActual < (TAMANO_FUENTE_BASE - MAX_INCREMENTOS)) {
+            tamanoFuenteActual = TAMANO_FUENTE_BASE - MAX_INCREMENTOS;
+        }
+        if (tamanoFuenteActual > (TAMANO_FUENTE_BASE + MAX_INCREMENTOS)) {
+            tamanoFuenteActual = TAMANO_FUENTE_BASE + MAX_INCREMENTOS;
+        }
         actualizarEstiloFuente();
     }
 
