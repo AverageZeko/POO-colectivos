@@ -327,17 +327,19 @@ public class Interfaz extends Application {
         }
         
         // Mostrar cada tramo
+        LocalTime horaLlegaActual = horaLlegaParada; // hora de llegada inicial al primer tramo
+
         for (int t = 0; t < recorridoCompleto.size(); t++) {
             Recorrido r = recorridoCompleto.get(t);
 
             LocalTime horaSalida = r.getHoraSalida();
             long esperaSeg = 0;
-            if (horaSalida.isAfter(horaLlegaParada)) {
-                esperaSeg = Duration.between(horaLlegaParada, horaSalida).getSeconds();
+            if (horaSalida.isAfter(horaLlegaActual)) {
+                esperaSeg = Duration.between(horaLlegaActual, horaSalida).getSeconds();
             }
             int viajeSeg = r.getDuracion();
             long totalSeg = esperaSeg + viajeSeg;
-            LocalTime horaLlegada = horaSalida.plusSeconds(viajeSeg);
+            LocalTime horaLlegadaTramo = horaSalida.plusSeconds(viajeSeg);
 
             // Origen y destino del tramo
             List<Parada> paradasTramo = r.getParadas();
@@ -351,29 +353,25 @@ public class Interfaz extends Application {
             tramoBox.getChildren().add(new Label("Tramo " + (t + 1) + " - Línea: " + r.getLinea().getCodigo()));
             tramoBox.getChildren().add(new Label("  Origen tramo: " + tramoOrigen.getDireccion()));
             tramoBox.getChildren().add(new Label("  Destino tramo: " + tramoDestino.getDireccion()));
-            tramoBox.getChildren().add(new Label("  Hora llegada usuario a origen: " + horaLlegaParada));
+            tramoBox.getChildren().add(new Label("  Hora llegada usuario a origen: " + horaLlegaActual));
             tramoBox.getChildren().add(new Label("  Hora salida colectivo: " + horaSalida));
             tramoBox.getChildren().add(new Label("  Tiempo de espera: " + Tiempo.segundosATiempo((int) esperaSeg)));
             tramoBox.getChildren().add(new Label("  Tiempo de viaje: " + Tiempo.segundosATiempo(viajeSeg)));
             tramoBox.getChildren().add(new Label("  Duración total: " + Tiempo.segundosATiempo((int) totalSeg)));
-            tramoBox.getChildren().add(new Label("  Hora de llegada destino: " + horaLlegada));
-            
-            // Mostrar paradas intermedias
+            tramoBox.getChildren().add(new Label("  Hora de llegada destino: " + horaLlegadaTramo));
+
+            // Paradas intermedias
             tramoBox.getChildren().add(new Label("  Paradas:"));
             VBox stopsBox = new VBox(2);
             stopsBox.setPadding(new Insets(0, 0, 0, 35));
-            
-            if (paradasTramo != null && paradasTramo.size() > 1) {
-                for (int j = 0; j < paradasTramo.size() - 1; j++) {
-                    String segment = paradasTramo.get(j).getDireccion() + " -> " + paradasTramo.get(j + 1).getDireccion();
-                    stopsBox.getChildren().add(new Label(segment));
-                }
-            } else if (paradasTramo != null && paradasTramo.size() == 1) {
-                stopsBox.getChildren().add(new Label(paradasTramo.get(0).getDireccion()));
+            for (int j = 0; j < paradasTramo.size() - 1; j++) {
+                stopsBox.getChildren().add(new Label(paradasTramo.get(j).getDireccion() + " -> " + paradasTramo.get(j + 1).getDireccion()));
             }
-            
             tramoBox.getChildren().add(stopsBox);
             panelDerechoContenido.getChildren().add(tramoBox);
+
+            // Actualizar hora de llegada para el próximo tramo
+            horaLlegaActual = horaLlegadaTramo;
         }
 
         actualizarControlesNavegacion();

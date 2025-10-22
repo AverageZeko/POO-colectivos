@@ -49,6 +49,11 @@ public class Coordinador {
         );
         Interfaz.resultado(recorridos, origen, destino, horaLlegaParada);
     }
+    
+    public void iniciar(Coordinador coord, String[] args) {
+		Interfaz.lanzarAplicacion(coord, args);
+    }
+    
 
 
 }
