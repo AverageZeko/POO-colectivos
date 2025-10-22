@@ -1,4 +1,4 @@
-package colectivo.util;
+package colectivo.logica;
 
 import java.time.LocalTime;
 import java.util.*;

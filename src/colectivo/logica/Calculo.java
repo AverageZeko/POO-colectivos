@@ -7,8 +7,6 @@ import colectivo.modelo.Linea;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
 import colectivo.modelo.Tramo;
-import colectivo.util.CacheLineas;
-import colectivo.util.RecorridoUtils;
 
 /**
  * Clase encargada de calcular recorridos directos e indirectos entre paradas.
