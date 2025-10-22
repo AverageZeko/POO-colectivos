@@ -1,0 +1,37 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:144.0) Gecko/20100101 Firefox/144.0" version="28.2.7">
+  <diagram name="Page-1" id="CD_hylJcVntiUzXwigdS">
+    <mxGraphModel dx="983" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="yapvV6f7iVuz6RzVZ9oo-1" value="" style="swimlane;startSize=0;align=center;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="70" y="160" width="510" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="yapvV6f7iVuz6RzVZ9oo-2" value="AplicacionConsultas" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="yapvV6f7iVuz6RzVZ9oo-1">
+          <mxGeometry x="50" y="20" width="210" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="yapvV6f7iVuz6RzVZ9oo-3" value="&lt;div&gt;&lt;u&gt;+ main(String[]): void&lt;/u&gt;&lt;/div&gt;&lt;div&gt;+ iniciar(): void&lt;/div&gt;&lt;div&gt;+ consulta(): void&lt;/div&gt;" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="yapvV6f7iVuz6RzVZ9oo-2">
+          <mxGeometry y="30" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yapvV6f7iVuz6RzVZ9oo-6" value="Constantes" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="yapvV6f7iVuz6RzVZ9oo-1">
+          <mxGeometry x="30" y="130" width="250" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="yapvV6f7iVuz6RzVZ9oo-7" value="&lt;div&gt;&lt;u&gt;+ COLECTIVO: int = 1&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ CAMINANDO: int = 2&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ PARADA: String = &quot;PARADA&quot;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ LINEA: String = &quot;LINEA&quot;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ TRAMO: String = &quot;TRAMO&quot;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ FRECUENCIA: String = &quot;FRECUENCIA&quot;&lt;/u&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="yapvV6f7iVuz6RzVZ9oo-6">
+          <mxGeometry y="30" width="250" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="yapvV6f7iVuz6RzVZ9oo-18" value="Coordinador" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="yapvV6f7iVuz6RzVZ9oo-1">
+          <mxGeometry x="300" y="80" width="170" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="yapvV6f7iVuz6RzVZ9oo-19" value="+ consulta(): void&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="yapvV6f7iVuz6RzVZ9oo-18">
+          <mxGeometry y="30" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="yapvV6f7iVuz6RzVZ9oo-14" value="" style="swimlane;startSize=0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="70" y="130" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="yapvV6f7iVuz6RzVZ9oo-15" value="Controlador" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;" vertex="1" parent="yapvV6f7iVuz6RzVZ9oo-14">
+          <mxGeometry width="110" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
