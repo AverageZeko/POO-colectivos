@@ -10,6 +10,10 @@
 	<classpathentry kind="lib" path="c:/Users/Lizandro/Documents/VSC/Java/POO-colectivos/lib/gui/javafx.media.jar"/>
 	<classpathentry kind="lib" path="c:/Users/Lizandro/Documents/VSC/Java/POO-colectivos/lib/gui/javafx.swing.jar"/>
 	<classpathentry kind="lib" path="c:/Users/Lizandro/Documents/VSC/Java/POO-colectivos/lib/gui/javafx.web.jar"/>
+	<classpathentry kind="lib" path="c:/Users/Lizandro/Documents/VSC/Java/POO-colectivos/lib/logger/logback-classic.jar"/>
+	<classpathentry kind="lib" path="c:/Users/Lizandro/Documents/VSC/Java/POO-colectivos/lib/logger/logback-core.jar"/>
+	<classpathentry kind="lib" path="c:/Users/Lizandro/Documents/VSC/Java/POO-colectivos/lib/logger/slf4j-api.jar"/>
+	<classpathentry kind="lib" path="c:/Users/Lizandro/Documents/VSC/Java/POO-colectivos/lib/database/postgresql.jar"/>
 	<classpathentry kind="lib" path="c:/Users/Lizandro/.vscode/extensions/vscjava.vscode-java-test-0.43.1/server/junit-jupiter-api_5.11.0.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="http://junit.org/junit5/docs/current/api/"/>
