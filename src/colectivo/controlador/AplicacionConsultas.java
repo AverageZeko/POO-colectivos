@@ -7,6 +7,7 @@ import java.io.IOException;
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
 import colectivo.interfaz.Interfaz;
+import colectivo.interfaz.Mostrable;
 
 /**
  * Punto de entrada principal para la aplicación de consultas de recorridos de colectivos.
@@ -18,13 +19,12 @@ import colectivo.interfaz.Interfaz;
 public class AplicacionConsultas {
 	private EmpresaColectivos empresa;
 	private Coordinador controlador;
-	private Interfaz interfaz;
+	private Mostrable interfaz;
 	private Calculo calculo;
 
 	public static void main(String[] args) throws IOException {
 		AplicacionConsultas aplicacion = new AplicacionConsultas();
 		aplicacion.iniciar(args);
-		
 	}
 
 	/**
@@ -34,11 +34,11 @@ public class AplicacionConsultas {
 		empresa = EmpresaColectivos.getEmpresa();
 		controlador = new Coordinador();
 		interfaz = new Interfaz();
-		calculo= new Calculo();
+		calculo = new Calculo();
 		controlador.setEmpresa(empresa);
 		controlador.setInterfaz(interfaz);
 		controlador.setCalculo(calculo);
-		Interfaz.setCoordinador(controlador);
+		interfaz.setCoordinador(controlador);
 		controlador.iniciar(args);
 
 

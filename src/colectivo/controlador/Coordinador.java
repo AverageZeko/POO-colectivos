@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import colectivo.interfaz.Interfaz;
+import colectivo.interfaz.Mostrable;
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
 import colectivo.modelo.Parada;
@@ -19,7 +20,7 @@ import colectivo.modelo.Recorrido;
  */
 public class Coordinador {
     private EmpresaColectivos empresa;
-    private Interfaz interfaz;
+    private Mostrable interfaz;
     private Calculo calculo;
     
     public Coordinador() {
@@ -34,7 +35,7 @@ public class Coordinador {
         this.empresa = empresa;
     }
 
-    public void setInterfaz(Interfaz interfaz) {
+    public void setInterfaz(Mostrable interfaz) {
         this.interfaz = interfaz;
     }
 
@@ -51,11 +52,11 @@ public class Coordinador {
         List<List<Recorrido>> recorridos = calculo.calcularRecorrido(
                 origen, destino, diaSemana, horaLlegaParada, empresa.getTramos()
         );
-        Interfaz.resultado(recorridos, origen, destino, horaLlegaParada);
+        interfaz.resultado(recorridos, origen, destino, horaLlegaParada);
     }
     
     public void iniciar(String[] args) {
-		Interfaz.lanzarAplicacion(args);
+		interfaz.lanzarAplicacion(args);
     }
     
 

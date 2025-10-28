@@ -32,7 +32,7 @@ import javafx.scene.paint.Color;
  * Clase principal de la interfaz de usuario para la aplicación de consulta de colectivos.
  * Gestiona la ventana, la entrada del usuario y la visualización de resultados.
  */
-public class Interfaz extends Application {
+public class Interfaz extends Application implements Mostrable {
     
     /** El coordinador que maneja la lógica de negocio. */
     private static Coordinador coordinador;
@@ -63,12 +63,16 @@ public class Interfaz extends Application {
     private static final double TAMANO_FUENTE_BASE = 12;
     private static final int MAX_INCREMENTOS = 5;
 
+    @Override
+    public void setCoordinador(Coordinador coord) {
+        setCoordinadorFinal(coord);
+    }
 
     /**
      * Establece el coordinador para ser utilizado por la interfaz.
      * @param coord El coordinador a inyectar.
      */
-    public static void setCoordinador(Coordinador coord) {
+    private static void setCoordinadorFinal(Coordinador coord) {
         coordinador = coord;
     }
 
@@ -273,7 +277,8 @@ public class Interfaz extends Application {
      * @param paradaDestino La parada de destino de la consulta.
      * @param horaLlegaParada La hora de llegada del usuario a la parada de origen.
      */
-    public static void resultado(List<List<Recorrido>> listaRecorridos,
+    @Override
+    public void resultado(List<List<Recorrido>> listaRecorridos,
             Parada paradaOrigen,
             Parada paradaDestino,
             LocalTime horaLlegaParada) {
@@ -398,7 +403,8 @@ public class Interfaz extends Application {
      * @param coord El coordinador a inyectar.
      * @param args Argumentos de la línea de comandos.
      */
-    public static void lanzarAplicacion(String[] args) {
+    @Override
+    public void lanzarAplicacion(String[] args) {
         Application.launch(Interfaz.class, args);
     }
 }
