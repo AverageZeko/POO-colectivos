@@ -2,6 +2,8 @@ package colectivo.controlador;
 
 import java.io.IOException;
 
+
+
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
 import colectivo.interfaz.Interfaz;
@@ -36,7 +38,9 @@ public class AplicacionConsultas {
 		controlador.setEmpresa(empresa);
 		controlador.setInterfaz(interfaz);
 		controlador.setCalculo(calculo);
-		controlador.iniciar(controlador, args);
+		Interfaz.setCoordinador(controlador);
+		controlador.iniciar(args);
+
 
 	}
 

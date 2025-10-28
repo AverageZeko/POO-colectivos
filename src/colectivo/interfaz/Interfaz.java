@@ -240,13 +240,13 @@ public class Interfaz extends Application {
             }
 
             int idOrigen = Integer.parseInt(textoOrigen);
-            Parada paradaOrigen = coordinador.getEmpresa().getParada(idOrigen);
+            Parada paradaOrigen = coordinador.getParada(idOrigen);
             if (paradaOrigen == null) {
             	throw new IllegalStateException("Parada de origen no encontrada: " + idOrigen);
             } 
             
             int idDestino = Integer.parseInt(textoDestino);
-            Parada paradaDestino = coordinador.getEmpresa().getParada(idDestino);
+            Parada paradaDestino = coordinador.getParada(idDestino);
             if (paradaDestino == null) {
             	throw new IllegalStateException("Parada de destino no encontrada: " + idDestino);
             } 
@@ -398,8 +398,7 @@ public class Interfaz extends Application {
      * @param coord El coordinador a inyectar.
      * @param args Argumentos de la línea de comandos.
      */
-    public static void lanzarAplicacion(Coordinador coord, String[] args) {
-        setCoordinador(coord);
+    public static void lanzarAplicacion(String[] args) {
         Application.launch(Interfaz.class, args);
     }
 }

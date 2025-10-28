@@ -41,6 +41,10 @@ public class Coordinador {
     public void setCalculo(Calculo calculo) {
     	this.calculo = calculo;
     }
+
+    public Parada getParada(int paradaId) {
+        return empresa.getParada(paradaId);
+    }
     
     public void consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
         // ahora usamos la instancia de Calculo
@@ -50,8 +54,8 @@ public class Coordinador {
         Interfaz.resultado(recorridos, origen, destino, horaLlegaParada);
     }
     
-    public void iniciar(Coordinador coord, String[] args) {
-		Interfaz.lanzarAplicacion(coord, args);
+    public void iniciar(String[] args) {
+		Interfaz.lanzarAplicacion(args);
     }
     
 
