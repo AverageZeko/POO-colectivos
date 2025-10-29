@@ -28,6 +28,10 @@ import colectivo.modelo.Recorrido;
 import colectivo.util.Tiempo;
 import javafx.scene.paint.Color;
 
+import java.net.URL; // <-- AÑADIDO
+import javafx.scene.web.WebEngine; // <-- AÑADIDO
+import javafx.scene.web.WebView; // <-- AÑADIDO
+
 /**
  * Clase principal de la interfaz de usuario para la aplicación de consulta de colectivos.
  * Gestiona la ventana, la entrada del usuario y la visualización de resultados.
@@ -125,12 +129,18 @@ public class Interfaz extends Application implements Mostrable {
         Button botonCalcular = new Button("Calcular");
         botonCalcular.setOnAction(event -> manejarCalculo());
 
+        // --- BOTÓN NUEVO PARA EL MAPA --- // <-- AÑADIDO
+        Button botonVerMapa = new Button("Ver Mapa");
+        botonVerMapa.setOnAction(e -> abrirVentanaMapa());
+        // --------------------------------- // <-- AÑADIDO
+
         panelIzquierdo.getChildren().addAll(
             etiquetaOrigen, campoOrigen,
             etiquetaDestino, campoDestino,
             etiquetaHora, campoHora,
             etiquetaDia, cajaDias,
             botonCalcular,
+            botonVerMapa, // <-- AÑADIDO
             etiquetaAdvertencia
         );
 
@@ -185,6 +195,42 @@ public class Interfaz extends Application implements Mostrable {
         
         escenarioPrincipal.show();
     }
+    
+    // ----------------------------------------------------------------- // <-- AÑADIDO
+    // --- MÉTODO NUEVO PARA MOSTRAR EL MAPA EN UNA VENTANA SEPARADA --- // <-- AÑADIDO
+    // ----------------------------------------------------------------- // <-- AÑADIDO
+    private void abrirVentanaMapa() {
+        Stage ventanaMapa = new Stage(); 
+        ventanaMapa.setTitle("Visor de Mapa");
+
+        final WebView webView = new WebView();
+        final WebEngine webEngine = webView.getEngine();
+
+        // Intenta buscar primero en 'src/resources/'
+        URL url = getClass().getResource("/resources/cargar_mapa.html"); 
+        
+        if (url == null) {
+            // Si falla, intenta buscar en la raíz de 'src/'
+            System.out.println("No se encontró en /resources/, intentando en /");
+            url = getClass().getResource("/cargar_mapa.html");
+        }
+
+        if (url == null) {
+            // Si ambos fallan, muestra el error
+            System.err.println("No se pudo encontrar cargar_mapa.html. Asegúrate de que esté en 'src' o 'src/resources'.");
+            System.err.println("Recuerda hacer 'Refresh' (F5) o 'Project > Clean...' en Eclipse.");
+            webEngine.loadContent("<h1>Error: No se pudo cargar el mapa.</h1> <p>Asegúrate de que 'cargar_mapa.html' esté en tu carpeta 'src' o 'src/resources' y refresca el proyecto en Eclipse (F5).</p>");
+        } else {
+            webEngine.load(url.toExternalForm());
+        }
+
+        VBox vBox = new VBox(webView);
+        Scene scene = new Scene(vBox, 960, 600); 
+
+        ventanaMapa.setScene(scene);
+        ventanaMapa.show(); 
+    } // <-- AÑADIDO
+    
     
     /**
      * Cambia el tamaño de la fuente base de la aplicación.
