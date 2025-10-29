@@ -459,6 +459,7 @@ public class Interfaz extends Application implements Mostrable {
      */
     @Override
     public void lanzarAplicacion(String[] args) {
+    	System.setProperty("prism.order", "sw");
         Application.launch(Interfaz.class, args);
     }
 }
