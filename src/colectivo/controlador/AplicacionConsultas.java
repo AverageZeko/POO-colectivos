@@ -1,9 +1,5 @@
 package colectivo.controlador;
 
-import java.io.IOException;
-
-
-
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
 import colectivo.interfaz.Interfaz;
@@ -22,7 +18,7 @@ public class AplicacionConsultas {
 	private Mostrable interfaz;
 	private Calculo calculo;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		AplicacionConsultas aplicacion = new AplicacionConsultas();
 		aplicacion.iniciar(args);
 	}
