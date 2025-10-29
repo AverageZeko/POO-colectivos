@@ -3,7 +3,6 @@ package colectivo.controlador;
 import java.time.LocalTime;
 import java.util.List;
 
-import colectivo.interfaz.Interfaz;
 import colectivo.interfaz.Mostrable;
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
@@ -19,6 +18,7 @@ import colectivo.modelo.Recorrido;
  *
  */
 public class Coordinador {
+    //Lista de EmpresaColectivos???
     private EmpresaColectivos empresa;
     private Mostrable interfaz;
     private Calculo calculo;
