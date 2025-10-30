@@ -4,21 +4,13 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
-        
-        {
-            "type": "java",
-            "name": "Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
         {
             "type": "java",
             "name": "AplicacionConsultas",
             "request": "launch",
             "mainClass": "colectivo.controlador.AplicacionConsultas",
-            "projectName": "POO-colectivos",
-               "vmArgs": "--module-path lib/gui --add-modules javafx.swt,javafx.base,javafx.controls,javafx.fxml,javafx.media,javafx.swing,javafx.web -Djava.library.path=lib/gui/bin -Dprism.verbose=true"
+            "projectName": "POO-colectivos_84e34458",
+            "vmArgs": "--module-path lib/gui --add-modules javafx.swt,javafx.base,javafx.controls,javafx.fxml,javafx.media,javafx.swing,javafx.web -Djava.library.path=lib/gui/bin"
         }
     ]
 }
