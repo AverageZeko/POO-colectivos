@@ -1,13 +1,16 @@
 package colectivo.controlador;
 
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import colectivo.interfaz.Mostrable;
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
+import colectivo.servicio.SchemaServicio;
 
 /**
  * Controlador principal que coordina la interacción entre la interfaz de usuario y la lógica de negocio.
@@ -18,13 +21,14 @@ import colectivo.modelo.Recorrido;
  *
  */
 public class Coordinador {
-    //Lista de EmpresaColectivos???
+    //private Map<String, EmpresaColectivos> ciudades;
     private EmpresaColectivos empresa;
+    private SchemaServicio schemaServicio;
     private Mostrable interfaz;
     private Calculo calculo;
     
     public Coordinador() {
-
+        //ciudades = new HashMap<>();
     }
 
     public EmpresaColectivos getEmpresa() {
@@ -33,6 +37,26 @@ public class Coordinador {
 
     public void setEmpresa(EmpresaColectivos empresa) {
         this.empresa = empresa;
+    }
+
+    public void cambiarCiudad(String nuevaCiudad) {
+        
+    }
+
+/*     public void setCiudadActual(String ciudad) {
+        if (ciudades.containsKey(ciudad)) {
+            empresa = ciudades.get(ciudad);
+        }   else {
+            //ciudades.put(ciudad, new EmpresaColectivos());
+        }
+    } */
+
+    public void setSchemaServicio(SchemaServicio schema) {
+        this.schemaServicio = schema;
+    }
+
+    public void cambiarSchema(String nuevoSchema) {
+        schemaServicio.cambiarSchema(nuevoSchema);
     }
 
     public void setInterfaz(Mostrable interfaz) {

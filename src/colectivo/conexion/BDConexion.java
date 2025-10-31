@@ -17,11 +17,13 @@ public class BDConexion {
                     InputStream entrada = BDConexion.class.getClassLoader().getResourceAsStream(RUTA_BD);
 
                     if (entrada == null) {
+                        //  TODO: LOGGER
                         throw new IllegalStateException("No fue posible encontrar archivo postgresql.properties en el class path.");
                     }
                     try {
                         prop.load(entrada);
                     } catch (IOException e) {
+                        //  TODO: LOGGER
                         throw new IllegalStateException("Error al cargar postgresql.properties", e);
                     }
                     
@@ -36,6 +38,7 @@ public class BDConexion {
                 }
                 return conexion;
             } catch (Exception ex) {
+                //  TODO: LOGGER
                 ex.printStackTrace();
                 throw new RuntimeException("Error al crear la conexion a la base de datos", ex);
             }
@@ -49,6 +52,7 @@ public class BDConexion {
                     Connection conexion = BDConexion.getConnection();
                     conexion.close();
                 } catch (Exception ex) {
+                    //  TODO: LOGGER
                     ex.printStackTrace();
                     throw new RuntimeException(ex);
                 }

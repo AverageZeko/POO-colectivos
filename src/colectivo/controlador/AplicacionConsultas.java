@@ -13,7 +13,9 @@ import colectivo.interfaz.Mostrable;
  *
  */
 public class AplicacionConsultas {
+	//Sacar esto?
 	private EmpresaColectivos empresa;
+	//Sacar esto?
 	private Coordinador controlador;
 	private Mostrable interfaz;
 	private Calculo calculo;
@@ -31,7 +33,11 @@ public class AplicacionConsultas {
 		controlador = new Coordinador();
 		interfaz = new Interfaz();
 		calculo = new Calculo();
+
+		//Sacar esto?
 		controlador.setEmpresa(empresa);
+		//Sacar esto?
+		
 		controlador.setInterfaz(interfaz);
 		controlador.setCalculo(calculo);
 		interfaz.setCoordinador(controlador);

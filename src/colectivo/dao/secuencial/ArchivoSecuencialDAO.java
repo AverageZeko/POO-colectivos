@@ -31,11 +31,13 @@ class ArchivoSecuencialDAO{
 		
         InputStream entrada = ArchivoSecuencialDAO.class.getClassLoader().getResourceAsStream(RUTA_SECUENCIAL);
         if (entrada == null) {
+            //  TODO: LOGGER
             throw new IllegalStateException("No fue posible encontrar archivo secuencial.properties en el class path.");
         }
         try {
             prop.load(entrada);
         } catch (IOException e) {
+            //  TODO: LOGGER
             throw new IllegalStateException("Error al cargar secuencial.properties", e);
         }
 

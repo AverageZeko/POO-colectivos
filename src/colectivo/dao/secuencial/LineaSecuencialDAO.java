@@ -44,10 +44,12 @@ public class LineaSecuencialDAO implements LineaDAO {
         archivoLinea = prop.getProperty(Constantes.LINEA);
         archivoFrecuencia = prop.getProperty(Constantes.FRECUENCIA);
 		if (archivoLinea == null) {
+            //  TODO: LOGGER
 			throw new IllegalStateException("Error al cargar archivo de lineas en src/resource.");
 		}
         if (archivoFrecuencia == null) {
-			throw new IllegalStateException("Error al cargar archivo de frecuencias en src/resource.");
+			//  TODO: LOGGER
+            throw new IllegalStateException("Error al cargar archivo de frecuencias en src/resource.");
 		}
     }
 
@@ -70,6 +72,7 @@ public class LineaSecuencialDAO implements LineaDAO {
         
             InputStream lineaInputStream = LineaSecuencialDAO.class.getClassLoader().getResourceAsStream("resources/" + archivoLinea);
             if (lineaInputStream == null) {
+                //  TODO: LOGGER
                 throw new IllegalStateException("No fue posible encontrar " + archivoLinea + " en la carpeta resources del classpath.");
             }
 
@@ -82,6 +85,7 @@ public class LineaSecuencialDAO implements LineaDAO {
 
                     String[] partesLinea = lineaArchivo.split(";");
                     if (partesLinea.length < 3) {
+                        //  TODO: LOGGER
                         throw new IllegalStateException("Linea mal formateada:  " + lineaArchivo);
                     }
 
@@ -98,6 +102,7 @@ public class LineaSecuencialDAO implements LineaDAO {
                             }
                         }
                     }	catch (NumberFormatException e) {
+                        //  TODO: LOGGER
                         throw new IllegalStateException("Codigo de parada mal formateado: " + lineaArchivo, e);
                     }
 
@@ -108,10 +113,12 @@ public class LineaSecuencialDAO implements LineaDAO {
                                 LocalTime inicioRecorrido = LocalTime.parse(detallesFrecuencia[1]);
                                 lineaActual.agregarFrecuencia(diaSemana, inicioRecorrido);
                             }	catch (IllegalArgumentException e) {
+                                //  TODO: LOGGER
                                 throw new IllegalStateException("Frecuencia invalida para linea: " + frecuencias.get(codigoLinea), e);
                             }
                         }
                     }	else {
+                        //  TODO: LOGGER
                         throw new IllegalStateException("AVISO: No se encontro ninguna frecuencia para linea " + codigoLinea);
                     }
                     lineas.put(codigoLinea, lineaActual);
@@ -136,6 +143,7 @@ public class LineaSecuencialDAO implements LineaDAO {
         Map<String, List<String[]>> frecuencias = new HashMap<>();
 		InputStream frecuenciaInputStream = LineaSecuencialDAO.class.getClassLoader().getResourceAsStream("resources/" + archivoFrecuencia);
 		if (frecuenciaInputStream == null) {
+            //  TODO: LOGGER
 			throw new IllegalStateException("No fue posible encontrar " + archivoFrecuencia + " en la carpeta resources del classpath.");
 		}
 
@@ -147,6 +155,7 @@ public class LineaSecuencialDAO implements LineaDAO {
 				}
 				String[] partesLinea = lineaFrecuencia.split(";");
 				if (partesLinea.length < 3) {
+                    //  TODO: LOGGER
 					throw new IllegalStateException("Linea mal formateada:  " + lineaFrecuencia);
 				}
 

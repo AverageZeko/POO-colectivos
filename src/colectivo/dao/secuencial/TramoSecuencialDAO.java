@@ -40,6 +40,7 @@ public class TramoSecuencialDAO implements TramoDAO {
         Properties prop = ArchivoSecuencialDAO.leerArchivo();
         archivo = prop.getProperty(Constantes.TRAMO);
 		if (archivo == null) {
+            //  TODO: LOGGER
 			throw new IllegalStateException("Error al cargar archivo de tramos en src/resource.");
 		}
     }
@@ -62,6 +63,7 @@ public class TramoSecuencialDAO implements TramoDAO {
             Map<Integer, Parada> paradas = paradaDAO.buscarTodos();
             InputStream inputStream = TramoSecuencialDAO.class.getClassLoader().getResourceAsStream("resources/" + archivo);
             if (inputStream == null) {
+                //  TODO: LOGGER
                 throw new IllegalStateException("No fue posible encontrar " + archivo + " en la carpeta resources del classpath.");
             }
 
@@ -74,6 +76,7 @@ public class TramoSecuencialDAO implements TramoDAO {
 
                     String[] partesLinea = lineaActual.split(";");
                     if (partesLinea.length < 4) {
+                        //  TODO: LOGGER
                         throw new IllegalStateException("Linea mal formateada:  " + lineaActual);
                     }
 
@@ -82,10 +85,12 @@ public class TramoSecuencialDAO implements TramoDAO {
                         int paradaFinal = Integer.parseInt(partesLinea[1].trim());
 
                         if (!paradas.containsKey(paradaInicio)) {
+                            //  TODO: LOGGER
                             throw new IllegalStateException("AVISO: Parada inicial no fue encontrada " + paradaInicio);
                         }
 
                         if (!paradas.containsKey(paradaFinal)) {
+                            //  TODO: LOGGER
                             throw new IllegalStateException("AVISO: Parada final no fue encontrada " + paradaFinal);
                         }
 
@@ -102,6 +107,7 @@ public class TramoSecuencialDAO implements TramoDAO {
                         tramos.put(tramoKey, tramoActual);
 
                     } catch (NumberFormatException e) {
+                        //  TODO: LOGGER
                         throw new IllegalStateException("index de parada inicial/final o tiempo invalidos en la linea: " + lineaActual, e);
                     }
                 }
