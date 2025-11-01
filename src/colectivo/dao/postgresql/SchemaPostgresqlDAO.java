@@ -1,17 +1,13 @@
 package colectivo.dao.postgresql;
 
 public class SchemaPostgresqlDAO {
-    private static String schema = "colectivo_AZL";
+    private static String schema = "colectivo_PM";
 
     public static void setSchema(String nuevoSchema) {
         schema = nuevoSchema;
     }
 
-    public static String getSchema(/* boolean schemaIncorrecto */) {
-/*         if (schemaIncorrecto) {
-            setSchema("colectivo_AZL");
-        }
- */
+    public static String getSchema() {
         return schema;
     }
 }

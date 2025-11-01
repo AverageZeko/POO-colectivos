@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import colectivo.conexion.BDConexion;
@@ -23,15 +23,20 @@ public class ParadaPostgresqlDAO implements ParadaDAO {
         if (paradas == null) {
             paradas = new HashMap<>();
             Connection con = null;
-            PreparedStatement pstm = null;
+            Statement schemaStatement = null;
+            PreparedStatement selectStatement = null;
             ResultSet rs = null;
             String schema = SchemaPostgresqlDAO.getSchema();
             try {
                 con = BDConexion.getConnection();
 
-                String sql = "SELECT codigo, direccion, latitud, longitud FROM " + schema + ".parada";
-                pstm = con.prepareStatement(sql);
-                rs = pstm.executeQuery();
+                String sql = String.format("SET search_path TO '%s'", schema);
+                schemaStatement = con.createStatement();
+                schemaStatement.execute(sql);
+
+                sql = "SELECT codigo, direccion, latitud, longitud FROM parada";
+                selectStatement = con.prepareStatement(sql);
+                rs = selectStatement.executeQuery();
 
                 while (rs.next()) {
                     int codigo = rs.getInt("codigo");
@@ -51,8 +56,11 @@ public class ParadaPostgresqlDAO implements ParadaDAO {
                     if (rs != null) {
                         rs.close();
                     }
-                    if (pstm != null) {
-                        pstm.close();
+                    if (selectStatement != null) {
+                        selectStatement.close();
+                    }
+                    if (schemaStatement != null) {
+                        schemaStatement.close();
                     }
                 } catch (SQLException e) {
                     //  TODO: LOGGER

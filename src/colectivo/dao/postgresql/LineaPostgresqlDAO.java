@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,11 +12,16 @@ import java.util.List;
 import java.util.Map;
 
 import colectivo.conexion.BDConexion;
+import colectivo.conexion.Factory;
+import colectivo.controlador.Constantes;
 import colectivo.dao.LineaDAO;
+import colectivo.dao.ParadaDAO;
 import colectivo.modelo.Linea;
+import colectivo.modelo.Parada;
 
 public class LineaPostgresqlDAO implements LineaDAO{
     private Map<String, Linea> lineas;
+    private Connection con;
 
     public LineaPostgresqlDAO() {
     }
@@ -24,24 +30,41 @@ public class LineaPostgresqlDAO implements LineaDAO{
     public Map<String, Linea> buscarTodos() {
         if (lineas == null) {
             lineas = new HashMap<>();
-            Map<String, List<String[]>> frecuencias = buscarFrecuencias();
-            Connection con = null;
-            PreparedStatement pstm = null;
+            Map<String, List<String[]>> frecuencias;
+            Map<String, List<Integer>> secuencias;
+            con = null;
+            Statement schemaStatement = null;
+            PreparedStatement selectStatement = null;
             ResultSet rs = null;
             String schema = SchemaPostgresqlDAO.getSchema();
+            
             try {
+                ParadaDAO paradaDAO = (ParadaDAO) Factory.getInstancia(Constantes.PARADA);
+                Map<Integer, Parada> paradas = paradaDAO.buscarTodos();
+                
                 con = BDConexion.getConnection();
 
-                String sql = "SELECT codigo, nombre FROM " + schema + ".linea";
-                pstm = con.prepareStatement(sql);
-                rs = pstm.executeQuery();
+                String sql = String.format("SET search_path TO '%s'", schema);
+                schemaStatement = con.createStatement();
+                schemaStatement.execute(sql);
+
+                frecuencias = buscarFrecuencias();
+                secuencias = buscarSecuencias();
+
+                sql = "SELECT codigo, nombre FROM linea";
+                selectStatement = con.prepareStatement(sql);
+                rs = selectStatement.executeQuery();
 
                 while (rs.next()) {
                     String codigoLinea = rs.getString("codigo");
                     String nombreLinea = rs.getString("nombre");
                     Linea lineaActual = new Linea(codigoLinea, nombreLinea);
 
-                    // TODO: Buscar secuencia de parada para la linea a traves de linea_parada
+                    //Vincular secuencia de paradas a la linea
+                    List<Integer> paradasId = secuencias.get(codigoLinea);
+                    for (Integer ent : paradasId) {
+                        lineaActual.agregarParada(paradas.get(ent));
+                    }
 
                     //Vincular frecuencias a la linea
                     if (frecuencias.containsKey(codigoLinea)) {
@@ -63,8 +86,6 @@ public class LineaPostgresqlDAO implements LineaDAO{
                     lineas.put(codigoLinea, lineaActual);
                 }
 
-
-                
             } catch (SQLException e) {
                 //  TODO: LOGGER
                 e.printStackTrace();
@@ -74,8 +95,11 @@ public class LineaPostgresqlDAO implements LineaDAO{
                     if (rs != null) {
                         rs.close();
                     }
-                    if (pstm != null) {
-                        pstm.close();
+                    if (selectStatement != null) {
+                        selectStatement.close();
+                    }
+                    if (schemaStatement != null) {
+                        schemaStatement.close();
                     }
                 } catch (SQLException e) {
                     //  TODO: LOGGER
@@ -91,17 +115,12 @@ public class LineaPostgresqlDAO implements LineaDAO{
     private Map<String, List<String[]>> buscarFrecuencias() {
         Map<String, List<String[]>> frecuencias = new HashMap<>();
 
-        Connection con = null;
-        PreparedStatement pstm = null;
+        PreparedStatement selectStatement = null;
         ResultSet rs = null;
-        String schema = SchemaPostgresqlDAO.getSchema();
-
         try {
-            con = BDConexion.getConnection();
-
-            String sql = "SELECT linea, diasemana, hora FROM " + schema + ".linea_frecuencia";
-            pstm = con.prepareStatement(sql);
-            rs = pstm.executeQuery();
+            String sql = "SELECT linea, diasemana, hora FROM linea_frecuencia";
+            selectStatement = con.prepareStatement(sql);
+            rs = selectStatement.executeQuery();
 
             while (rs.next()) {
                 String codigoLinea = rs.getString("linea");
@@ -129,8 +148,8 @@ public class LineaPostgresqlDAO implements LineaDAO{
                 if (rs != null) {
                     rs.close();
                 }
-                if (pstm != null) {
-                    pstm.close();
+                if (selectStatement != null) {
+                    selectStatement.close();
                 }
             } catch (SQLException e) {
                 //  TODO: LOGGER
@@ -140,6 +159,51 @@ public class LineaPostgresqlDAO implements LineaDAO{
         }
 
         return frecuencias;
-    
+    }
+
+    private Map<String, List<Integer>> buscarSecuencias() {
+        Map<String, List<Integer>> secuencias = new HashMap<>();
+
+        PreparedStatement selectStatement = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT linea, parada FROM linea_parada ORDER BY linea, secuencia";
+            selectStatement = con.prepareStatement(sql);
+            rs = selectStatement.executeQuery();
+
+            while (rs.next()) {
+                String codigoLinea = rs.getString("linea");
+                int parada = rs.getInt("parada");
+
+                if(!secuencias.containsKey(codigoLinea)) {
+                    ArrayList<Integer> lista = new ArrayList<>();
+                    lista.add(parada);
+                    secuencias.put(codigoLinea, lista);
+                }   else {
+                    List<Integer> lista = secuencias.get(codigoLinea);
+                    lista.add(parada);
+                }
+            }  
+
+        } catch (SQLException e) {
+            //  TODO: LOGGER
+            e.printStackTrace();
+            throw new RuntimeException("No se pudieron ejecutar las sentencias SQL", e);
+        }   finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (selectStatement != null) {
+                    selectStatement.close();
+                }
+            } catch (SQLException e) {
+                //  TODO: LOGGER
+                e.printStackTrace();
+                throw new RuntimeException("No se pudieron cerrar los recursos de las sentencias SQL", e);
+            }
+        }
+
+        return secuencias;
     }
 }

@@ -23,7 +23,6 @@ import colectivo.servicio.TramoServicioImplementacion;
  *
  */
 public class EmpresaColectivos {
-    private static EmpresaColectivos empresa = null;
 	private	Map<Integer, Parada> paradas;
 	private	Map<String, Linea> lineas;
 	private	Map<String, Tramo> tramos;
@@ -32,24 +31,10 @@ public class EmpresaColectivos {
     private TramoServicio tramoServicio;
 
     /**
-     * Devuelve la instancia única de la empresa de colectivos.
-     * <p>Si la instancia no existe, la crea y carga los datos principales.</p>
-     *
-     * @return instancia única de {@link EmpresaColectivos}.
-     */
-    public static EmpresaColectivos getEmpresa() {
-        if (empresa == null) {
-            empresa = new EmpresaColectivos();
-        }
-
-        return empresa;
-    }
-
-    /**
      * Constructor privado que inicializa los servicios y carga los datos de paradas, líneas y tramos.
      * <p>Este método se invoca solo una vez al crear la instancia Singleton.</p>
      */
-    private EmpresaColectivos() {
+    public EmpresaColectivos() {
         super();
         paradaServicio = new ParadaServicioImplementacion();
         lineaServicio = new LineaServicioImplementacion();

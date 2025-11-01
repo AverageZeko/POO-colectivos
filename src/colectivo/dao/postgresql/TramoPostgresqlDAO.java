@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,17 +27,22 @@ public class TramoPostgresqlDAO implements TramoDAO{
         if (tramos == null) {
             tramos = new HashMap<>();
             Connection con = null;
-            PreparedStatement pstm = null;
+            Statement schemaStatement = null;
+            PreparedStatement selectStatement = null;
             ResultSet rs = null;
             String schema = SchemaPostgresqlDAO.getSchema();
             try {
                 ParadaDAO paradaDAO = (ParadaDAO) Factory.getInstancia(Constantes.PARADA);
                 Map<Integer, Parada> paradas = paradaDAO.buscarTodos();
                 con = BDConexion.getConnection();
-
-                String sql = "SELECT inicio, fin, tiempo, tipo FROM " + schema + ".tramo";
-                pstm = con.prepareStatement(sql);
-                rs = pstm.executeQuery();
+                
+                String sql = String.format("SET search_path TO '%s'", schema);
+                schemaStatement = con.createStatement();
+                schemaStatement.execute(sql);
+                
+                sql = "SELECT inicio, fin, tiempo, tipo FROM tramo";
+                selectStatement = con.prepareStatement(sql);
+                rs = selectStatement.executeQuery();
 
                 while (rs.next()) {
                     int inicio = rs.getInt("inicio");
@@ -71,8 +77,11 @@ public class TramoPostgresqlDAO implements TramoDAO{
                     if (rs != null) {
                         rs.close();
                     }
-                    if (pstm != null) {
-                        pstm.close();
+                    if (selectStatement != null) {
+                        selectStatement.close();
+                    }
+                    if (schemaStatement != null) {
+                        schemaStatement.close();
                     }
                 } catch (SQLException e) {
                     //  TODO: LOGGER

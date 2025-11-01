@@ -35,6 +35,7 @@ public class BDConexion {
                     String pwd = prop.getProperty("pwd");
                     Class.forName(driver);
                     conexion = DriverManager.getConnection(url, usr, pwd);
+                    
                 }
                 return conexion;
             } catch (Exception ex) {

@@ -21,42 +21,18 @@ import colectivo.servicio.SchemaServicio;
  *
  */
 public class Coordinador {
-    //private Map<String, EmpresaColectivos> ciudades;
-    private EmpresaColectivos empresa;
+    private Map<String, EmpresaColectivos> ciudades;
+    private EmpresaColectivos ciudadActual;
     private SchemaServicio schemaServicio;
     private Mostrable interfaz;
     private Calculo calculo;
     
     public Coordinador() {
-        //ciudades = new HashMap<>();
+        ciudades = new HashMap<>();
     }
-
-    public EmpresaColectivos getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(EmpresaColectivos empresa) {
-        this.empresa = empresa;
-    }
-
-    public void cambiarCiudad(String nuevaCiudad) {
-        
-    }
-
-/*     public void setCiudadActual(String ciudad) {
-        if (ciudades.containsKey(ciudad)) {
-            empresa = ciudades.get(ciudad);
-        }   else {
-            //ciudades.put(ciudad, new EmpresaColectivos());
-        }
-    } */
 
     public void setSchemaServicio(SchemaServicio schema) {
         this.schemaServicio = schema;
-    }
-
-    public void cambiarSchema(String nuevoSchema) {
-        schemaServicio.cambiarSchema(nuevoSchema);
     }
 
     public void setInterfaz(Mostrable interfaz) {
@@ -68,19 +44,37 @@ public class Coordinador {
     }
 
     public Parada getParada(int paradaId) {
-        return empresa.getParada(paradaId);
+        return ciudadActual.getParada(paradaId);
     }
     
+    public void cambiarSchema(String nuevoSchema) {
+        schemaServicio.cambiarSchema(nuevoSchema);
+    }
+
+    public void setCiudadActual(String nuevaCiudad) {
+        EmpresaColectivos ciudad = ciudades.get(nuevaCiudad);
+        if (ciudad == null) {
+            cambiarSchema(nuevaCiudad);
+            ciudad = new EmpresaColectivos();
+            ciudades.put(nuevaCiudad, ciudad);
+            // TODO: LOGGER
+        }
+        ciudadActual = ciudad;
+        // TODO: LOGGER
+    }
+
     public void consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
         // ahora usamos la instancia de Calculo
         List<List<Recorrido>> recorridos = calculo.calcularRecorrido(
-                origen, destino, diaSemana, horaLlegaParada, empresa.getTramos()
+                origen, destino, diaSemana, horaLlegaParada, ciudadActual.getTramos()
         );
         interfaz.resultado(recorridos, origen, destino, horaLlegaParada);
+        // TODO: LOGGER
     }
     
     public void iniciar(String[] args) {
 		interfaz.lanzarAplicacion(args);
+        // TODO: LOGGER
     }
     
 
