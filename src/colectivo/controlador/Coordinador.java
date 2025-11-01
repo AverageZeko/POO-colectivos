@@ -3,7 +3,7 @@ package colectivo.controlador;
 import java.time.LocalTime;
 import java.util.List;
 
-import colectivo.interfaz.Interfaz;
+import colectivo.configuracion.Localizacion;
 import colectivo.interfaz.Mostrable;
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
@@ -22,6 +22,7 @@ public class Coordinador {
     private EmpresaColectivos empresa;
     private Mostrable interfaz;
     private Calculo calculo;
+    private Localizacion localizacion;
     
     public Coordinador() {
 
@@ -43,10 +44,26 @@ public class Coordinador {
     	this.calculo = calculo;
     }
 
+    public void setLocalizacion(Localizacion localizacion) {
+        this.localizacion = localizacion;
+    }
+
     public Parada getParada(int paradaId) {
         return empresa.getParada(paradaId);
     }
     
+    public void setIdioma(String idioma) {
+        localizacion.setIdioma(idioma);
+    }
+
+    public String getPalabra(String llave) {
+        return localizacion.getPalabra(llave);
+    }
+
+    public String getRutaFoto() {
+        return localizacion.getRutaFoto();
+    }
+
     public void consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
         // ahora usamos la instancia de Calculo
         List<List<Recorrido>> recorridos = calculo.calcularRecorrido(

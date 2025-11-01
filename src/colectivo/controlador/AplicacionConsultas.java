@@ -2,6 +2,7 @@ package colectivo.controlador;
 
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
+import colectivo.configuracion.Localizacion;
 import colectivo.interfaz.Interfaz;
 import colectivo.interfaz.Mostrable;
 
@@ -17,6 +18,7 @@ public class AplicacionConsultas {
 	private Coordinador controlador;
 	private Mostrable interfaz;
 	private Calculo calculo;
+	private Localizacion localizacion;
 
 	public static void main(String[] args) {
 		AplicacionConsultas aplicacion = new AplicacionConsultas();
@@ -31,13 +33,15 @@ public class AplicacionConsultas {
 		controlador = new Coordinador();
 		interfaz = new Interfaz();
 		calculo = new Calculo();
+		localizacion = new Localizacion();
+
 		controlador.setEmpresa(empresa);
 		controlador.setInterfaz(interfaz);
 		controlador.setCalculo(calculo);
+		controlador.setLocalizacion(localizacion);
 		interfaz.setCoordinador(controlador);
+
 		controlador.iniciar(args);
-
-
 	}
 
 }
