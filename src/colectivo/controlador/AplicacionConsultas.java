@@ -1,6 +1,7 @@
 package colectivo.controlador;
 
 import colectivo.logica.Calculo;
+import colectivo.logica.EmpresaColectivos;
 import colectivo.interfaz.Interfaz;
 import colectivo.interfaz.Mostrable;
 
@@ -13,6 +14,7 @@ import colectivo.interfaz.Mostrable;
  */
 public class AplicacionConsultas {
 	private Coordinador controlador;
+	private EmpresaColectivos empresa;		//ELIMINAR DESPUES
 	private Mostrable interfaz;
 	private Calculo calculo;
 
@@ -29,6 +31,9 @@ public class AplicacionConsultas {
 		interfaz = new Interfaz();
 		calculo = new Calculo();
 		
+		empresa = new EmpresaColectivos();
+		controlador.setCiudad(empresa);
+
 		controlador.setInterfaz(interfaz);
 		controlador.setCalculo(calculo);
 		interfaz.setCoordinador(controlador);
