@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import colectivo.interfaz.Mostrable;
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
@@ -21,6 +24,7 @@ import colectivo.servicio.SchemaServicio;
  *
  */
 public class Coordinador {
+    private static final Logger QUERY_LOG = LoggerFactory.getLogger("Consulta");
     private Map<String, EmpresaColectivos> ciudades;
     private EmpresaColectivos ciudadActual;
     private SchemaServicio schemaServicio;
@@ -61,10 +65,9 @@ public class Coordinador {
             cambiarSchema(nuevaCiudad);
             ciudad = new EmpresaColectivos();
             ciudades.put(nuevaCiudad, ciudad);
-            // TODO: LOGGER
         }
         ciudadActual = ciudad;
-        // TODO: LOGGER
+        QUERY_LOG.info("Usuario cambia de ciudad a {}", nuevaCiudad);
     }
 
     public void consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
@@ -73,14 +76,11 @@ public class Coordinador {
                 origen, destino, diaSemana, horaLlegaParada, ciudadActual.getTramos()
         );
         interfaz.resultado(recorridos, origen, destino, horaLlegaParada);
-        // TODO: LOGGER
+        QUERY_LOG.info("Usuario realiza consulta desde {} hasta {}, dia de la semana {} a las {}", origen.getDireccion(), destino.getDireccion(), diaSemana, horaLlegaParada);
     }
     
     public void iniciar(String[] args) {
+        QUERY_LOG.info("Usuario inicia aplicacion");
 		interfaz.lanzarAplicacion(args);
-        // TODO: LOGGER
     }
-    
-
-
 }

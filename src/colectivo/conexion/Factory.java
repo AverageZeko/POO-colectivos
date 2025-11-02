@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * <p>Esta clase decide la implementacion concreta de DAO a utilizar en base al archivo modificable
  * {@code resources/factory.properties} utilizando el patron de diseño Factory </p>
@@ -17,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  */
 public class Factory {
+    private static final Logger FACTORY_LOG = LoggerFactory.getLogger(Factory.class);
     private static ConcurrentHashMap <String, Object> instancias = new ConcurrentHashMap<>();
     private static final String RUTA_FACTORY = "resources/factory.properties";
 
@@ -53,23 +57,24 @@ public class Factory {
             try (InputStream entrada = Factory.class.getClassLoader().getResourceAsStream(RUTA_FACTORY)) {
                 Properties prop = new Properties();
                 if (entrada == null) {
-                    //  TODO: LOGGER
-                    throw new IllegalStateException("No fue posible encontrar el archivo de propiedades");
+                    FACTORY_LOG.error("No fue posible encontrar el archivo de propiedades para Factory");
+                    throw new IllegalStateException("No fue posible encontrar el archivo de propiedades para Factory");
                 }
                     prop.load(entrada);
                     String direccionClase = prop.getProperty(nombreObj);
                     if (direccionClase == null) {
-                        //  TODO: LOGGER
+                        FACTORY_LOG.error("No fue posible encontrar la propiedad para {}", nombreObj);
                         throw new IllegalStateException("No fue posible encontrar la propiedad para " + nombreObj);
                     }
                     Class<?> cls = Class.forName(direccionClase);
-                    return cls.getDeclaredConstructor().newInstance();
+                    Object instancia = cls.getDeclaredConstructor().newInstance();
+                    FACTORY_LOG.info("Creada instancia de {}", nombreObj);
+                    return instancia;
             } catch (IOException e) {
-                //  TODO: LOGGER
-                e.printStackTrace();
-                throw new IllegalStateException("No fue posible leer " + RUTA_FACTORY, e);
+                FACTORY_LOG.error("No fue posible leer {}", RUTA_FACTORY, e);
+                throw new IllegalStateException("No fue posible leer" + RUTA_FACTORY, e);
             } catch (ReflectiveOperationException e) {
-                //  TODO: LOGGER
+                FACTORY_LOG.error("No fue posible instanciar la clase para la clave {}", nombreObj, e);
                 throw new IllegalStateException("No fue posible instanciar la clase para clave " + nombreObj, e);
             }
         });

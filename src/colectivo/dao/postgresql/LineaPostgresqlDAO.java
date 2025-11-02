@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import colectivo.conexion.BDConexion;
 import colectivo.conexion.Factory;
 import colectivo.controlador.Constantes;
@@ -20,6 +23,7 @@ import colectivo.modelo.Linea;
 import colectivo.modelo.Parada;
 
 public class LineaPostgresqlDAO implements LineaDAO{
+    private static final Logger LINEA_DAO_LOG = LoggerFactory.getLogger("LineaDAO");
     private Map<String, Linea> lineas;
     private Connection con;
 
@@ -47,6 +51,7 @@ public class LineaPostgresqlDAO implements LineaDAO{
                 String sql = String.format("SET search_path TO '%s'", schema);
                 schemaStatement = con.createStatement();
                 schemaStatement.execute(sql);
+                LINEA_DAO_LOG.debug("Schema elegido");
 
                 frecuencias = buscarFrecuencias();
                 secuencias = buscarSecuencias();
@@ -54,6 +59,7 @@ public class LineaPostgresqlDAO implements LineaDAO{
                 sql = "SELECT codigo, nombre FROM linea";
                 selectStatement = con.prepareStatement(sql);
                 rs = selectStatement.executeQuery();
+                LINEA_DAO_LOG.debug("Consulta realizada para lineas");
 
                 while (rs.next()) {
                     String codigoLinea = rs.getString("codigo");
@@ -69,46 +75,49 @@ public class LineaPostgresqlDAO implements LineaDAO{
                     //Vincular frecuencias a la linea
                     if (frecuencias.containsKey(codigoLinea)) {
                         for (String[] detallesFrecuencia : frecuencias.get(codigoLinea)) {
+                            int diaSemana = 0;
+                            LocalTime inicioRecorrido = null;
                             try {
-                                int diaSemana = Integer.parseInt(detallesFrecuencia[0]);
-                                LocalTime inicioRecorrido = LocalTime.parse(detallesFrecuencia[1]);
+                                diaSemana = Integer.parseInt(detallesFrecuencia[0]);
+                                inicioRecorrido = LocalTime.parse(detallesFrecuencia[1]);
                                 lineaActual.agregarFrecuencia(diaSemana, inicioRecorrido);
                             }	catch (IllegalArgumentException e) {
-                                //  TODO: LOGGER
+                                LINEA_DAO_LOG.error("Frecuencia [{}, {}] invalida para linea {}", diaSemana, inicioRecorrido, codigoLinea, e);
                                 throw new IllegalStateException("Frecuencia invalida para linea: " + frecuencias.get(codigoLinea), e);
                             }
                         }
                     }	else {
-                        //  TODO: LOGGER
-                        throw new IllegalStateException("AVISO: No se encontro ninguna frecuencia para linea " + codigoLinea);
+                        LINEA_DAO_LOG.error("No se encontro ninguna frecuencia para linea {}", codigoLinea);
+                        throw new IllegalStateException("No se encontro ninguna frecuencia para linea " + codigoLinea);
                     }
 
                     lineas.put(codigoLinea, lineaActual);
                 }
 
             } catch (SQLException e) {
-                //  TODO: LOGGER
-                e.printStackTrace();
-                throw new RuntimeException(e);
+                LINEA_DAO_LOG.error("No se pudo realizar la consulta de lineas", e);
+                throw new RuntimeException("No se pudo realizar la consulta de lineas", e);
             }   finally {
                 try {
                     if (rs != null) {
                         rs.close();
+                        LINEA_DAO_LOG.debug("ResultSet de lineas cerrado");
                     }
                     if (selectStatement != null) {
                         selectStatement.close();
+                        LINEA_DAO_LOG.debug("PreparedStatement de lineas cerrado");
                     }
                     if (schemaStatement != null) {
                         schemaStatement.close();
+                        LINEA_DAO_LOG.debug("Statement de schema cerrado");
                     }
                 } catch (SQLException e) {
-                    //  TODO: LOGGER
-                    e.printStackTrace();
-                    throw new RuntimeException(e);
+                    LINEA_DAO_LOG.error("Hubo un error al cerrar los objetos de la consulta de lineas", e);
+                    throw new RuntimeException("Hubo un error al cerrar los objetos de la consulta de lineas", e);
                 }
             }
         }
-        
+        LINEA_DAO_LOG.info("Lineas cargadas");
         return lineas;
     }
 
@@ -121,6 +130,8 @@ public class LineaPostgresqlDAO implements LineaDAO{
             String sql = "SELECT linea, diasemana, hora FROM linea_frecuencia";
             selectStatement = con.prepareStatement(sql);
             rs = selectStatement.executeQuery();
+
+            LINEA_DAO_LOG.debug("Consulta realizada para frecuencias de cada linea");
 
             while (rs.next()) {
                 String codigoLinea = rs.getString("linea");
@@ -140,9 +151,8 @@ public class LineaPostgresqlDAO implements LineaDAO{
             }  
 
         } catch (SQLException e) {
-            //  TODO: LOGGER
-            e.printStackTrace();
-            throw new RuntimeException("No se pudieron ejecutar las sentencias SQL", e);
+            LINEA_DAO_LOG.error("No se pudo ejecutar la consulta para frecuencias", e);
+            throw new RuntimeException("No se pudo ejecutar la consulta para frecuencias", e);
         }   finally {
             try {
                 if (rs != null) {
@@ -152,12 +162,12 @@ public class LineaPostgresqlDAO implements LineaDAO{
                     selectStatement.close();
                 }
             } catch (SQLException e) {
-                //  TODO: LOGGER
-                e.printStackTrace();
-                throw new RuntimeException("No se pudieron cerrar los recursos de las sentencias SQL", e);
+                LINEA_DAO_LOG.error("No se pudieron cerrar los objetos de la consulta de frecuencias", e);
+                throw new RuntimeException("No se pudieron cerrar los objetos de la consulta de frecuencias", e);
             }
         }
 
+        LINEA_DAO_LOG.info("Frecuencias de las lineas cargadas");
         return frecuencias;
     }
 
@@ -171,6 +181,7 @@ public class LineaPostgresqlDAO implements LineaDAO{
             selectStatement = con.prepareStatement(sql);
             rs = selectStatement.executeQuery();
 
+            LINEA_DAO_LOG.debug("Consulta realizada para secuencia de cada linea");
             while (rs.next()) {
                 String codigoLinea = rs.getString("linea");
                 int parada = rs.getInt("parada");
@@ -186,9 +197,8 @@ public class LineaPostgresqlDAO implements LineaDAO{
             }  
 
         } catch (SQLException e) {
-            //  TODO: LOGGER
-            e.printStackTrace();
-            throw new RuntimeException("No se pudieron ejecutar las sentencias SQL", e);
+            LINEA_DAO_LOG.error("No se pudo realizar la consulta de secuencias", e);
+            throw new RuntimeException("No se pudo realizar la consulta de secuencias", e);
         }   finally {
             try {
                 if (rs != null) {
@@ -198,12 +208,11 @@ public class LineaPostgresqlDAO implements LineaDAO{
                     selectStatement.close();
                 }
             } catch (SQLException e) {
-                //  TODO: LOGGER
-                e.printStackTrace();
-                throw new RuntimeException("No se pudieron cerrar los recursos de las sentencias SQL", e);
+                LINEA_DAO_LOG.error("No se pudieron cerrar los recursos de la consulta de secuencias", e);
+                throw new RuntimeException("No se pudieron cerrar los recursos de la consulta de secuencias", e);
             }
         }
-
+        LINEA_DAO_LOG.info("Secuencias de cada linea cargadas");
         return secuencias;
     }
 }

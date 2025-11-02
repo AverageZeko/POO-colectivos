@@ -6,6 +6,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import colectivo.controlador.Constantes;
 import colectivo.dao.ParadaDAO;
 import colectivo.modelo.Parada;
@@ -23,6 +26,7 @@ import colectivo.modelo.Parada;
  *
  */
 public class ParadaSecuencialDAO implements ParadaDAO {
+    private static final Logger PARADA_DAO_LOG = LoggerFactory.getLogger("ParadaDAO");
     private String archivo;
     private Map<Integer, Parada> paradas;
 
@@ -36,8 +40,8 @@ public class ParadaSecuencialDAO implements ParadaDAO {
         Properties prop = ArchivoSecuencialDAO.leerArchivo();
         archivo = prop.getProperty(Constantes.PARADA);
 		if (archivo == null) {
-            //  TODO: LOGGER
-			throw new IllegalStateException("Error al cargar archivo de paradas en src/resource.");
+            PARADA_DAO_LOG.error("Error al cargar archivo de paradas en src/resource");
+			throw new IllegalStateException("Error al cargar archivo de paradas en src/resource");
 		}
     }
 
@@ -58,10 +62,11 @@ public class ParadaSecuencialDAO implements ParadaDAO {
             paradas = new HashMap<>();
             InputStream inputStream = ParadaSecuencialDAO.class.getClassLoader().getResourceAsStream("resources/" + archivo);
             if (inputStream == null) {
-                //  TODO: LOGGER
-                throw new IllegalStateException("No fue posible encontrar " + archivo + " en la carpeta resources del classpath.");
+                PARADA_DAO_LOG.error("No fue posible encontrar {} en la carpeta resources del classpath", archivo);
+                throw new IllegalStateException("No fue posible encontrar " + archivo + " en la carpeta resources del classpath");
             }
-            
+            PARADA_DAO_LOG.debug("Archivo de paradas cargado");
+
             try (Scanner contenidoArchivo = new Scanner(inputStream)) {
                 while (contenidoArchivo.hasNextLine()) {
                     String lineaActual = contenidoArchivo.nextLine().trim();
@@ -71,7 +76,7 @@ public class ParadaSecuencialDAO implements ParadaDAO {
 
                     String[] partesLinea = lineaActual.split(";");
                     if (partesLinea.length < 4) {
-                        //  TODO: LOGGER
+                        PARADA_DAO_LOG.error("Linea mal formateada: {}", lineaActual);
                         throw new IllegalStateException("Linea mal formateada:  " + lineaActual);
                     }
 
@@ -85,13 +90,13 @@ public class ParadaSecuencialDAO implements ParadaDAO {
                         paradas.put(codigoParada, paradaActual);
 
                     } catch (NumberFormatException e) {
-                        //  TODO: LOGGER
+                        PARADA_DAO_LOG.error("Codigo, latitud o longitud invalidas en la linea: {}", lineaActual, e);
                         throw new IllegalStateException("Codigo, latitud o longitud invalidas en la linea: " + lineaActual, e);
                     }
                 }
             }
         }
-    
+        PARADA_DAO_LOG.info("Paradas cargadas");
 		return paradas;
     }
 
