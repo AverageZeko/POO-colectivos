@@ -13,17 +13,16 @@ import colectivo.servicio.TramoServicio;
 import colectivo.servicio.TramoServicioImplementacion;
 
 /**
- * Singleton que representa la empresa de colectivos y centraliza el acceso a los datos principales.
+ * Clase que representa el sistema de colectivos de una ciudad y centraliza el acceso a los datos principales
+ * del sistema de transporte (paradas, líneas y tramos).
  *
  * <p>Esta clase gestiona las colecciones de paradas, líneas y tramos, obtenidas a través de los servicios
  * correspondientes. Proporciona métodos para consultar y acceder a estos datos de manera segura y eficiente.</p>
  *
- * <p>Utiliza el patrón Singleton para asegurar que solo exista una instancia de la empresa en toda la aplicación.
- * Los datos se cargan al inicializar la instancia y se exponen mediante métodos de consulta y acceso.</p>
+ * <p>Los datos se cargan al inicializar la instancia y se exponen mediante métodos de consulta y acceso.</p>
  *
  */
 public class EmpresaColectivos {
-    private static EmpresaColectivos empresa = null;
 	private	Map<Integer, Parada> paradas;
 	private	Map<String, Linea> lineas;
 	private	Map<String, Tramo> tramos;
@@ -32,24 +31,9 @@ public class EmpresaColectivos {
     private TramoServicio tramoServicio;
 
     /**
-     * Devuelve la instancia única de la empresa de colectivos.
-     * <p>Si la instancia no existe, la crea y carga los datos principales.</p>
-     *
-     * @return instancia única de {@link EmpresaColectivos}.
-     */
-    public static EmpresaColectivos getEmpresa() {
-        if (empresa == null) {
-            empresa = new EmpresaColectivos();
-        }
-
-        return empresa;
-    }
-
-    /**
      * Constructor privado que inicializa los servicios y carga los datos de paradas, líneas y tramos.
-     * <p>Este método se invoca solo una vez al crear la instancia Singleton.</p>
      */
-    private EmpresaColectivos() {
+    public EmpresaColectivos() {
         super();
         paradaServicio = new ParadaServicioImplementacion();
         lineaServicio = new LineaServicioImplementacion();

@@ -1,0 +1,51 @@
+<configuration>
+   <appender name="FILE_QUERY" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/consultas/query.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>log/consultas/query-%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>30</maxHistory>
+                <totalSizeCap>1GB</totalSizeCap>
+            </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm} [%C{1}] %logger %level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE_DETAILS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/debug/details.log</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>log/debug/details-%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>30</maxHistory>
+                <totalSizeCap>1GB</totalSizeCap>
+            </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm} [%thread] %logger %level - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="Consulta" level="INFO"> 
+        <appender-ref ref="FILE_QUERY" /> 
+    </logger> 
+
+    <logger name="BDConexion" level="DEBUG">
+        <appender-ref ref="FILE_DETAILS" /> 
+    </logger> 
+
+    <logger name="Factory" level="DEBUG">
+        <appender-ref ref="FILE_DETAILS" /> 
+    </logger>
+
+    <logger name="LineaDAO" level="DEBUG">
+        <appender-ref ref="FILE_DETAILS" /> 
+    </logger>
+
+    <logger name="ParadaDAO" level="DEBUG">
+        <appender-ref ref="FILE_DETAILS" /> 
+    </logger> 
+
+    <logger name="TramoDAO" level="DEBUG">
+        <appender-ref ref="FILE_DETAILS" /> 
+    </logger> 
+
+
+</configuration>

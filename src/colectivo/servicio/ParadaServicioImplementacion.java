@@ -1,13 +1,14 @@
 package colectivo.servicio;
 
 import java.util.Map;
-import colectivo.conexion.Factory;
+
 import colectivo.controlador.Constantes;
 import colectivo.dao.ParadaDAO;
 import colectivo.modelo.Parada;
+import colectivo.util.Factory;
 
 /**
- * Implementación del servicio de paradas de colectivos.
+ * Implementación del servicio {@link ParadaServicio} para las paradas de colectivos.
  * <p>Esta clase actúa como intermediario entre la lógica de negocio y el acceso a los datos
  * de paradas, utilizando el patrón DAO y la factoría para obtener la instancia correspondiente.</p>
  *
@@ -19,7 +20,7 @@ public class ParadaServicioImplementacion implements ParadaServicio {
 
     /**
      * Constructor que inicializa la instancia de ParadaDAO con una referencia al objeto que es devuelto por
-     * {@link colectivo.conexion.Factory#getInstancia(String)}
+     * {@link colectivo.util.Factory#getInstancia(String)}
      *
      * <p>Obtiene la instancia de {@link ParadaDAO} configurada en el sistema.</p>
      */

@@ -1,13 +1,14 @@
 package colectivo.servicio;
 
 import java.util.Map;
-import colectivo.conexion.Factory;
+
 import colectivo.controlador.Constantes;
 import colectivo.dao.TramoDAO;
 import colectivo.modelo.Tramo;
+import colectivo.util.Factory;
 
 /**
- * Implementación del servicio de tramos de colectivos.
+ * Implementación del servicio {@link TramoServicio} para los tramos de colectivos.
  * <p>Esta clase actúa como intermediario entre la lógica de negocio y el acceso a los datos
  * de tramos, utilizando el patrón DAO y la factoría para obtener la instancia correspondiente.</p>
  *
@@ -18,7 +19,7 @@ public class TramoServicioImplementacion implements TramoServicio {
 
     /**
      * Constructor que inicializa la instancia de TramoDAO con una referencia al objeto que es devuelto por
-     * {@link colectivo.conexion.Factory#getInstancia(String)}
+     * {@link colectivo.util.Factory#getInstancia(String)}
      *
      * <p>Obtiene la instancia de {@link TramoDAO} configurada en el sistema.</p>
      */

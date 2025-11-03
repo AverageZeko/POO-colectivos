@@ -6,12 +6,15 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Scanner;
 
-import colectivo.conexion.Factory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import colectivo.controlador.Constantes;
 import colectivo.dao.ParadaDAO;
 import colectivo.dao.TramoDAO;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Tramo;
+import colectivo.util.Factory;
 
 /**
  * DAO secuencial para la gestión y carga de tramos de colectivos desde archivos planos.
@@ -26,6 +29,7 @@ import colectivo.modelo.Tramo;
  * 
  */
 public class TramoSecuencialDAO implements TramoDAO {
+    private static final Logger TRAMO_DAO_LOG = LoggerFactory.getLogger("TramoDAO");
     private String archivo;
     private Map<String, Tramo> tramos;
 
@@ -40,7 +44,8 @@ public class TramoSecuencialDAO implements TramoDAO {
         Properties prop = ArchivoSecuencialDAO.leerArchivo();
         archivo = prop.getProperty(Constantes.TRAMO);
 		if (archivo == null) {
-			throw new IllegalStateException("Error al cargar archivo de tramos en src/resource.");
+            TRAMO_DAO_LOG.error("Error al cargar archivo de tramos en src/resource");
+			throw new IllegalStateException("Error al cargar archivo de tramos en src/resource");
 		}
     }
 
@@ -62,8 +67,10 @@ public class TramoSecuencialDAO implements TramoDAO {
             Map<Integer, Parada> paradas = paradaDAO.buscarTodos();
             InputStream inputStream = TramoSecuencialDAO.class.getClassLoader().getResourceAsStream("resources/" + archivo);
             if (inputStream == null) {
-                throw new IllegalStateException("No fue posible encontrar " + archivo + " en la carpeta resources del classpath.");
+                TRAMO_DAO_LOG.error("No fue posible encontrar {} en la carpeta resources del classpath", archivo);
+                throw new IllegalStateException("No fue posible encontrar " + archivo + " en la carpeta resources del classpath");
             }
+            TRAMO_DAO_LOG.debug("Archivo de tramos cargado");
 
             try (Scanner contenidoArchivo = new Scanner(inputStream)) {
                 while (contenidoArchivo.hasNextLine()) {
@@ -74,6 +81,7 @@ public class TramoSecuencialDAO implements TramoDAO {
 
                     String[] partesLinea = lineaActual.split(";");
                     if (partesLinea.length < 4) {
+                        TRAMO_DAO_LOG.error("Linea mal formateada: {}", lineaActual);
                         throw new IllegalStateException("Linea mal formateada:  " + lineaActual);
                     }
 
@@ -82,11 +90,13 @@ public class TramoSecuencialDAO implements TramoDAO {
                         int paradaFinal = Integer.parseInt(partesLinea[1].trim());
 
                         if (!paradas.containsKey(paradaInicio)) {
-                            throw new IllegalStateException("AVISO: Parada inicial no fue encontrada " + paradaInicio);
+                            TRAMO_DAO_LOG.error("Parada inicial no fue encontrada {}", paradaInicio);
+                            throw new IllegalStateException("Parada inicial no fue encontrada " + paradaInicio);
                         }
 
                         if (!paradas.containsKey(paradaFinal)) {
-                            throw new IllegalStateException("AVISO: Parada final no fue encontrada " + paradaFinal);
+                            TRAMO_DAO_LOG.error("Parada final no fue encontrada {}", paradaFinal);
+                            throw new IllegalStateException("Parada final no fue encontrada " + paradaFinal);
                         }
 
 
@@ -102,11 +112,13 @@ public class TramoSecuencialDAO implements TramoDAO {
                         tramos.put(tramoKey, tramoActual);
 
                     } catch (NumberFormatException e) {
+                        TRAMO_DAO_LOG.error("index de parada inicial/final o tiempo invalidos en la linea: {}", lineaActual, e);
                         throw new IllegalStateException("index de parada inicial/final o tiempo invalidos en la linea: " + lineaActual, e);
                     }
                 }
             }
         }
+        TRAMO_DAO_LOG.info("Tramos cargados");
         return tramos;
     }
 

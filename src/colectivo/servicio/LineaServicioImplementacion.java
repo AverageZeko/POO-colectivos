@@ -1,13 +1,14 @@
 package colectivo.servicio;
 
 import java.util.Map;
-import colectivo.conexion.Factory;
+
 import colectivo.controlador.Constantes;
 import colectivo.dao.LineaDAO;
 import colectivo.modelo.Linea;
+import colectivo.util.Factory;
 
 /**
- * Implementación del servicio de líneas de colectivos.
+ * Implementación del servicio {@link LineaServicio} para las líneas de colectivos.
  *
  * <p>Esta clase actúa como intermediario entre la lógica de negocio y el acceso a los datos
  * de líneas, utilizando el patrón DAO y Factory para obtener la instancia correspondiente.</p>
@@ -19,7 +20,7 @@ public class LineaServicioImplementacion implements LineaServicio {
 
     /**
      * Constructor que inicializa la instancia de LineaDAO con una referencia al objeto que es devuelto por
-     * {@link colectivo.conexion.Factory#getInstancia(String)}
+     * {@link colectivo.util.Factory#getInstancia(String)}
      *
      * <p>Obtiene la instancia de {@link LineaDAO} configurada en el sistema.</p>
      */

@@ -13,7 +13,6 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import colectivo.conexion.Factory;
 import colectivo.dao.LineaDAO;
 import colectivo.dao.ParadaDAO;
 import colectivo.dao.TramoDAO;
@@ -22,6 +21,7 @@ import colectivo.modelo.Linea;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
 import colectivo.modelo.Tramo;
+import colectivo.util.Factory;
 
 class TestCalcularRecorridoDAO {
 
