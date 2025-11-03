@@ -5,6 +5,7 @@ import colectivo.logica.EmpresaColectivos;
 import colectivo.servicio.SchemaServicio;
 import colectivo.servicio.SchemaServicioImplementacion;
 import colectivo.dao.postgresql.SchemaPostgresqlDAO;
+import colectivo.configuracion.Localizacion;
 import colectivo.interfaz.Interfaz;
 import colectivo.interfaz.Mostrable;
 
@@ -20,6 +21,7 @@ public class AplicacionConsultas {
 	private Mostrable interfaz;
 	private Calculo calculo;
 	private SchemaServicio schema;
+	private Localizacion localizacion;
 
 	public static void main(String[] args) {
 		AplicacionConsultas aplicacion = new AplicacionConsultas();
@@ -36,8 +38,12 @@ public class AplicacionConsultas {
 		schema = new SchemaServicioImplementacion();
 
 		controlador.setSchemaServicio(schema);
+		localizacion = new Localizacion();
+
+		controlador.setEmpresa(empresa);
 		controlador.setInterfaz(interfaz);
 		controlador.setCalculo(calculo);
+		controlador.setLocalizacion(localizacion);
 		interfaz.setCoordinador(controlador);
 		controlador.setCiudadActual(SchemaPostgresqlDAO.getSchema());	// ELIMINAR DESPUES
 

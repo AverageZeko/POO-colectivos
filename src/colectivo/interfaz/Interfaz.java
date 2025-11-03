@@ -28,6 +28,10 @@ import colectivo.modelo.Recorrido;
 import colectivo.util.Tiempo;
 import javafx.scene.paint.Color;
 
+import java.net.URL; // <-- AÑADIDO
+import javafx.scene.web.WebEngine; // <-- AÑADIDO
+import javafx.scene.web.WebView; // <-- AÑADIDO
+
 /**
  * Clase principal de la interfaz de usuario para la aplicación de consulta de colectivos.
  * Gestiona la ventana, la entrada del usuario y la visualización de resultados.
@@ -125,12 +129,18 @@ public class Interfaz extends Application implements Mostrable {
         Button botonCalcular = new Button("Calcular");
         botonCalcular.setOnAction(event -> manejarCalculo());
 
+        // --- BOTÓN NUEVO PARA EL MAPA --- // <-- AÑADIDO
+        Button botonVerMapa = new Button("Ver Mapa");
+        botonVerMapa.setOnAction(e -> abrirVentanaMapa());
+        // --------------------------------- // <-- AÑADIDO
+
         panelIzquierdo.getChildren().addAll(
             etiquetaOrigen, campoOrigen,
             etiquetaDestino, campoDestino,
             etiquetaHora, campoHora,
             etiquetaDia, cajaDias,
             botonCalcular,
+            botonVerMapa, // <-- AÑADIDO
             etiquetaAdvertencia
         );
 
@@ -185,6 +195,42 @@ public class Interfaz extends Application implements Mostrable {
         
         escenarioPrincipal.show();
     }
+    
+    // ----------------------------------------------------------------- // <-- AÑADIDO
+    // --- MÉTODO NUEVO PARA MOSTRAR EL MAPA EN UNA VENTANA SEPARADA --- // <-- AÑADIDO
+    // ----------------------------------------------------------------- // <-- AÑADIDO
+    private void abrirVentanaMapa() {
+        Stage ventanaMapa = new Stage(); 
+        ventanaMapa.setTitle("Visor de Mapa");
+
+        final WebView webView = new WebView();
+        final WebEngine webEngine = webView.getEngine();
+
+        // Intenta buscar primero en 'src/resources/'
+        URL url = getClass().getResource("/resources/cargar_mapa.html"); 
+        
+        if (url == null) {
+            // Si falla, intenta buscar en la raíz de 'src/'
+            System.out.println("No se encontró en /resources/, intentando en /");
+            url = getClass().getResource("/cargar_mapa.html");
+        }
+
+        if (url == null) {
+            // Si ambos fallan, muestra el error
+            System.err.println("No se pudo encontrar cargar_mapa.html. Asegúrate de que esté en 'src' o 'src/resources'.");
+            System.err.println("Recuerda hacer 'Refresh' (F5) o 'Project > Clean...' en Eclipse.");
+            webEngine.loadContent("<h1>Error: No se pudo cargar el mapa.</h1> <p>Asegúrate de que 'cargar_mapa.html' esté en tu carpeta 'src' o 'src/resources' y refresca el proyecto en Eclipse (F5).</p>");
+        } else {
+            webEngine.load(url.toExternalForm());
+        }
+
+        VBox vBox = new VBox(webView);
+        Scene scene = new Scene(vBox, 960, 600); 
+
+        ventanaMapa.setScene(scene);
+        ventanaMapa.show(); 
+    } // <-- AÑADIDO
+    
     
     /**
      * Cambia el tamaño de la fuente base de la aplicación.
@@ -325,7 +371,7 @@ public class Interfaz extends Application implements Mostrable {
         
         // Aviso de trasbordos si hay más de un tramo
         if (recorridoCompleto.size() > 1) {
-            Label avisoTrasbordo = new Label("⚠ Este recorrido incluye trasbordos: " + (recorridoCompleto.size() - 1) + " transbordo(s).");
+            Label avisoTrasbordo = new Label("⚠ Este recorrido incluye conexiones.");
             avisoTrasbordo.setTextFill(Color.DARKRED);
             avisoTrasbordo.setStyle("-fx-font-weight: bold;");
             panelDerechoContenido.getChildren().add(avisoTrasbordo);
@@ -336,43 +382,51 @@ public class Interfaz extends Application implements Mostrable {
 
         for (int t = 0; t < recorridoCompleto.size(); t++) {
             Recorrido r = recorridoCompleto.get(t);
-
-            LocalTime horaSalida = r.getHoraSalida();
-            long esperaSeg = 0;
-            if (horaSalida.isAfter(horaLlegaActual)) {
-                esperaSeg = Duration.between(horaLlegaActual, horaSalida).getSeconds();
-            }
-            int viajeSeg = r.getDuracion();
-            long totalSeg = esperaSeg + viajeSeg;
-            LocalTime horaLlegadaTramo = horaSalida.plusSeconds(viajeSeg);
+            VBox tramoBox = new VBox(5);
+            tramoBox.setPadding(new Insets(5, 0, 15, 10));
 
             // Origen y destino del tramo
             List<Parada> paradasTramo = r.getParadas();
             Parada tramoOrigen = paradasTramo.get(0);
             Parada tramoDestino = paradasTramo.get(paradasTramo.size() - 1);
+            int viajeSeg = r.getDuracion();
+            LocalTime horaSalida = r.getHoraSalida();
+            LocalTime horaLlegadaTramo = horaSalida.plusSeconds(viajeSeg);
+            
+            if (r.getLinea() != null) { // Es un tramo en colectivo
+                tramoBox.setStyle("-fx-border-color: lightblue; -fx-border-width: 0 0 1 0;");
+                long esperaSeg = Duration.between(horaLlegaActual, horaSalida).getSeconds();
+                if (esperaSeg < 0) esperaSeg = 0; // Puede pasar si hay un pequeño desfase, no mostrar espera negativa.
 
-            VBox tramoBox = new VBox(5);
-            tramoBox.setPadding(new Insets(5, 0, 15, 10));
-            tramoBox.setStyle("-fx-border-color: lightblue; -fx-border-width: 0 0 1 0;");
+                tramoBox.getChildren().add(new Label("Tramo " + (t + 1) + " - Línea: " + r.getLinea().getCodigo()));
+                tramoBox.getChildren().add(new Label("  Desde: " + tramoOrigen.getDireccion()));
+                tramoBox.getChildren().add(new Label("  Hasta: " + tramoDestino.getDireccion()));
+                tramoBox.getChildren().add(new Label("  Hora llegada a parada: " + horaLlegaActual));
+                tramoBox.getChildren().add(new Label("  Hora salida colectivo: " + horaSalida));
+                tramoBox.getChildren().add(new Label("  Tiempo de espera: " + Tiempo.segundosATiempo((int) esperaSeg)));
+                tramoBox.getChildren().add(new Label("  Tiempo de viaje: " + Tiempo.segundosATiempo(viajeSeg)));
+                tramoBox.getChildren().add(new Label("  Hora de llegada: " + horaLlegadaTramo));
 
-            tramoBox.getChildren().add(new Label("Tramo " + (t + 1) + " - Línea: " + r.getLinea().getCodigo()));
-            tramoBox.getChildren().add(new Label("  Origen tramo: " + tramoOrigen.getDireccion()));
-            tramoBox.getChildren().add(new Label("  Destino tramo: " + tramoDestino.getDireccion()));
-            tramoBox.getChildren().add(new Label("  Hora llegada usuario a origen: " + horaLlegaActual));
-            tramoBox.getChildren().add(new Label("  Hora salida colectivo: " + horaSalida));
-            tramoBox.getChildren().add(new Label("  Tiempo de espera: " + Tiempo.segundosATiempo((int) esperaSeg)));
-            tramoBox.getChildren().add(new Label("  Tiempo de viaje: " + Tiempo.segundosATiempo(viajeSeg)));
-            tramoBox.getChildren().add(new Label("  Duración total: " + Tiempo.segundosATiempo((int) totalSeg)));
-            tramoBox.getChildren().add(new Label("  Hora de llegada destino: " + horaLlegadaTramo));
-
-            // Paradas intermedias
-            tramoBox.getChildren().add(new Label("  Paradas:"));
-            VBox stopsBox = new VBox(2);
-            stopsBox.setPadding(new Insets(0, 0, 0, 35));
-            for (int j = 0; j < paradasTramo.size() - 1; j++) {
-                stopsBox.getChildren().add(new Label(paradasTramo.get(j).getDireccion() + " -> " + paradasTramo.get(j + 1).getDireccion()));
+                // Paradas intermedias
+                if (paradasTramo.size() > 2) {
+                    tramoBox.getChildren().add(new Label("  Paradas intermedias:"));
+                    VBox stopsBox = new VBox(2);
+                    stopsBox.setPadding(new Insets(0, 0, 0, 35));
+                    for (int j = 1; j < paradasTramo.size() - 1; j++) {
+                        stopsBox.getChildren().add(new Label(paradasTramo.get(j).getDireccion()));
+                    }
+                    tramoBox.getChildren().add(stopsBox);
+                }
+            } else { // Es un tramo caminando
+                tramoBox.setStyle("-fx-border-color: lightgreen; -fx-border-width: 0 0 1 0; -fx-background-color: #f0fff0;");
+                tramoBox.getChildren().add(new Label("Tramo " + (t + 1) + " - Caminando 🚶"));
+                tramoBox.getChildren().add(new Label("  Desde: " + tramoOrigen.getDireccion()));
+                tramoBox.getChildren().add(new Label("  Hasta: " + tramoDestino.getDireccion()));
+                tramoBox.getChildren().add(new Label("  Inicia caminata a las: " + horaSalida));
+                tramoBox.getChildren().add(new Label("  Duración de la caminata: " + Tiempo.segundosATiempo(viajeSeg)));
+                tramoBox.getChildren().add(new Label("  Llegas a la siguiente parada a las: " + horaLlegadaTramo));
             }
-            tramoBox.getChildren().add(stopsBox);
+            
             panelDerechoContenido.getChildren().add(tramoBox);
 
             // Actualizar hora de llegada para el próximo tramo
@@ -405,6 +459,7 @@ public class Interfaz extends Application implements Mostrable {
      */
     @Override
     public void lanzarAplicacion(String[] args) {
+    	System.setProperty("prism.order", "sw");
         Application.launch(Interfaz.class, args);
     }
 }

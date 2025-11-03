@@ -8,6 +8,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import colectivo.configuracion.Localizacion;
 import colectivo.interfaz.Mostrable;
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
@@ -31,6 +32,7 @@ public class Coordinador {
     private SchemaServicio schemaServicio;
     private Mostrable interfaz;
     private Calculo calculo;
+    private Localizacion localizacion;
     
     public Coordinador() {
         ciudades = new HashMap<>();
@@ -46,6 +48,10 @@ public class Coordinador {
 
     public void setCalculo(Calculo calculo) {
     	this.calculo = calculo;
+    }
+
+    public void setLocalizacion(Localizacion localizacion) {
+        this.localizacion = localizacion;
     }
 
     public Parada getParada(int paradaId) {
@@ -65,6 +71,16 @@ public class Coordinador {
         }
         ciudadActual = ciudad;
         QUERY_LOG.info("Usuario cambia de ciudad a {}", nuevaCiudad);
+    public void setIdioma(String idioma) {
+        localizacion.setIdioma(idioma);
+    }
+
+    public String getPalabra(String llave) {
+        return localizacion.getPalabra(llave);
+    }
+
+    public String getRutaFoto() {
+        return localizacion.getRutaFoto();
     }
 
     public void consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
