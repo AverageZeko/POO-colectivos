@@ -71,6 +71,8 @@ public class Coordinador {
         }
         ciudadActual = ciudad;
         QUERY_LOG.info("Usuario cambia de ciudad a {}", nuevaCiudad);
+    }
+    
     public void setIdioma(String idioma) {
         localizacion.setIdioma(idioma);
     }

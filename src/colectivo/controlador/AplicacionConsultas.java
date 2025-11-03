@@ -1,7 +1,6 @@
 package colectivo.controlador;
 
 import colectivo.logica.Calculo;
-import colectivo.logica.EmpresaColectivos;
 import colectivo.servicio.SchemaServicio;
 import colectivo.servicio.SchemaServicioImplementacion;
 import colectivo.dao.postgresql.SchemaPostgresqlDAO;
@@ -36,11 +35,9 @@ public class AplicacionConsultas {
 		interfaz = new Interfaz();
 		calculo = new Calculo();
 		schema = new SchemaServicioImplementacion();
-
-		controlador.setSchemaServicio(schema);
 		localizacion = new Localizacion();
 
-		controlador.setEmpresa(empresa);
+		controlador.setSchemaServicio(schema);
 		controlador.setInterfaz(interfaz);
 		controlador.setCalculo(calculo);
 		controlador.setLocalizacion(localizacion);
