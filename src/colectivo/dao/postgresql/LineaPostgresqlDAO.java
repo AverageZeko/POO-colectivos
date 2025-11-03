@@ -15,13 +15,40 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import colectivo.conexion.BDConexion;
-import colectivo.conexion.Factory;
 import colectivo.controlador.Constantes;
 import colectivo.dao.LineaDAO;
 import colectivo.dao.ParadaDAO;
 import colectivo.modelo.Linea;
 import colectivo.modelo.Parada;
+import colectivo.util.Factory;
 
+
+    /**
+     * Implementación de {@link LineaDAO} que obtiene las líneas de colectivos desde una base de datos PostgreSQL.
+     *
+     * <p>Esta clase se encarga de leer los datos de líneas desde una base de datos
+     * PostgreSQL utilizando el esquema configurado en {@link SchemaPostgresqlDAO}. Las líneas se cargan
+     * una sola vez y se almacenan en memoria para optimizar el acceso en consultas posteriores.</p>
+     *
+     * <p>Cada línea se construye a partir de tres consultas SQL independientes:</p>
+     * <ol>
+     *   <li><b>Líneas principales:</b> consulta {@code linea} para obtener código y nombre.</li>
+     *   <li><b>Secuencias de paradas:</b> consulta {@code linea_parada} para obtener la secuencia ordenada
+     *       de paradas que componen la ruta de cada línea.</li>
+     *   <li><b>Frecuencias:</b> consulta {@code linea_frecuencia} para obtener los horarios de salida de cada línea.</li>
+     * </ol>
+     *
+     * <p>La conexión a la base de datos se obtiene mediante {@link BDConexion} y se reutiliza entre
+     * las diferentes consultas (líneas, frecuencias y secuencias). El esquema activo se establece
+     * dinámicamente usando {@code SET search_path TO 'esquema'} antes de ejecutar las consultas.</p>
+     *
+     * @see LineaDAO
+     * @see Linea
+     * @see ParadaDAO
+     * @see BDConexion
+     * @see SchemaPostgresqlDAO
+     * @see Factory
+     */
 public class LineaPostgresqlDAO implements LineaDAO{
     private static final Logger LINEA_DAO_LOG = LoggerFactory.getLogger("LineaDAO");
     private Map<String, Linea> lineas;
@@ -30,6 +57,35 @@ public class LineaPostgresqlDAO implements LineaDAO{
     public LineaPostgresqlDAO() {
     }
 
+
+    /**
+     * Carga y devuelve todas las líneas de colectivos desde la base de datos PostgreSQL.
+     *
+     * <p>Si las líneas ya fueron cargadas previamente, devuelve el mapa almacenado en memoria.
+     * En caso contrario, realiza las siguientes operaciones:</p>
+     * <ol>
+     *   <li>Obtiene todas las paradas mediante {@link ParadaDAO}.</li>
+     *   <li>Obtiene una conexión a la base de datos mediante {@link BDConexion#getConnection()}.</li>
+     *   <li>Establece el esquema activo usando {@code SET search_path TO 'esquema'}.</li>
+     *   <li>Llama {@link #buscarFrecuencias()} para cargar todas las frecuencias de las líneas.</li>
+     *   <li>Llama {@link #buscarSecuencias()} para cargar las secuencias de paradas de cada línea.</li>
+     *   <li>Ejecuta una consulta SELECT para obtener todas las líneas (código y nombre).</li>
+     *   <li>Para cada línea:
+     *     <ul>
+     *       <li>Vincula la secuencia de paradas obtenida previamente.</li>
+     *       <li>Valida y vincula las frecuencias. Si no hay frecuencias o tienen formato inválido,
+     *           lanza {@link IllegalStateException}.</li>
+     *       <li>Almacena la línea completa en el mapa indexado por código.</li>
+     *     </ul>
+     *   </li>
+     *   <li>Cierra los recursos usados en la consulta en el bloque finally.</li>
+     * </ol>
+     *
+     * @return un {@link Map} con las líneas indexadas por código de línea. Nunca devuelve {@code null}.
+     * @throws IllegalStateException si una línea no tiene frecuencias configuradas o si una frecuencia
+     *                               tiene formato inválido (día de semana o hora mal formateados).
+     * @throws RuntimeException      si ocurre un error SQL durante la consulta o al cerrar los recursos.
+     */
     @Override
     public Map<String, Linea> buscarTodos() {
         if (lineas == null) {
@@ -121,6 +177,20 @@ public class LineaPostgresqlDAO implements LineaDAO{
         return lineas;
     }
 
+
+    /**
+     * Carga las frecuencias de todas las líneas desde la tabla {@code linea_frecuencia}.
+     *
+     * <p>Este método auxiliar es invocado por {@link #buscarTodos()} y utiliza la conexión
+     * almacenada en {@link #con}. Devuelve un mapa donde la clave es el código de línea y el
+     * valor es una lista de arreglos de cadenas con los detalles de frecuencia (día de la semana
+     * y hora de salida).</p>
+     *
+     * @return un {@link Map} con las frecuencias agrupadas por código de línea. Cada entrada contiene
+     *         una lista de arreglos donde el primer elemento es el día de la semana y
+     *         el siguiente elemento es la hora en formato {@code HH:mm}.
+     * @throws RuntimeException si ocurre un error SQL durante la consulta o al cerrar los recursos.
+     */
     private Map<String, List<String[]>> buscarFrecuencias() {
         Map<String, List<String[]>> frecuencias = new HashMap<>();
 
@@ -171,6 +241,22 @@ public class LineaPostgresqlDAO implements LineaDAO{
         return frecuencias;
     }
 
+
+    /**
+     * Carga las secuencias de paradas de todas las líneas desde la tabla {@code linea_parada}.
+     *
+     * <p>Este método auxiliar es invocado por {@link #buscarTodos()} y utiliza la conexión
+     * almacenada en {@link #con}. Devuelve un mapa donde la clave es el código de línea y el
+     * valor es una lista ordenada de códigos de paradas que componen la ruta de esa línea.</p>
+     *
+     * <p>La consulta ordena los resultados por {@code linea} y {@code secuencia} para asegurar
+     * que las paradas se cargan en el orden correcto.</p>
+     *
+     * @return un {@link Map} con las secuencias de paradas agrupadas por código de línea. Cada entrada
+     *         contiene una lista ordenada de códigos de parada ({@code Integer}) que representan la
+     *         ruta de la línea.
+     * @throws RuntimeException si ocurre un error SQL durante la consulta o al cerrar los recursos.
+     */
     private Map<String, List<Integer>> buscarSecuencias() {
         Map<String, List<Integer>> secuencias = new HashMap<>();
 

@@ -9,12 +9,12 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import colectivo.conexion.Factory;
 import colectivo.controlador.Constantes;
 import colectivo.dao.ParadaDAO;
 import colectivo.dao.TramoDAO;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Tramo;
+import colectivo.util.Factory;
 
 /**
  * DAO secuencial para la gestión y carga de tramos de colectivos desde archivos planos.

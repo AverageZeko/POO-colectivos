@@ -15,6 +15,23 @@ import colectivo.conexion.BDConexion;
 import colectivo.dao.ParadaDAO;
 import colectivo.modelo.Parada;
 
+/**
+ * Implementación de {@link ParadaDAO} que obtiene las paradas desde una base de datos PostgreSQL.
+ *
+ * <p>Esta clase se encarga de leer los datos de paradas desde una base de datos PostgreSQL
+ * utilizando el esquema configurado en {@link SchemaPostgresqlDAO}. Las paradas se cargan
+ * una sola vez y se almacenan en memoria para optimizar el acceso en consultas
+ * posteriores.</p>
+ *
+ * <p>La conexión a la base de datos se obtiene mediante {@link BDConexion} y el esquema activo
+ * se establece dinámicamente usando {@code SET search_path TO 'esquema'} antes de ejecutar
+ * las consultas.</p>
+ *
+ * @see ParadaDAO
+ * @see Parada
+ * @see BDConexion
+ * @see SchemaPostgresqlDAO
+ */
 public class ParadaPostgresqlDAO implements ParadaDAO {
     private static final Logger PARADA_DAO_LOG = LoggerFactory.getLogger("ParadaDAO");
     private Map<Integer, Parada> paradas;
@@ -22,6 +39,25 @@ public class ParadaPostgresqlDAO implements ParadaDAO {
     public ParadaPostgresqlDAO() {
     }
 
+
+    /**
+     * Carga y devuelve todas las paradas desde la base de datos PostgreSQL.
+     *
+     * <p>Si las paradas ya fueron cargadas previamente, devuelve el mapa almacenado en memoria.
+     * En caso contrario, realiza las siguientes operaciones:</p>
+     * <ol>
+     *   <li>Obtiene una conexión a la base de datos mediante {@link BDConexion#getConnection()}.</li>
+     *   <li>Establece el esquema activo usando {@code SET search_path TO 'esquema'}.</li>
+     *   <li>Ejecuta una consulta SELECT para obtener todas las paradas (código, dirección,
+     *       latitud, longitud).</li>
+     *   <li>Construye objetos {@link Parada} y los almacena en un mapa indexado por código.</li>
+     *   <li>Cierra los recursos utilizados para la consulta en el bloque finally.</li>
+     * </ol>
+     *
+     * @return un {@link Map} con las paradas indexadas por código. Nunca devuelve {@code null}.
+     * @throws RuntimeException si ocurre un error SQL durante la consulta o al cerrar los recursos.
+     *                          La excepción original ({@link SQLException}) se incluye como causa.
+     */
     @Override
     public Map<Integer, Parada> buscarTodos() {
         if (paradas == null) {

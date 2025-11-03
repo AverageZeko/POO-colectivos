@@ -13,13 +13,13 @@ import colectivo.servicio.TramoServicio;
 import colectivo.servicio.TramoServicioImplementacion;
 
 /**
- * Singleton que representa la empresa de colectivos y centraliza el acceso a los datos principales.
+ * Clase que representa el sistema de colectivos de una ciudad y centraliza el acceso a los datos principales
+ * del sistema de transporte (paradas, líneas y tramos).
  *
  * <p>Esta clase gestiona las colecciones de paradas, líneas y tramos, obtenidas a través de los servicios
  * correspondientes. Proporciona métodos para consultar y acceder a estos datos de manera segura y eficiente.</p>
  *
- * <p>Utiliza el patrón Singleton para asegurar que solo exista una instancia de la empresa en toda la aplicación.
- * Los datos se cargan al inicializar la instancia y se exponen mediante métodos de consulta y acceso.</p>
+ * <p>Los datos se cargan al inicializar la instancia y se exponen mediante métodos de consulta y acceso.</p>
  *
  */
 public class EmpresaColectivos {
@@ -32,7 +32,6 @@ public class EmpresaColectivos {
 
     /**
      * Constructor privado que inicializa los servicios y carga los datos de paradas, líneas y tramos.
-     * <p>Este método se invoca solo una vez al crear la instancia Singleton.</p>
      */
     public EmpresaColectivos() {
         super();

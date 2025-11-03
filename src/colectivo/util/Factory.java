@@ -1,4 +1,4 @@
-package colectivo.conexion;
+package colectivo.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +23,6 @@ public class Factory {
     private static final Logger FACTORY_LOG = LoggerFactory.getLogger(Factory.class);
     private static ConcurrentHashMap <String, Object> instancias = new ConcurrentHashMap<>();
     private static final String RUTA_FACTORY = "resources/factory.properties";
-
 
     /**
      * Devuelve (y si es necesario crea) la instancia asociada a la clave dada. Mediante el uso de {@code computeIfAbsent} y una expresion Lambda
@@ -67,9 +66,9 @@ public class Factory {
                         throw new IllegalStateException("No fue posible encontrar la propiedad para " + nombreObj);
                     }
                     Class<?> cls = Class.forName(direccionClase);
-                    Object instancia = cls.getDeclaredConstructor().newInstance();
+                    Object objeto = cls.getDeclaredConstructor().newInstance();
                     FACTORY_LOG.info("Creada instancia de {}", nombreObj);
-                    return instancia;
+                    return objeto;
             } catch (IOException e) {
                 FACTORY_LOG.error("No fue posible leer {}", RUTA_FACTORY, e);
                 throw new IllegalStateException("No fue posible leer" + RUTA_FACTORY, e);

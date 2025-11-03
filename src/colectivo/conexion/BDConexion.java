@@ -9,11 +9,41 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
+/**
+ * Clase singleton para la gestión de conexiones a la base de datos PostgreSQL.
+ *
+ * <p>Esta clase proporciona una única conexión compartida a la base de datos durante
+ * la ejecución de la aplicación. La conexión se inicializa unicamente cuando
+ * se solicita por primera vez y se cierra automáticamente al finalizar el programa
+ * mediante un shutdown hook registrado en la JVM.</p>
+ *
+ * <p>La configuración de la conexión (driver, URL, usuario y contraseña) se lee desde
+ * el archivo {@code postgresql.properties} ubicado en el classpath bajo la carpeta
+ * {@code resources}. Si el archivo no se encuentra o hay errores de configuración,
+ * se lanzan excepciones {@link IllegalStateException} o {@link RuntimeException}.</p>
+ */
 public class BDConexion {
     private static final Logger BD_LOG = LoggerFactory.getLogger(BDConexion.class);
     private static final String RUTA_BD = "resources/postgresql.properties";
     private static Connection conexion = null;
 
+    /**
+     * Obtiene la conexión única a la base de datos PostgreSQL.
+     *
+     * <p>Si la conexión no existe, este método la crea leyendo la configuración desde
+     * {@code postgresql.properties} (driver, URL, usuario y contraseña), registra un
+     * shutdown hook para cerrarla al finalizar el programa, y establece la conexión
+     * mediante {@link DriverManager}.</p>
+     *
+     * <p>Si la conexión ya existe, devuelve la instancia previamente creada.</p>
+     *
+     * @return la conexión activa a la base de datos.
+     * @throws IllegalStateException si el archivo {@code postgresql.properties} no se encuentra
+     *                               en el classpath o si ocurre un error al cargarlo.
+     * @throws RuntimeException      si ocurre cualquier error al crear la conexión (por ejemplo,
+     *                               driver no encontrado, credenciales inválidas, URL incorrecta).
+     */
     public static Connection getConnection() {
             try {
                 if (conexion == null) {
@@ -31,7 +61,6 @@ public class BDConexion {
                         throw new IllegalStateException("Error al cargar postgresql.properties", e);
                     }
                     
-                    // con esto determinamos cuando finalize el programa
                     Runtime.getRuntime().addShutdownHook(new MiShDwnHook());
                     String driver = prop.getProperty("driver");
                     String url = prop.getProperty("url");
@@ -51,9 +80,24 @@ public class BDConexion {
             }
         }
 
+
+    /**
+     * Thread que se ejecuta automáticamente al finalizar la JVM.
+     *
+     * <p>Esta clase interna se registra como shutdown hook en el método {@link #getConnection()}
+     * para garantizar que la conexión a la base de datos se cierre adecuadamente antes de que
+     * la aplicación termine, liberando recursos y evitando conexiones indeseadas.</p>
+     *
+     * @see Runtime#addShutdownHook(Thread)
+     */
     public static class MiShDwnHook extends Thread {
-        // justo antes de finalizar el programa la JVM invocara
-        // a este metodo donde podemos cerrar la conexion
+
+        /**
+         * Ejecuta el cierre de la conexión a la base de datos.
+         *
+         * <p>Este método se invoca automáticamente por la JVM justo antes de finalizar el programa.
+         * Intenta cerrar la conexión si existe y registra el resultado.</p>
+         */
         public void run() {
             Connection con = conexion;
             if (con != null) {

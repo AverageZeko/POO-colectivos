@@ -18,9 +18,10 @@ import colectivo.servicio.SchemaServicio;
 /**
  * Controlador principal que coordina la interacción entre la interfaz de usuario y la lógica de negocio.
  *
- * <p>Esta clase utiliza el patron de diseño MVC para gestionar los datos de la consulta de recorridos, incluyendo la empresa, paradas de origen y destino,
- * día de la semana y hora de llegada. Permite realizar consultas de recorridos y mostrar los resultados
- * utilizando la interfaz definida.</p>
+ * <p>Esta clase utiliza el patron de diseño MVC para gestionar los datos de la consulta de recorridos,
+ *  incluyendo las ciudades y sus datos, día de la semana y hora de llegada. 
+ *  Permite realizar consultas de recorridos y mostrar los resultados.
+ *  Asi como la posibilidad de cambiar de ciudad y de idioma de la interfaz</p>
  *
  */
 public class Coordinador {
@@ -71,7 +72,6 @@ public class Coordinador {
     }
 
     public void consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
-        // ahora usamos la instancia de Calculo
         List<List<Recorrido>> recorridos = calculo.calcularRecorrido(
                 origen, destino, diaSemana, horaLlegaParada, ciudadActual.getTramos()
         );
