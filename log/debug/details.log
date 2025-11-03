@@ -1,0 +1,96 @@
+2025-11-03 20:38 [main] ParadaDAO DEBUG - Schema elegido
+2025-11-03 20:38 [main] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-03 20:38 [main] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-03 20:38 [main] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-03 20:38 [main] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-03 20:38 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-03 20:38 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-03 20:38 [main] LineaDAO DEBUG - Schema elegido
+2025-11-03 20:38 [main] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-03 20:38 [main] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-03 20:38 [main] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-03 20:38 [main] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-03 20:38 [main] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-03 20:38 [main] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-03 20:38 [main] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-03 20:38 [main] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-03 20:38 [main] LineaDAO INFO - Lineas cargadas
+2025-11-03 20:38 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-03 20:38 [main] TramoDAO DEBUG - Schema elegido
+2025-11-03 20:38 [main] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-03 20:38 [main] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-03 20:38 [main] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-03 20:38 [main] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-03 20:38 [main] TramoDAO INFO - Tramos cargados
+2025-11-03 20:40 [main] ParadaDAO DEBUG - Schema elegido
+2025-11-03 20:40 [main] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-03 20:40 [main] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-03 20:40 [main] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-03 20:40 [main] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-03 20:40 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-03 20:40 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-03 20:40 [main] LineaDAO DEBUG - Schema elegido
+2025-11-03 20:40 [main] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-03 20:40 [main] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-03 20:40 [main] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-03 20:40 [main] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-03 20:40 [main] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-03 20:40 [main] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-03 20:40 [main] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-03 20:40 [main] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-03 20:40 [main] LineaDAO INFO - Lineas cargadas
+2025-11-03 20:40 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-03 20:40 [main] TramoDAO DEBUG - Schema elegido
+2025-11-03 20:40 [main] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-03 20:40 [main] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-03 20:40 [main] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-03 20:40 [main] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-03 20:40 [main] TramoDAO INFO - Tramos cargados
+2025-11-03 20:40 [main] ParadaDAO DEBUG - Schema elegido
+2025-11-03 20:40 [main] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-03 20:40 [main] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-03 20:40 [main] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-03 20:40 [main] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-03 20:40 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-03 20:40 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-03 20:40 [main] LineaDAO DEBUG - Schema elegido
+2025-11-03 20:40 [main] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-03 20:40 [main] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-03 20:40 [main] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-03 20:40 [main] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-03 20:40 [main] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-03 20:40 [main] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-03 20:40 [main] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-03 20:40 [main] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-03 20:40 [main] LineaDAO INFO - Lineas cargadas
+2025-11-03 20:40 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-03 20:40 [main] TramoDAO DEBUG - Schema elegido
+2025-11-03 20:40 [main] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-03 20:40 [main] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-03 20:40 [main] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-03 20:40 [main] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-03 20:40 [main] TramoDAO INFO - Tramos cargados
+2025-11-03 20:41 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-03 20:41 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-03 20:41 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-03 20:41 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-03 20:41 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-03 20:41 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-03 20:41 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-03 20:41 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-03 20:41 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-03 20:41 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-03 20:41 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-03 20:41 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-03 20:41 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-03 20:41 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-03 20:41 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-03 20:41 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-03 20:41 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-03 20:41 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-03 20:41 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-03 20:41 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-03 20:41 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-03 20:41 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-03 20:41 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-03 20:41 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados

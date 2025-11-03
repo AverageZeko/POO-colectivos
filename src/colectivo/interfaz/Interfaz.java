@@ -4,6 +4,8 @@ package colectivo.interfaz;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.ResourceBundle;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -28,15 +30,11 @@ import colectivo.modelo.Recorrido;
 import colectivo.util.Tiempo;
 import javafx.scene.paint.Color;
 
-import java.net.URL; // <-- AÑADIDO
-import javafx.scene.web.WebEngine; // <-- AÑADIDO
-import javafx.scene.web.WebView; // <-- AÑADIDO
-
 /**
  * Clase principal de la interfaz de usuario para la aplicación de consulta de colectivos.
  * Gestiona la ventana, la entrada del usuario y la visualización de resultados.
  */
-public class Interfaz extends Application implements Mostrable {
+public class Interfaz extends Application implements VentanaConsultas {
     
     /** El coordinador que maneja la lógica de negocio. */
     private static Coordinador coordinador;
@@ -67,6 +65,16 @@ public class Interfaz extends Application implements Mostrable {
     private static final double TAMANO_FUENTE_BASE = 12;
     private static final int MAX_INCREMENTOS = 5;
 
+    // Campos para componentes de la UI que necesitan actualizar su texto
+    private Label etiquetaOrigen;
+    private Label etiquetaDestino;
+    private Label etiquetaHora;
+    private Label etiquetaDia;
+    private RadioButton lun, mar, mie, jue, vie, sab, dom;
+    private Button botonCalcular;
+    private Button botonAumentarFuente, botonDisminuirFuente;
+    private Stage escenarioPrincipal;
+
     @Override
     public void setCoordinador(Coordinador coord) {
         setCoordinadorFinal(coord);
@@ -81,11 +89,47 @@ public class Interfaz extends Application implements Mostrable {
     }
 
     /**
+     * Carga o recarga los textos de la interfaz desde el ResourceBundle del coordinador.
+     */
+    private void actualizarTextos() {
+        ResourceBundle bundle = coordinador.getBundle();
+        if (bundle == null) return; // Salir si no hay bundle
+
+        escenarioPrincipal.setTitle(bundle.getString("Query_WindowName"));
+        etiquetaOrigen.setText(bundle.getString("Query_InitialStopQuestion"));
+        etiquetaDestino.setText(bundle.getString("Query_FinalStopQuestion"));
+        etiquetaHora.setText(bundle.getString("Query_TimeQuestion"));
+        etiquetaDia.setText(bundle.getString("Query_DayOfWeekQuestion"));
+        
+        lun.setText(bundle.getString("Query_Monday"));
+        mar.setText(bundle.getString("Query_Tuesday"));
+        mie.setText(bundle.getString("Query_Wednesday"));
+        jue.setText(bundle.getString("Query_Thursday"));
+        vie.setText(bundle.getString("Query_Friday"));
+        sab.setText(bundle.getString("Query_Saturday"));
+        dom.setText(bundle.getString("Query_Sunday"));
+
+        botonCalcular.setText(bundle.getString("Query_QueryButton"));
+        botonAnterior.setText(bundle.getString("Result_PreviousButton"));
+        botonSiguiente.setText(bundle.getString("Result_NextButton"));
+        botonAumentarFuente.setText(bundle.getString("Query_FontPlus"));
+        botonDisminuirFuente.setText(bundle.getString("Query_FontMinus"));
+
+        // Actualizar la vista de resultados si ya existe
+        if (rutasCompletas != null) {
+            mostrarPaginaActual(ultimaConsultaParadaOrigen, ultimaConsultaParadaDestino, ultimaConsultaHoraLlegada);
+        } else {
+            actualizarControlesNavegacion();
+        }
+    }
+
+    /**
      * Método principal de JavaFX, construye y muestra la interfaz gráfica.
      * @param escenarioPrincipal El escenario principal proporcionado por JavaFX.
      */
     @Override
     public void start(Stage escenarioPrincipal) {
+        this.escenarioPrincipal = escenarioPrincipal;
         raiz = new BorderPane();
         raiz.setPadding(new Insets(30));
 
@@ -105,34 +149,29 @@ public class Interfaz extends Application implements Mostrable {
         panelDerechoContenido = new VBox(10);
         panelDerechoContenido.setPadding(new Insets(10));
 
-        Label etiquetaOrigen = new Label("¿Dónde estás? (int)");
-        Label etiquetaDestino = new Label("¿A dónde vas? (int)");
-        Label etiquetaHora = new Label("¿Qué hora es? (LocalTime)");
-        Label etiquetaDia = new Label("Día de la semana:");
+        etiquetaOrigen = new Label();
+        etiquetaDestino = new Label();
+        etiquetaHora = new Label();
+        etiquetaDia = new Label();
         
-        RadioButton lun = new RadioButton("Lunes");
+        lun = new RadioButton();
         lun.setToggleGroup(grupoDiasSemana);
-        RadioButton mar = new RadioButton("Martes");
+        mar = new RadioButton();
         mar.setToggleGroup(grupoDiasSemana);
-        RadioButton mie = new RadioButton("Miércoles");
+        mie = new RadioButton();
         mie.setToggleGroup(grupoDiasSemana);
-        RadioButton jue = new RadioButton("Jueves");
+        jue = new RadioButton();
         jue.setToggleGroup(grupoDiasSemana);
-        RadioButton vie = new RadioButton("Viernes");
+        vie = new RadioButton();
         vie.setToggleGroup(grupoDiasSemana);
-        RadioButton sab = new RadioButton("Sábado");
+        sab = new RadioButton();
         sab.setToggleGroup(grupoDiasSemana);
-        RadioButton dom = new RadioButton("Domingo");
+        dom = new RadioButton();
         dom.setToggleGroup(grupoDiasSemana);
         VBox cajaDias = new VBox(10, lun, mar, mie, jue, vie, sab, dom);
 
-        Button botonCalcular = new Button("Calcular");
+        botonCalcular = new Button();
         botonCalcular.setOnAction(event -> manejarCalculo());
-
-        // --- BOTÓN NUEVO PARA EL MAPA --- // <-- AÑADIDO
-        Button botonVerMapa = new Button("Ver Mapa");
-        botonVerMapa.setOnAction(e -> abrirVentanaMapa());
-        // --------------------------------- // <-- AÑADIDO
 
         panelIzquierdo.getChildren().addAll(
             etiquetaOrigen, campoOrigen,
@@ -140,7 +179,6 @@ public class Interfaz extends Application implements Mostrable {
             etiquetaHora, campoHora,
             etiquetaDia, cajaDias,
             botonCalcular,
-            botonVerMapa, // <-- AÑADIDO
             etiquetaAdvertencia
         );
 
@@ -152,11 +190,11 @@ public class Interfaz extends Application implements Mostrable {
         panelScroll.setStyle("-fx-background-color: transparent;");
         panelDerechoLayout.setCenter(panelScroll);
         
-        botonAnterior = new Button("« Anterior");
+        botonAnterior = new Button();
         botonAnterior.setOnAction(e -> cambiarPagina(-1));
-        botonSiguiente = new Button("Siguiente »");
+        botonSiguiente = new Button();
         botonSiguiente.setOnAction(e -> cambiarPagina(1));
-        etiquetaPagina = new Label("Ruta 0 de 0");
+        etiquetaPagina = new Label();
         
         HBox cajaNavegacion = new HBox(10, botonAnterior, etiquetaPagina, botonSiguiente);
         cajaNavegacion.setAlignment(Pos.CENTER);
@@ -164,9 +202,9 @@ public class Interfaz extends Application implements Mostrable {
         panelDerechoLayout.setBottom(cajaNavegacion);
         actualizarControlesNavegacion();
 
-        Button botonAumentarFuente = new Button("Fuente +");
+        botonAumentarFuente = new Button();
         botonAumentarFuente.setOnAction(e -> cambiarFuente(1));
-        Button botonDisminuirFuente = new Button("Fuente -");
+        botonDisminuirFuente = new Button();
         botonDisminuirFuente.setOnAction(e -> cambiarFuente(-1));
         
         HBox cajaControlFuente = new HBox(10, botonDisminuirFuente, botonAumentarFuente);
@@ -188,49 +226,13 @@ public class Interfaz extends Application implements Mostrable {
         VBox.setVgrow(panelDerechoLayout, Priority.ALWAYS);
 
         Scene escena = new Scene(raiz, anchoEscena, altoEscena);
-        escenarioPrincipal.setTitle("Calculadora de Rutas");
         escenarioPrincipal.setScene(escena);
         
         actualizarEstiloFuente();
+        actualizarTextos(); // Cargar textos al iniciar
         
         escenarioPrincipal.show();
     }
-    
-    // ----------------------------------------------------------------- // <-- AÑADIDO
-    // --- MÉTODO NUEVO PARA MOSTRAR EL MAPA EN UNA VENTANA SEPARADA --- // <-- AÑADIDO
-    // ----------------------------------------------------------------- // <-- AÑADIDO
-    private void abrirVentanaMapa() {
-        Stage ventanaMapa = new Stage(); 
-        ventanaMapa.setTitle("Visor de Mapa");
-
-        final WebView webView = new WebView();
-        final WebEngine webEngine = webView.getEngine();
-
-        // Intenta buscar primero en 'src/resources/'
-        URL url = getClass().getResource("/resources/cargar_mapa.html"); 
-        
-        if (url == null) {
-            // Si falla, intenta buscar en la raíz de 'src/'
-            System.out.println("No se encontró en /resources/, intentando en /");
-            url = getClass().getResource("/cargar_mapa.html");
-        }
-
-        if (url == null) {
-            // Si ambos fallan, muestra el error
-            System.err.println("No se pudo encontrar cargar_mapa.html. Asegúrate de que esté en 'src' o 'src/resources'.");
-            System.err.println("Recuerda hacer 'Refresh' (F5) o 'Project > Clean...' en Eclipse.");
-            webEngine.loadContent("<h1>Error: No se pudo cargar el mapa.</h1> <p>Asegúrate de que 'cargar_mapa.html' esté en tu carpeta 'src' o 'src/resources' y refresca el proyecto en Eclipse (F5).</p>");
-        } else {
-            webEngine.load(url.toExternalForm());
-        }
-
-        VBox vBox = new VBox(webView);
-        Scene scene = new Scene(vBox, 960, 600); 
-
-        ventanaMapa.setScene(scene);
-        ventanaMapa.show(); 
-    } // <-- AÑADIDO
-    
     
     /**
      * Cambia el tamaño de la fuente base de la aplicación.
@@ -261,6 +263,7 @@ public class Interfaz extends Application implements Mostrable {
      * Recoge las entradas, las valida y llama al coordinador.
      */
     private void manejarCalculo() {
+        ResourceBundle bundle = coordinador.getBundle();
         etiquetaAdvertencia.setVisible(false);
         panelDerechoContenido.getChildren().clear();
         rutasCompletas = null;
@@ -273,32 +276,32 @@ public class Interfaz extends Application implements Mostrable {
             RadioButton diaSeleccionadoRadio = (RadioButton) grupoDiasSemana.getSelectedToggle();
 
             if (textoOrigen.isEmpty() || textoDestino.isEmpty() || textoHora.isEmpty() || diaSeleccionadoRadio == null) {
-                throw new Exception("Un campo está vacío o no se ha seleccionado un día.");
+                throw new Exception(bundle.getString("Query_MissingInputError"));
             }
             
             String textoDiaSeleccionado = diaSeleccionadoRadio.getText();
             int diaSeleccionadoInt;
-            switch (textoDiaSeleccionado) {
-                case "Lunes": diaSeleccionadoInt = 1; break;
-                case "Martes": diaSeleccionadoInt = 2; break;
-                case "Miércoles": diaSeleccionadoInt = 3; break;
-                case "Jueves": diaSeleccionadoInt = 4; break;
-                case "Viernes": diaSeleccionadoInt = 5; break;
-                case "Sábado": diaSeleccionadoInt = 6; break;
-                case "Domingo": diaSeleccionadoInt = 7; break;
-                default: throw new IllegalStateException("Día de la semana inesperado: " + textoDiaSeleccionado);
-            }
+            // Usamos las claves del bundle para la comparación para que funcione con cualquier idioma
+            if (textoDiaSeleccionado.equals(bundle.getString("Query_Monday"))) diaSeleccionadoInt = 1;
+            else if (textoDiaSeleccionado.equals(bundle.getString("Query_Tuesday"))) diaSeleccionadoInt = 2;
+            else if (textoDiaSeleccionado.equals(bundle.getString("Query_Wednesday"))) diaSeleccionadoInt = 3;
+            else if (textoDiaSeleccionado.equals(bundle.getString("Query_Thursday"))) diaSeleccionadoInt = 4;
+            else if (textoDiaSeleccionado.equals(bundle.getString("Query_Friday"))) diaSeleccionadoInt = 5;
+            else if (textoDiaSeleccionado.equals(bundle.getString("Query_Saturday"))) diaSeleccionadoInt = 6;
+            else if (textoDiaSeleccionado.equals(bundle.getString("Query_Sunday"))) diaSeleccionadoInt = 7;
+            else throw new IllegalStateException(bundle.getString("Query_UnexpectedDayError") + textoDiaSeleccionado);
+
 
             int idOrigen = Integer.parseInt(textoOrigen);
             Parada paradaOrigen = coordinador.getParada(idOrigen);
             if (paradaOrigen == null) {
-            	throw new IllegalStateException("Parada de origen no encontrada: " + idOrigen);
+            	throw new IllegalStateException(bundle.getString("Query_StopNotFoundError") + idOrigen);
             } 
             
             int idDestino = Integer.parseInt(textoDestino);
             Parada paradaDestino = coordinador.getParada(idDestino);
             if (paradaDestino == null) {
-            	throw new IllegalStateException("Parada de destino no encontrada: " + idDestino);
+            	throw new IllegalStateException(bundle.getString("Query_StopNotFoundError") + idDestino);
             } 
             LocalTime hora = LocalTime.parse(textoHora);
             
@@ -308,8 +311,12 @@ public class Interfaz extends Application implements Mostrable {
             
             coordinador.consulta(paradaOrigen, paradaDestino, diaSeleccionadoInt, hora);
 
-        } catch (Exception e) {
-            etiquetaAdvertencia.setText("Ocurrió un error: " + e.getMessage());
+        } catch (java.time.format.DateTimeParseException e) {
+            etiquetaAdvertencia.setText(bundle.getString("Query_WrongFormatError"));
+            etiquetaAdvertencia.setVisible(true);
+        }
+        catch (Exception e) {
+            etiquetaAdvertencia.setText(e.getMessage());
             etiquetaAdvertencia.setVisible(true);
             rutasCompletas = null;
             actualizarControlesNavegacion();
@@ -331,12 +338,13 @@ public class Interfaz extends Application implements Mostrable {
         
         rutasCompletas = listaRecorridos;
         panelDerechoContenido.getChildren().clear();
+        ResourceBundle bundle = coordinador.getBundle();
 
         if (rutasCompletas != null && !rutasCompletas.isEmpty()) {
             indicePaginaActual = 0;
             mostrarPaginaActual(paradaOrigen, paradaDestino, horaLlegaParada);
         } else {
-            panelDerechoContenido.getChildren().add(new Label("No se encontraron recorridos."));
+            panelDerechoContenido.getChildren().add(new Label(bundle.getString("Result_ZeroRoutes")));
             actualizarControlesNavegacion();
         }
     }
@@ -361,17 +369,18 @@ public class Interfaz extends Application implements Mostrable {
      */
     private static void mostrarPaginaActual(Parada paradaOrigen, Parada paradaDestino, LocalTime horaLlegaParada) {
         panelDerechoContenido.getChildren().clear();
+        ResourceBundle bundle = coordinador.getBundle();
         
         List<Recorrido> recorridoCompleto = rutasCompletas.get(indicePaginaActual);
         
         // Título del recorrido
-        Label titulo = new Label("Recorrido " + (indicePaginaActual + 1) + ":");
+        Label titulo = new Label(bundle.getString("Result_RouteX") + " " + (indicePaginaActual + 1) + ":");
         titulo.setStyle("-fx-font-weight: bold;");
         panelDerechoContenido.getChildren().add(titulo);
         
         // Aviso de trasbordos si hay más de un tramo
         if (recorridoCompleto.size() > 1) {
-            Label avisoTrasbordo = new Label("⚠ Este recorrido incluye conexiones.");
+            Label avisoTrasbordo = new Label(bundle.getString("Result_TransferWarning") + " " + (recorridoCompleto.size() - 1) + " " + bundle.getString("Result_Transfer"));
             avisoTrasbordo.setTextFill(Color.DARKRED);
             avisoTrasbordo.setStyle("-fx-font-weight: bold;");
             panelDerechoContenido.getChildren().add(avisoTrasbordo);
@@ -382,51 +391,43 @@ public class Interfaz extends Application implements Mostrable {
 
         for (int t = 0; t < recorridoCompleto.size(); t++) {
             Recorrido r = recorridoCompleto.get(t);
-            VBox tramoBox = new VBox(5);
-            tramoBox.setPadding(new Insets(5, 0, 15, 10));
+
+            LocalTime horaSalida = r.getHoraSalida();
+            long esperaSeg = 0;
+            if (horaSalida.isAfter(horaLlegaActual)) {
+                esperaSeg = Duration.between(horaLlegaActual, horaSalida).getSeconds();
+            }
+            int viajeSeg = r.getDuracion();
+            long totalSeg = esperaSeg + viajeSeg;
+            LocalTime horaLlegadaTramo = horaSalida.plusSeconds(viajeSeg);
 
             // Origen y destino del tramo
             List<Parada> paradasTramo = r.getParadas();
             Parada tramoOrigen = paradasTramo.get(0);
             Parada tramoDestino = paradasTramo.get(paradasTramo.size() - 1);
-            int viajeSeg = r.getDuracion();
-            LocalTime horaSalida = r.getHoraSalida();
-            LocalTime horaLlegadaTramo = horaSalida.plusSeconds(viajeSeg);
-            
-            if (r.getLinea() != null) { // Es un tramo en colectivo
-                tramoBox.setStyle("-fx-border-color: lightblue; -fx-border-width: 0 0 1 0;");
-                long esperaSeg = Duration.between(horaLlegaActual, horaSalida).getSeconds();
-                if (esperaSeg < 0) esperaSeg = 0; // Puede pasar si hay un pequeño desfase, no mostrar espera negativa.
 
-                tramoBox.getChildren().add(new Label("Tramo " + (t + 1) + " - Línea: " + r.getLinea().getCodigo()));
-                tramoBox.getChildren().add(new Label("  Desde: " + tramoOrigen.getDireccion()));
-                tramoBox.getChildren().add(new Label("  Hasta: " + tramoDestino.getDireccion()));
-                tramoBox.getChildren().add(new Label("  Hora llegada a parada: " + horaLlegaActual));
-                tramoBox.getChildren().add(new Label("  Hora salida colectivo: " + horaSalida));
-                tramoBox.getChildren().add(new Label("  Tiempo de espera: " + Tiempo.segundosATiempo((int) esperaSeg)));
-                tramoBox.getChildren().add(new Label("  Tiempo de viaje: " + Tiempo.segundosATiempo(viajeSeg)));
-                tramoBox.getChildren().add(new Label("  Hora de llegada: " + horaLlegadaTramo));
+            VBox tramoBox = new VBox(5);
+            tramoBox.setPadding(new Insets(5, 0, 15, 10));
+            tramoBox.setStyle("-fx-border-color: lightblue; -fx-border-width: 0 0 1 0;");
 
-                // Paradas intermedias
-                if (paradasTramo.size() > 2) {
-                    tramoBox.getChildren().add(new Label("  Paradas intermedias:"));
-                    VBox stopsBox = new VBox(2);
-                    stopsBox.setPadding(new Insets(0, 0, 0, 35));
-                    for (int j = 1; j < paradasTramo.size() - 1; j++) {
-                        stopsBox.getChildren().add(new Label(paradasTramo.get(j).getDireccion()));
-                    }
-                    tramoBox.getChildren().add(stopsBox);
-                }
-            } else { // Es un tramo caminando
-                tramoBox.setStyle("-fx-border-color: lightgreen; -fx-border-width: 0 0 1 0; -fx-background-color: #f0fff0;");
-                tramoBox.getChildren().add(new Label("Tramo " + (t + 1) + " - Caminando 🚶"));
-                tramoBox.getChildren().add(new Label("  Desde: " + tramoOrigen.getDireccion()));
-                tramoBox.getChildren().add(new Label("  Hasta: " + tramoDestino.getDireccion()));
-                tramoBox.getChildren().add(new Label("  Inicia caminata a las: " + horaSalida));
-                tramoBox.getChildren().add(new Label("  Duración de la caminata: " + Tiempo.segundosATiempo(viajeSeg)));
-                tramoBox.getChildren().add(new Label("  Llegas a la siguiente parada a las: " + horaLlegadaTramo));
+            tramoBox.getChildren().add(new Label(bundle.getString("Result_SegmentX") + " " + (t + 1) + " - " + bundle.getString("Result_LineX") + " " + r.getLinea().getCodigo()));
+            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_InitialStop") + " " + tramoOrigen.getDireccion()));
+            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_FinalStop") + " " + tramoDestino.getDireccion()));
+            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_UserTimeOfArrival") + " " + horaLlegaActual));
+            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_TimeOfDeparture") + " " + horaSalida));
+            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_WaitTime") + " " + Tiempo.segundosATiempo((int) esperaSeg)));
+            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_TravelTime") + " " + Tiempo.segundosATiempo(viajeSeg)));
+            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_TotalTime") + " " + Tiempo.segundosATiempo((int) totalSeg)));
+            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_ArrivalTime") + " " + horaLlegadaTramo));
+
+            // Paradas intermedias
+            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_Stops")));
+            VBox stopsBox = new VBox(2);
+            stopsBox.setPadding(new Insets(0, 0, 0, 35));
+            for (int j = 0; j < paradasTramo.size() - 1; j++) {
+                stopsBox.getChildren().add(new Label(paradasTramo.get(j).getDireccion() + " -> " + paradasTramo.get(j + 1).getDireccion()));
             }
-            
+            tramoBox.getChildren().add(stopsBox);
             panelDerechoContenido.getChildren().add(tramoBox);
 
             // Actualizar hora de llegada para el próximo tramo
@@ -441,25 +442,27 @@ public class Interfaz extends Application implements Mostrable {
      * Actualiza el estado (etiqueta y habilitación) de los botones de navegación.
      */
     private static void actualizarControlesNavegacion() {
+        ResourceBundle bundle = coordinador.getBundle();
+        String de = " de "; // "of"
+        if (bundle != null && bundle.getLocale().getLanguage().equals("en")) {
+            de = " of ";
+        }
+        
         if (rutasCompletas == null || rutasCompletas.isEmpty()) {
-            etiquetaPagina.setText("Ruta 0 de 0");
+            etiquetaPagina.setText(bundle != null ? bundle.getString("Result_RoutePages") + " 0" + de + "0" : "Ruta 0 de 0");
             botonAnterior.setDisable(true);
             botonSiguiente.setDisable(true);
         } else {
-            etiquetaPagina.setText("Ruta " + (indicePaginaActual + 1) + " de " + rutasCompletas.size());
+            etiquetaPagina.setText(bundle.getString("Result_RoutePages") + " " + (indicePaginaActual + 1) + de + rutasCompletas.size());
             botonAnterior.setDisable(indicePaginaActual <= 0);
             botonSiguiente.setDisable(indicePaginaActual >= rutasCompletas.size() - 1);
         }
     }
 
-    /**
-     * Punto de entrada estático para lanzar la aplicación desde una clase externa.
-     * @param coord El coordinador a inyectar.
-     * @param args Argumentos de la línea de comandos.
-     */
     @Override
-    public void lanzarAplicacion(String[] args) {
-    	System.setProperty("prism.order", "sw");
-        Application.launch(Interfaz.class, args);
+    public void close(Stage ventana) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'close'");
     }
+
 }

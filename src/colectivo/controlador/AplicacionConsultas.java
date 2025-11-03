@@ -4,48 +4,47 @@ import colectivo.logica.Calculo;
 import colectivo.servicio.SchemaServicio;
 import colectivo.servicio.SchemaServicioImplementacion;
 import colectivo.dao.postgresql.SchemaPostgresqlDAO;
-import colectivo.configuracion.Localizacion;
 import colectivo.interfaz.Interfaz;
-import colectivo.interfaz.Mostrable;
+import colectivo.interfaz.VentanaConsultas;
+import colectivo.interfaz.VentanaInicial;
+import colectivo.interfaz.VentanaInicio;
+import colectivo.util.LocaleInfo;
 
 /**
- * Punto de entrada principal para la aplicación de consultas de recorridos de colectivos.
- *
- * <p>Esta clase inicializa la empresa y el coordinador, y gestiona el ciclo de vida
- * de la consulta de recorridos a través de la interfaz de usuario.</p>
- *
+ * Punto de entrada principal. Se ajustó para inicializar estáticamente el coordinador
+ * y asegurar que esté disponible para la vista desde el arranque.
  */
 public class AplicacionConsultas {
-	private Coordinador controlador;
-	private Mostrable interfaz;
-	private Calculo calculo;
-	private SchemaServicio schema;
-	private Localizacion localizacion;
+    private Coordinador coordinador;
+    private VentanaInicial ventanaInicio;
+    private VentanaConsultas ventanaConsultas;
+    private SchemaServicio schema;
+    private Calculo calculo;
+    private LocaleInfo defaultLocale;
 
-	public static void main(String[] args) {
-		AplicacionConsultas aplicacion = new AplicacionConsultas();
-		aplicacion.iniciar(args);
-	}
+    public static void main(String[] args) {
+        AplicacionConsultas aplicacion = new AplicacionConsultas();
+        aplicacion.iniciar(args);
+    }
 
-	/**
-	 * Inicializa el modelo, la vista y el controlador e inicia el programa
-	 */
-	public void iniciar(String[] args) {
-		controlador = new Coordinador();
-		interfaz = new Interfaz();
+    public void iniciar(String[] args) {
+		coordinador = new Coordinador();
+        ventanaInicio = new VentanaInicio();
+		ventanaConsultas = new Interfaz();
 		calculo = new Calculo();
 		schema = new SchemaServicioImplementacion();
-		localizacion = new Localizacion();
+		defaultLocale = new LocaleInfo("es_ARG", "es", "ARG");
 
-		controlador.setSchemaServicio(schema);
-		controlador.setInterfaz(interfaz);
-		controlador.setCalculo(calculo);
-		controlador.setLocalizacion(localizacion);
-		interfaz.setCoordinador(controlador);
-		controlador.setCiudadActual(SchemaPostgresqlDAO.getSchema());	// ELIMINAR DESPUES
+        coordinador.setSchemaServicio(schema);
+		coordinador.setCalculo(calculo);
+		coordinador.setLocalizacion(defaultLocale);
 
-		controlador.iniciar(args);
-		
-	}
+        coordinador.setVentanaInicio(ventanaInicio);
+        coordinador.setVentanaConsultas(ventanaConsultas);
+        ventanaInicio.setCoordinador(coordinador);
+		ventanaConsultas.setCoordinador(coordinador);
+		coordinador.setCiudadActual(SchemaPostgresqlDAO.getSchema());	// ELIMINAR DESPUES
+        coordinador.iniciarAplicacion(args);
 
+    }
 }

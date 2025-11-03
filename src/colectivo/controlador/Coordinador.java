@@ -4,17 +4,23 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import colectivo.configuracion.Localizacion;
-import colectivo.interfaz.Mostrable;
+import colectivo.interfaz.VentanaConsultas;
+import colectivo.interfaz.VentanaInicial;
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
 import colectivo.servicio.SchemaServicio;
+import colectivo.util.Factory;
+import colectivo.util.LocaleInfo;
+import colectivo.util.LocalizacionUtil;
+import javafx.stage.Stage;
 
 /**
  * Controlador principal que coordina la interacción entre la interfaz de usuario y la lógica de negocio.
@@ -30,9 +36,11 @@ public class Coordinador {
     private Map<String, EmpresaColectivos> ciudades;
     private EmpresaColectivos ciudadActual;
     private SchemaServicio schemaServicio;
-    private Mostrable interfaz;
+    private VentanaInicial ventanaInicio;
+    private VentanaConsultas ventanaConsultas;
     private Calculo calculo;
-    private Localizacion localizacion;
+    private LocaleInfo localeActual; // Guardar el LocaleInfo actual
+    private ResourceBundle bundle;
     
     public Coordinador() {
         ciudades = new HashMap<>();
@@ -42,59 +50,98 @@ public class Coordinador {
         this.schemaServicio = schema;
     }
 
-    public void setInterfaz(Mostrable interfaz) {
-        this.interfaz = interfaz;
-    }
-
     public void setCalculo(Calculo calculo) {
     	this.calculo = calculo;
     }
 
-    public void setLocalizacion(Localizacion localizacion) {
-        this.localizacion = localizacion;
+    public void setVentanaInicio(VentanaInicial ventanaInicio) {
+        this.ventanaInicio = ventanaInicio;
+    }
+
+    public void setVentanaConsultas(VentanaConsultas ventanaConsultas) {
+        this.ventanaConsultas = ventanaConsultas;
+    }
+
+    
+    public void setLocalizacion(LocaleInfo localeInfo) {
+        if (localeInfo == null) {
+            QUERY_LOG.warn("setLocalizacion fue llamado con un valor nulo.");
+            return;
+        }
+        
+        this.localeActual = localeInfo; // Guardar la referencia
+        try {
+            String nombreBase = localeInfo.getNombreBaseBundle();
+            this.bundle = ResourceBundle.getBundle(nombreBase);
+            QUERY_LOG.info("Localización seleccionada: {}. ResourceBundle '{}' cargado con éxito.", localeInfo.codigoCompleto(), nombreBase);
+        } catch (MissingResourceException e) {
+            QUERY_LOG.error("No se pudo cargar el ResourceBundle para '{}'. Verifica que el archivo .properties exista.", localeInfo.getNombreBaseBundle(), e);
+            this.bundle = null;
+        }
+    }
+
+    public List<LocaleInfo> descubrirLocalizaciones() {
+        return LocalizacionUtil.descubrirLocalizaciones();
+    }
+    
+    /**
+     * Devuelve el LocaleInfo actualmente configurado.
+     * @return El objeto LocaleInfo actual.
+     */
+    public LocaleInfo getLocale() {
+        return localeActual;
+    }
+
+    public ResourceBundle getBundle() {
+        return bundle;
     }
 
     public Parada getParada(int paradaId) {
+        if (ciudadActual == null) {
+            QUERY_LOG.error("Intento de getParada({}) cuando ciudadActual es nula.", paradaId);
+            return null;
+        }
         return ciudadActual.getParada(paradaId);
     }
-    
+
     public void cambiarSchema(String nuevoSchema) {
         schemaServicio.cambiarSchema(nuevoSchema);
     }
 
     public void setCiudadActual(String nuevaCiudad) {
+        cambiarSchema(nuevaCiudad);
         EmpresaColectivos ciudad = ciudades.get(nuevaCiudad);
         if (ciudad == null) {
-            cambiarSchema(nuevaCiudad);
             ciudad = new EmpresaColectivos();
             ciudades.put(nuevaCiudad, ciudad);
         }
         ciudadActual = ciudad;
+
+        Factory.clearInstancia(Constantes.TRAMO);
+        Factory.clearInstancia(Constantes.LINEA);
+        Factory.clearInstancia(Constantes.PARADA);
+
         QUERY_LOG.info("Usuario cambia de ciudad a {}", nuevaCiudad);
     }
+
     
-    public void setIdioma(String idioma) {
-        localizacion.setIdioma(idioma);
-    }
-
-    public String getPalabra(String llave) {
-        return localizacion.getPalabra(llave);
-    }
-
-    public String getRutaFoto() {
-        return localizacion.getRutaFoto();
+    public void iniciarAplicacion(String[] args) {
+        QUERY_LOG.info("Usuario inicia aplicacion");
+        ventanaInicio.lanzarAplicacion(args);
     }
 
     public void consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
         List<List<Recorrido>> recorridos = calculo.calcularRecorrido(
                 origen, destino, diaSemana, horaLlegaParada, ciudadActual.getTramos()
         );
-        interfaz.resultado(recorridos, origen, destino, horaLlegaParada);
+        ventanaConsultas.resultado(recorridos, origen, destino, horaLlegaParada);
         QUERY_LOG.info("Usuario realiza consulta desde {} hasta {}, dia de la semana {} a las {}", origen.getDireccion(), destino.getDireccion(), diaSemana, horaLlegaParada);
     }
     
-    public void iniciar(String[] args) {
-        QUERY_LOG.info("Usuario inicia aplicacion");
-		interfaz.lanzarAplicacion(args);
+
+    public void iniciarConsulta(Stage ventana) {
+		ventanaConsultas.start(new Stage());
+        ventanaInicio.close(ventana);
     }
+    
 }

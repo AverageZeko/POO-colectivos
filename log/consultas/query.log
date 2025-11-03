@@ -1,0 +1,42 @@
+2025-11-03 20:38 [c.c.Coordinador] Consulta ERROR - No se pudo cargar el ResourceBundle para 'localizacion.label_es_ARG'. Verifica que el archivo .properties exista.
+java.util.MissingResourceException: Can't find bundle for base name localizacion.label_es_ARG, locale en_US
+	at java.base/java.util.ResourceBundle.throwMissingResourceException(ResourceBundle.java:2059)
+	at java.base/java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:1697)
+	at java.base/java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:1600)
+	at java.base/java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:1555)
+	at java.base/java.util.ResourceBundle.getBundle(ResourceBundle.java:861)
+	at colectivo.controlador.Coordinador.setLocalizacion(Coordinador.java:75)
+	at colectivo.controlador.AplicacionConsultas.iniciar(AplicacionConsultas.java:40)
+	at colectivo.controlador.AplicacionConsultas.main(AplicacionConsultas.java:27)
+2025-11-03 20:38 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-03 20:38 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-03 20:38 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-03 20:38 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-03 20:38 [c.i.VentanaInicio] Consulta WARN - No se encontraron localizaciones. La selección de idioma estará vacía.
+2025-11-03 20:38 [c.i.VentanaInicio] Consulta WARN - ResourceBundle es nulo, no se pueden actualizar los textos. Verifica que el idioma por defecto esté bien configurado.
+2025-11-03 20:40 [c.c.Coordinador] Consulta ERROR - No se pudo cargar el ResourceBundle para 'localizacion.label_es_ARG'. Verifica que el archivo .properties exista.
+java.util.MissingResourceException: Can't find bundle for base name localizacion.label_es_ARG, locale en_US
+	at java.base/java.util.ResourceBundle.throwMissingResourceException(ResourceBundle.java:2059)
+	at java.base/java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:1697)
+	at java.base/java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:1600)
+	at java.base/java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:1555)
+	at java.base/java.util.ResourceBundle.getBundle(ResourceBundle.java:861)
+	at colectivo.controlador.Coordinador.setLocalizacion(Coordinador.java:75)
+	at colectivo.controlador.AplicacionConsultas.iniciar(AplicacionConsultas.java:40)
+	at colectivo.controlador.AplicacionConsultas.main(AplicacionConsultas.java:27)
+2025-11-03 20:40 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-03 20:40 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-03 20:40 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-03 20:40 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-03 20:40 [c.i.VentanaInicio] Consulta WARN - No se encontraron localizaciones. La selección de idioma estará vacía.
+2025-11-03 20:40 [c.i.VentanaInicio] Consulta WARN - ResourceBundle es nulo, no se pueden actualizar los textos. Verifica que el idioma por defecto esté bien configurado.
+2025-11-03 20:40 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-03 20:40 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-03 20:40 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-03 20:40 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-03 20:40 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-03 20:40 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-03 20:41 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_CO'
+2025-11-03 20:41 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-03 20:41 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_CO
+2025-11-03 20:41 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde Alem y Cordoba hasta Beauvoir 40, dia de la semana 1 a las 10:30

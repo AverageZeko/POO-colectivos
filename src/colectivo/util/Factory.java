@@ -79,4 +79,9 @@ public class Factory {
         });
         return obj;
     }
+
+    public static void clearInstancia(String nombreObj) {
+        instancias.remove(nombreObj);
+    }
+
 }
