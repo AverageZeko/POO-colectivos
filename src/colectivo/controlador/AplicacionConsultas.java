@@ -2,6 +2,9 @@ package colectivo.controlador;
 
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
+import colectivo.servicio.SchemaServicio;
+import colectivo.servicio.SchemaServicioImplementacion;
+import colectivo.dao.postgresql.SchemaPostgresqlDAO;
 import colectivo.interfaz.Interfaz;
 import colectivo.interfaz.Mostrable;
 
@@ -14,9 +17,9 @@ import colectivo.interfaz.Mostrable;
  */
 public class AplicacionConsultas {
 	private Coordinador controlador;
-	private EmpresaColectivos empresa;		//ELIMINAR DESPUES
 	private Mostrable interfaz;
 	private Calculo calculo;
+	private SchemaServicio schema;
 
 	public static void main(String[] args) {
 		AplicacionConsultas aplicacion = new AplicacionConsultas();
@@ -30,13 +33,14 @@ public class AplicacionConsultas {
 		controlador = new Coordinador();
 		interfaz = new Interfaz();
 		calculo = new Calculo();
-		
-		empresa = new EmpresaColectivos();
-		controlador.setCiudad(empresa);
+		schema = new SchemaServicioImplementacion();
 
+		controlador.setSchemaServicio(schema);
 		controlador.setInterfaz(interfaz);
 		controlador.setCalculo(calculo);
 		interfaz.setCoordinador(controlador);
+		controlador.setCiudadActual(SchemaPostgresqlDAO.getSchema());	// ELIMINAR DESPUES
+
 		controlador.iniciar(args);
 		
 	}

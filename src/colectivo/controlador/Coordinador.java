@@ -36,10 +36,6 @@ public class Coordinador {
         ciudades = new HashMap<>();
     }
 
-    public void setCiudad(EmpresaColectivos aaa) {
-        ciudadActual = aaa;
-    }
-
     public void setSchemaServicio(SchemaServicio schema) {
         this.schemaServicio = schema;
     }
