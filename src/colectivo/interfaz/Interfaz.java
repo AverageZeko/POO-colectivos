@@ -4,18 +4,22 @@ package colectivo.interfaz;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -50,15 +54,18 @@ public class Interfaz extends Application implements VentanaConsultas {
     /** Almacena la hora de llegada de la última consulta para paginación. */
     private static LocalTime ultimaConsultaHoraLlegada;
 
-    private static TextField campoOrigen;
-    private static TextField campoDestino;
-    private static TextField campoHora;
+    private static ComboBox<Parada> comboOrigen;
+    private static ComboBox<Parada> comboDestino;
+    private static ComboBox<String> comboHora;
+    private static ComboBox<String> comboMinuto;
+
     private static Label etiquetaAdvertencia;
     private static VBox panelDerechoContenido;
     private static ToggleGroup grupoDiasSemana;
     private static Button botonAnterior;
     private static Button botonSiguiente;
     private static Label etiquetaPagina;
+    private static Button botonMapa; 
 
     private static BorderPane raiz;
     private static double tamanoFuenteActual = 12;
@@ -73,27 +80,56 @@ public class Interfaz extends Application implements VentanaConsultas {
     private RadioButton lun, mar, mie, jue, vie, sab, dom;
     private Button botonCalcular;
     private Button botonAumentarFuente, botonDisminuirFuente;
+    private Button botonVolver; // <-- BOTÓN VOLVER
     private Stage escenarioPrincipal;
+
+    static class ParadaListCell extends ListCell<Parada> {
+        @Override
+        protected void updateItem(Parada item, boolean empty) {
+            super.updateItem(item, empty);
+            setText( (empty || item == null) ? null : item.getDireccion());
+        }
+    }
 
     @Override
     public void setCoordinador(Coordinador coord) {
         setCoordinadorFinal(coord);
     }
 
-    /**
-     * Establece el coordinador para ser utilizado por la interfaz.
-     * @param coord El coordinador a inyectar.
-     */
     private static void setCoordinadorFinal(Coordinador coord) {
         coordinador = coord;
     }
-
+    
     /**
-     * Carga o recarga los textos de la interfaz desde el ResourceBundle del coordinador.
+     * [NUEVO] Reinicia el estado de la interfaz a sus valores por defecto.
+     * Esto limpia los resultados de búsquedas anteriores.
      */
+    private static void resetState() {
+        rutasCompletas = null;
+        indicePaginaActual = 0;
+        ultimaConsultaParadaOrigen = null;
+        ultimaConsultaParadaDestino = null;
+        ultimaConsultaHoraLlegada = null;
+
+        if (comboOrigen != null) comboOrigen.setValue(null);
+        if (comboDestino != null) comboDestino.setValue(null);
+        if (comboHora != null) comboHora.setValue(null);
+        if (comboMinuto != null) comboMinuto.setValue(null);
+        if (grupoDiasSemana != null && grupoDiasSemana.getSelectedToggle() != null) {
+            grupoDiasSemana.getSelectedToggle().setSelected(false);
+        }
+        if (panelDerechoContenido != null) {
+            panelDerechoContenido.getChildren().clear();
+        }
+        if (etiquetaAdvertencia != null) {
+            etiquetaAdvertencia.setVisible(false);
+        }
+    }
+
+
     private void actualizarTextos() {
         ResourceBundle bundle = coordinador.getBundle();
-        if (bundle == null) return; // Salir si no hay bundle
+        if (bundle == null) return; 
 
         escenarioPrincipal.setTitle(bundle.getString("Query_WindowName"));
         etiquetaOrigen.setText(bundle.getString("Query_InitialStopQuestion"));
@@ -110,12 +146,16 @@ public class Interfaz extends Application implements VentanaConsultas {
         dom.setText(bundle.getString("Query_Sunday"));
 
         botonCalcular.setText(bundle.getString("Query_QueryButton"));
+        botonVolver.setText(bundle.getString("Query_BackButton"));
         botonAnterior.setText(bundle.getString("Result_PreviousButton"));
         botonSiguiente.setText(bundle.getString("Result_NextButton"));
+        botonMapa.setText(bundle.getString("Query_MapButton"));
         botonAumentarFuente.setText(bundle.getString("Query_FontPlus"));
         botonDisminuirFuente.setText(bundle.getString("Query_FontMinus"));
+        
+        comboOrigen.setPromptText(bundle.getString("Query_OriginPrompt"));
+        comboDestino.setPromptText(bundle.getString("Query_DestinationPrompt"));
 
-        // Actualizar la vista de resultados si ya existe
         if (rutasCompletas != null) {
             mostrarPaginaActual(ultimaConsultaParadaOrigen, ultimaConsultaParadaDestino, ultimaConsultaHoraLlegada);
         } else {
@@ -123,25 +163,45 @@ public class Interfaz extends Application implements VentanaConsultas {
         }
     }
 
-    /**
-     * Método principal de JavaFX, construye y muestra la interfaz gráfica.
-     * @param escenarioPrincipal El escenario principal proporcionado por JavaFX.
-     */
     @Override
     public void start(Stage escenarioPrincipal) {
+        resetState(); // <-- [NUEVO] Limpiar estado al iniciar
         this.escenarioPrincipal = escenarioPrincipal;
         raiz = new BorderPane();
         raiz.setPadding(new Insets(30));
-
+        
         VBox panelIzquierdo = new VBox(10);
         panelIzquierdo.setAlignment(Pos.CENTER_LEFT);
 
-        campoOrigen = new TextField();
-        campoOrigen.setPromptText("Ej: 101");
-        campoDestino = new TextField();
-        campoDestino.setPromptText("Ej: 202");
-        campoHora = new TextField();
-        campoHora.setPromptText("HH:mm, Ej: 14:30");
+        comboOrigen = new ComboBox<>();
+        comboDestino = new ComboBox<>();
+        comboHora = new ComboBox<>();
+        comboMinuto = new ComboBox<>();
+
+        ObservableList<String> horas = FXCollections.observableArrayList();
+        for (int i = 0; i < 24; i++) horas.add(String.format("%02d", i));
+        comboHora.setItems(horas);
+
+        ObservableList<String> minutos = FXCollections.observableArrayList();
+        for (int i = 0; i < 60; i++) minutos.add(String.format("%02d", i));
+        comboMinuto.setItems(minutos);
+        
+        HBox cajaHora = new HBox(5, comboHora, new Label(":"), comboMinuto);
+        cajaHora.setAlignment(Pos.CENTER_LEFT);
+        
+        if (coordinador != null) {
+            Map<Integer, Parada> paradasMap = coordinador.getMapaParadas();
+            ObservableList<Parada> paradasLista = FXCollections.observableArrayList(paradasMap.values());
+            
+            comboOrigen.setItems(paradasLista);
+            comboDestino.setItems(paradasLista);
+
+            comboOrigen.setCellFactory(param -> new ParadaListCell());
+            comboOrigen.setButtonCell(new ParadaListCell());
+            comboDestino.setCellFactory(param -> new ParadaListCell());
+            comboDestino.setButtonCell(new ParadaListCell());
+        }
+
         grupoDiasSemana = new ToggleGroup();
         etiquetaAdvertencia = new Label();
         etiquetaAdvertencia.setTextFill(Color.RED);
@@ -154,31 +214,28 @@ public class Interfaz extends Application implements VentanaConsultas {
         etiquetaHora = new Label();
         etiquetaDia = new Label();
         
-        lun = new RadioButton();
-        lun.setToggleGroup(grupoDiasSemana);
-        mar = new RadioButton();
-        mar.setToggleGroup(grupoDiasSemana);
-        mie = new RadioButton();
-        mie.setToggleGroup(grupoDiasSemana);
-        jue = new RadioButton();
-        jue.setToggleGroup(grupoDiasSemana);
-        vie = new RadioButton();
-        vie.setToggleGroup(grupoDiasSemana);
-        sab = new RadioButton();
-        sab.setToggleGroup(grupoDiasSemana);
-        dom = new RadioButton();
-        dom.setToggleGroup(grupoDiasSemana);
+        lun = new RadioButton(); lun.setToggleGroup(grupoDiasSemana);
+        mar = new RadioButton(); mar.setToggleGroup(grupoDiasSemana);
+        mie = new RadioButton(); mie.setToggleGroup(grupoDiasSemana);
+        jue = new RadioButton(); jue.setToggleGroup(grupoDiasSemana);
+        vie = new RadioButton(); vie.setToggleGroup(grupoDiasSemana);
+        sab = new RadioButton(); sab.setToggleGroup(grupoDiasSemana);
+        dom = new RadioButton(); dom.setToggleGroup(grupoDiasSemana);
         VBox cajaDias = new VBox(10, lun, mar, mie, jue, vie, sab, dom);
 
         botonCalcular = new Button();
         botonCalcular.setOnAction(event -> manejarCalculo());
-
+        
+        botonVolver = new Button();
+        botonVolver.setOnAction(e -> coordinador.volverAInicio(escenarioPrincipal));
+        
         panelIzquierdo.getChildren().addAll(
-            etiquetaOrigen, campoOrigen,
-            etiquetaDestino, campoDestino,
-            etiquetaHora, campoHora,
+            etiquetaOrigen, comboOrigen,
+            etiquetaDestino, comboDestino,
+            etiquetaHora, cajaHora,
             etiquetaDia, cajaDias,
             botonCalcular,
+            botonVolver,
             etiquetaAdvertencia
         );
 
@@ -195,12 +252,13 @@ public class Interfaz extends Application implements VentanaConsultas {
         botonSiguiente = new Button();
         botonSiguiente.setOnAction(e -> cambiarPagina(1));
         etiquetaPagina = new Label();
-        
-        HBox cajaNavegacion = new HBox(10, botonAnterior, etiquetaPagina, botonSiguiente);
+        botonMapa = new Button();
+        botonMapa.setOnAction(e -> mostrarMapa());
+
+        HBox cajaNavegacion = new HBox(10, botonAnterior, etiquetaPagina, botonSiguiente, botonMapa);
         cajaNavegacion.setAlignment(Pos.CENTER);
         cajaNavegacion.setPadding(new Insets(10));
         panelDerechoLayout.setBottom(cajaNavegacion);
-        actualizarControlesNavegacion();
 
         botonAumentarFuente = new Button();
         botonAumentarFuente.setOnAction(e -> cambiarFuente(1));
@@ -209,113 +267,59 @@ public class Interfaz extends Application implements VentanaConsultas {
         
         HBox cajaControlFuente = new HBox(10, botonDisminuirFuente, botonAumentarFuente);
         cajaControlFuente.setAlignment(Pos.CENTER_RIGHT);
-        cajaControlFuente.setPadding(new Insets(10, 0, 0, 0));
+        
+        VBox panelInferior = new VBox(10, panelDerechoLayout.getBottom(), cajaControlFuente);
+        raiz.setBottom(panelInferior);
 
         raiz.setLeft(panelIzquierdo);
         raiz.setCenter(panelDerechoLayout);
-        raiz.setBottom(cajaControlFuente);
-        BorderPane.setAlignment(cajaControlFuente, Pos.BOTTOM_RIGHT);
         BorderPane.setMargin(panelIzquierdo, new Insets(0, 20, 0, 0));
 
         Rectangle2D limitesPantalla = Screen.getPrimary().getVisualBounds();
-        double anchoEscena = limitesPantalla.getWidth() * 0.6;
-        double altoEscena = limitesPantalla.getHeight() * 0.75;
-        
-        panelIzquierdo.setPrefWidth(anchoEscena * 0.4);
-        panelDerechoLayout.setPrefWidth(anchoEscena * 0.5);
-        VBox.setVgrow(panelDerechoLayout, Priority.ALWAYS);
-
-        Scene escena = new Scene(raiz, anchoEscena, altoEscena);
+        Scene escena = new Scene(raiz, limitesPantalla.getWidth() * 0.6, limitesPantalla.getHeight() * 0.8);
         escenarioPrincipal.setScene(escena);
         
         actualizarEstiloFuente();
-        actualizarTextos(); // Cargar textos al iniciar
+        actualizarTextos();
+        actualizarControlesNavegacion();
         
         escenarioPrincipal.show();
     }
     
-    /**
-     * Cambia el tamaño de la fuente base de la aplicación.
-     * @param delta El cambio a aplicar al tamaño de la fuente (positivo o negativo).
-     */
-    private static void cambiarFuente(double delta) {
-        tamanoFuenteActual += delta;
-        if (tamanoFuenteActual < (TAMANO_FUENTE_BASE - MAX_INCREMENTOS)) {
-            tamanoFuenteActual = TAMANO_FUENTE_BASE - MAX_INCREMENTOS;
-        }
-        if (tamanoFuenteActual > (TAMANO_FUENTE_BASE + MAX_INCREMENTOS)) {
-            tamanoFuenteActual = TAMANO_FUENTE_BASE + MAX_INCREMENTOS;
-        }
-        actualizarEstiloFuente();
-    }
-
-    /**
-     * Aplica el tamaño de fuente actual al nodo raíz de la escena.
-     */
-    private static void actualizarEstiloFuente() {
-        if (raiz != null) {
-            raiz.setStyle("-fx-font-size: " + tamanoFuenteActual + "pt;");
-        }
-    }
-
-    /**
-     * Maneja el evento de clic del botón "Calcular".
-     * Recoge las entradas, las valida y llama al coordinador.
-     */
     private void manejarCalculo() {
         ResourceBundle bundle = coordinador.getBundle();
         etiquetaAdvertencia.setVisible(false);
-        panelDerechoContenido.getChildren().clear();
-        rutasCompletas = null;
-        actualizarControlesNavegacion();
-
+        
         try {
-            String textoOrigen = campoOrigen.getText();
-            String textoDestino = campoDestino.getText();
-            String textoHora = campoHora.getText();
-            RadioButton diaSeleccionadoRadio = (RadioButton) grupoDiasSemana.getSelectedToggle();
+            Parada paradaOrigen = comboOrigen.getValue();
+            Parada paradaDestino = comboDestino.getValue();
+            String horaSel = comboHora.getValue();
+            String minSel = comboMinuto.getValue();
+            RadioButton diaRadio = (RadioButton) grupoDiasSemana.getSelectedToggle();
 
-            if (textoOrigen.isEmpty() || textoDestino.isEmpty() || textoHora.isEmpty() || diaSeleccionadoRadio == null) {
+            if (paradaOrigen == null || paradaDestino == null || horaSel == null || minSel == null || diaRadio == null) {
                 throw new Exception(bundle.getString("Query_MissingInputError"));
             }
             
-            String textoDiaSeleccionado = diaSeleccionadoRadio.getText();
-            int diaSeleccionadoInt;
-            // Usamos las claves del bundle para la comparación para que funcione con cualquier idioma
-            if (textoDiaSeleccionado.equals(bundle.getString("Query_Monday"))) diaSeleccionadoInt = 1;
-            else if (textoDiaSeleccionado.equals(bundle.getString("Query_Tuesday"))) diaSeleccionadoInt = 2;
-            else if (textoDiaSeleccionado.equals(bundle.getString("Query_Wednesday"))) diaSeleccionadoInt = 3;
-            else if (textoDiaSeleccionado.equals(bundle.getString("Query_Thursday"))) diaSeleccionadoInt = 4;
-            else if (textoDiaSeleccionado.equals(bundle.getString("Query_Friday"))) diaSeleccionadoInt = 5;
-            else if (textoDiaSeleccionado.equals(bundle.getString("Query_Saturday"))) diaSeleccionadoInt = 6;
-            else if (textoDiaSeleccionado.equals(bundle.getString("Query_Sunday"))) diaSeleccionadoInt = 7;
-            else throw new IllegalStateException(bundle.getString("Query_UnexpectedDayError") + textoDiaSeleccionado);
+            String diaTexto = diaRadio.getText();
+            int diaInt = 0;
+            if (diaTexto.equals(bundle.getString("Query_Monday"))) diaInt = 1;
+            else if (diaTexto.equals(bundle.getString("Query_Tuesday"))) diaInt = 2;
+            else if (diaTexto.equals(bundle.getString("Query_Wednesday"))) diaInt = 3;
+            else if (diaTexto.equals(bundle.getString("Query_Thursday"))) diaInt = 4;
+            else if (diaTexto.equals(bundle.getString("Query_Friday"))) diaInt = 5;
+            else if (diaTexto.equals(bundle.getString("Query_Saturday"))) diaInt = 6;
+            else if (diaTexto.equals(bundle.getString("Query_Sunday"))) diaInt = 7;
 
-
-            int idOrigen = Integer.parseInt(textoOrigen);
-            Parada paradaOrigen = coordinador.getParada(idOrigen);
-            if (paradaOrigen == null) {
-            	throw new IllegalStateException(bundle.getString("Query_StopNotFoundError") + idOrigen);
-            } 
-            
-            int idDestino = Integer.parseInt(textoDestino);
-            Parada paradaDestino = coordinador.getParada(idDestino);
-            if (paradaDestino == null) {
-            	throw new IllegalStateException(bundle.getString("Query_StopNotFoundError") + idDestino);
-            } 
-            LocalTime hora = LocalTime.parse(textoHora);
+            LocalTime hora = LocalTime.parse(horaSel + ":" + minSel);
             
             ultimaConsultaParadaOrigen = paradaOrigen;
             ultimaConsultaParadaDestino = paradaDestino;
             ultimaConsultaHoraLlegada = hora;
             
-            coordinador.consulta(paradaOrigen, paradaDestino, diaSeleccionadoInt, hora);
+            coordinador.consulta(paradaOrigen, paradaDestino, diaInt, hora);
 
-        } catch (java.time.format.DateTimeParseException e) {
-            etiquetaAdvertencia.setText(bundle.getString("Query_WrongFormatError"));
-            etiquetaAdvertencia.setVisible(true);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             etiquetaAdvertencia.setText(e.getMessage());
             etiquetaAdvertencia.setVisible(true);
             rutasCompletas = null;
@@ -323,146 +327,158 @@ public class Interfaz extends Application implements VentanaConsultas {
         }
     }
 
-    /**
-     * Método estático llamado por el Coordinador para mostrar los resultados de la consulta.
-     * @param listaRecorridos La lista de rutas encontradas.
-     * @param paradaOrigen La parada de origen de la consulta.
-     * @param paradaDestino La parada de destino de la consulta.
-     * @param horaLlegaParada La hora de llegada del usuario a la parada de origen.
-     */
     @Override
-    public void resultado(List<List<Recorrido>> listaRecorridos,
-            Parada paradaOrigen,
-            Parada paradaDestino,
-            LocalTime horaLlegaParada) {
-        
+    public void resultado(List<List<Recorrido>> listaRecorridos, Parada pOrigen, Parada pDestino, LocalTime hLlegada) {
         rutasCompletas = listaRecorridos;
-        panelDerechoContenido.getChildren().clear();
         ResourceBundle bundle = coordinador.getBundle();
 
         if (rutasCompletas != null && !rutasCompletas.isEmpty()) {
             indicePaginaActual = 0;
-            mostrarPaginaActual(paradaOrigen, paradaDestino, horaLlegaParada);
+            mostrarPaginaActual(pOrigen, pDestino, hLlegada);
         } else {
+            panelDerechoContenido.getChildren().clear();
             panelDerechoContenido.getChildren().add(new Label(bundle.getString("Result_ZeroRoutes")));
             actualizarControlesNavegacion();
         }
     }
 
-    /**
-     * Cambia la página de resultados que se está mostrando.
-     * @param direccion El cambio de página (-1 para anterior, +1 para siguiente).
-     */
-    private static void cambiarPagina(int direccion) {
-        if (rutasCompletas != null && !rutasCompletas.isEmpty()) {
-            indicePaginaActual += direccion;
-            mostrarPaginaActual(ultimaConsultaParadaOrigen, ultimaConsultaParadaDestino, ultimaConsultaHoraLlegada);
-        }
-    }
-
-    /**
-     * Muestra la página de resultados actual en el panel derecho.
-     * Utiliza la traducción exacta solicitada.
-     * * @param paradaOrigen La parada de origen de la consulta.
-     * @param paradaDestino La parada de destino de la consulta.
-     * @param horaLlegaParada La hora de llegada del usuario a la parada de origen.
-     */
     private static void mostrarPaginaActual(Parada paradaOrigen, Parada paradaDestino, LocalTime horaLlegaParada) {
         panelDerechoContenido.getChildren().clear();
         ResourceBundle bundle = coordinador.getBundle();
         
         List<Recorrido> recorridoCompleto = rutasCompletas.get(indicePaginaActual);
         
-        // Título del recorrido
         Label titulo = new Label(bundle.getString("Result_RouteX") + " " + (indicePaginaActual + 1) + ":");
         titulo.setStyle("-fx-font-weight: bold;");
         panelDerechoContenido.getChildren().add(titulo);
         
-        // Aviso de trasbordos si hay más de un tramo
         if (recorridoCompleto.size() > 1) {
-            Label avisoTrasbordo = new Label(bundle.getString("Result_TransferWarning") + " " + (recorridoCompleto.size() - 1) + " " + bundle.getString("Result_Transfer"));
+            Label avisoTrasbordo = new Label(bundle.getString("Result_TransferWarning"));
             avisoTrasbordo.setTextFill(Color.DARKRED);
             avisoTrasbordo.setStyle("-fx-font-weight: bold;");
             panelDerechoContenido.getChildren().add(avisoTrasbordo);
         }
         
-        // Mostrar cada tramo
-        LocalTime horaLlegaActual = horaLlegaParada; // hora de llegada inicial al primer tramo
+        LocalTime horaLlegaActual = horaLlegaParada;
 
         for (int t = 0; t < recorridoCompleto.size(); t++) {
             Recorrido r = recorridoCompleto.get(t);
+            VBox tramoBox = new VBox(5);
+            tramoBox.setPadding(new Insets(10));
+            tramoBox.setSpacing(5);
 
-            LocalTime horaSalida = r.getHoraSalida();
-            long esperaSeg = 0;
-            if (horaSalida.isAfter(horaLlegaActual)) {
-                esperaSeg = Duration.between(horaLlegaActual, horaSalida).getSeconds();
-            }
-            int viajeSeg = r.getDuracion();
-            long totalSeg = esperaSeg + viajeSeg;
-            LocalTime horaLlegadaTramo = horaSalida.plusSeconds(viajeSeg);
-
-            // Origen y destino del tramo
             List<Parada> paradasTramo = r.getParadas();
             Parada tramoOrigen = paradasTramo.get(0);
             Parada tramoDestino = paradasTramo.get(paradasTramo.size() - 1);
+            int viajeSeg = r.getDuracion();
+            LocalTime horaSalida = r.getHoraSalida();
+            LocalTime horaLlegadaTramo = horaSalida.plusSeconds(viajeSeg);
+            
+            String tituloTramo;
+            if (r.getLinea() != null) { // Tramo en colectivo
+                tramoBox.setStyle("-fx-border-color: lightblue; -fx-border-width: 1; -fx-background-color: #f0f8ff; -fx-border-radius: 5;");
+                long esperaSeg = Duration.between(horaLlegaActual, horaSalida).toSeconds();
+                if (esperaSeg < 0) esperaSeg = 0;
 
-            VBox tramoBox = new VBox(5);
-            tramoBox.setPadding(new Insets(5, 0, 15, 10));
-            tramoBox.setStyle("-fx-border-color: lightblue; -fx-border-width: 0 0 1 0;");
+                tituloTramo = bundle.getString("Result_SegmentX") + " " + (t + 1) + " - " + bundle.getString("Result_LineX") + " " + r.getLinea().getCodigo();
+                tramoBox.getChildren().add(new Label(tituloTramo));
+                tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_InitialStop") + " " + tramoOrigen.getDireccion()));
+                tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_FinalStop") + " " + tramoDestino.getDireccion()));
+                tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_UserTimeOfArrival") + " " + horaLlegaActual));
+                tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_TimeOfDeparture") + " " + horaSalida));
+                tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_WaitTime") + " " + Tiempo.segundosATiempo((int) esperaSeg)));
+                tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_TravelTime") + " " + Tiempo.segundosATiempo(viajeSeg)));
+                
+                if (paradasTramo.size() > 1) {
+                    Label tituloParadas = new Label("  " + bundle.getString("Result_Stops"));
+                    tramoBox.getChildren().add(tituloParadas);
+                    
+                    VBox cajaTramosParadas = new VBox(2);
+                    cajaTramosParadas.setPadding(new Insets(0, 0, 0, 35));
+                    
+                    for (int i = 0; i < paradasTramo.size() - 1; i++) {
+                        Parada paradaActual = paradasTramo.get(i);
+                        Parada paradaSiguiente = paradasTramo.get(i + 1);
+                        Label tramoDeParada = new Label(paradaActual.getDireccion() + " -> " + paradaSiguiente.getDireccion());
+                        cajaTramosParadas.getChildren().add(tramoDeParada);
+                    }
+                    tramoBox.getChildren().add(cajaTramosParadas);
+                }
 
-            tramoBox.getChildren().add(new Label(bundle.getString("Result_SegmentX") + " " + (t + 1) + " - " + bundle.getString("Result_LineX") + " " + r.getLinea().getCodigo()));
-            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_InitialStop") + " " + tramoOrigen.getDireccion()));
-            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_FinalStop") + " " + tramoDestino.getDireccion()));
-            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_UserTimeOfArrival") + " " + horaLlegaActual));
-            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_TimeOfDeparture") + " " + horaSalida));
-            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_WaitTime") + " " + Tiempo.segundosATiempo((int) esperaSeg)));
-            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_TravelTime") + " " + Tiempo.segundosATiempo(viajeSeg)));
-            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_TotalTime") + " " + Tiempo.segundosATiempo((int) totalSeg)));
-            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_ArrivalTime") + " " + horaLlegadaTramo));
-
-            // Paradas intermedias
-            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_Stops")));
-            VBox stopsBox = new VBox(2);
-            stopsBox.setPadding(new Insets(0, 0, 0, 35));
-            for (int j = 0; j < paradasTramo.size() - 1; j++) {
-                stopsBox.getChildren().add(new Label(paradasTramo.get(j).getDireccion() + " -> " + paradasTramo.get(j + 1).getDireccion()));
+            } else { // Tramo caminando
+                tramoBox.setStyle("-fx-border-color: lightgreen; -fx-border-width: 1; -fx-background-color: #f0fff0; -fx-border-radius: 5;");
+                tituloTramo = bundle.getString("Result_SegmentX") + " " + (t + 1) + " - " + bundle.getString("Result_Walking");
+                tramoBox.getChildren().add(new Label(tituloTramo));
+                tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_WalkFrom") + " " + tramoOrigen.getDireccion()));
+                tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_WalkTo") + " " + tramoDestino.getDireccion()));
+                tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_WalkStart") + " " + horaSalida));
+                tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_WalkDuration") + " " + Tiempo.segundosATiempo(viajeSeg)));
             }
-            tramoBox.getChildren().add(stopsBox);
+            
+            tramoBox.getChildren().add(new Label("  " + bundle.getString("Result_ArrivalTime") + " " + horaLlegadaTramo));
             panelDerechoContenido.getChildren().add(tramoBox);
-
-            // Actualizar hora de llegada para el próximo tramo
             horaLlegaActual = horaLlegadaTramo;
         }
-
         actualizarControlesNavegacion();
     }
 
-    
-    /**
-     * Actualiza el estado (etiqueta y habilitación) de los botones de navegación.
-     */
     private static void actualizarControlesNavegacion() {
         ResourceBundle bundle = coordinador.getBundle();
-        String de = " de "; // "of"
-        if (bundle != null && bundle.getLocale().getLanguage().equals("en")) {
-            de = " of ";
-        }
+        if (bundle == null) return;
+        String de = bundle.getString("Result_Of");
         
-        if (rutasCompletas == null || rutasCompletas.isEmpty()) {
-            etiquetaPagina.setText(bundle != null ? bundle.getString("Result_RoutePages") + " 0" + de + "0" : "Ruta 0 de 0");
-            botonAnterior.setDisable(true);
-            botonSiguiente.setDisable(true);
-        } else {
-            etiquetaPagina.setText(bundle.getString("Result_RoutePages") + " " + (indicePaginaActual + 1) + de + rutasCompletas.size());
+        boolean hayRutas = rutasCompletas != null && !rutasCompletas.isEmpty();
+        
+        if (hayRutas) {
+            etiquetaPagina.setText(bundle.getString("Result_RoutePages") + " " + (indicePaginaActual + 1) + " " + de + " " + rutasCompletas.size());
             botonAnterior.setDisable(indicePaginaActual <= 0);
             botonSiguiente.setDisable(indicePaginaActual >= rutasCompletas.size() - 1);
+        } else {
+            etiquetaPagina.setText(bundle.getString("Result_RoutePages") + " 0 " + de + " 0");
+            botonAnterior.setDisable(true);
+            botonSiguiente.setDisable(true);
+        }
+        botonMapa.setDisable(!hayRutas);
+    }
+
+    private static void cambiarPagina(int direccion) {
+        if (rutasCompletas != null) {
+            indicePaginaActual += direccion;
+            mostrarPaginaActual(ultimaConsultaParadaOrigen, ultimaConsultaParadaDestino, ultimaConsultaHoraLlegada);
+        }
+    }
+    
+    private static void cambiarFuente(double delta) {
+        tamanoFuenteActual += delta;
+        tamanoFuenteActual = Math.max(TAMANO_FUENTE_BASE - MAX_INCREMENTOS, tamanoFuenteActual);
+        tamanoFuenteActual = Math.min(TAMANO_FUENTE_BASE + MAX_INCREMENTOS, tamanoFuenteActual);
+        actualizarEstiloFuente();
+    }
+
+    private static void actualizarEstiloFuente() {
+        if (raiz != null) {
+            raiz.setStyle("-fx-font-size: " + tamanoFuenteActual + "pt;");
+        }
+    }
+    
+    private static void mostrarMapa() {
+        if (rutasCompletas == null || rutasCompletas.isEmpty()) return;
+        
+        VentanaMapa ventanaMapa = new VentanaMapa();
+        ventanaMapa.setRecorrido(rutasCompletas.get(indicePaginaActual));
+        
+        try {
+            ventanaMapa.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            etiquetaAdvertencia.setText("Error al abrir el mapa.");
+            etiquetaAdvertencia.setVisible(true);
         }
     }
 
     @Override
     public void close(Stage ventana) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'close'");
+        resetState(); // <-- [NUEVO] Limpiar estado al cerrar
+        ventana.close();
     }
-
 }

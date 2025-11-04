@@ -103,6 +103,14 @@ public class Coordinador {
         }
         return ciudadActual.getParada(paradaId);
     }
+    
+    public Map<Integer, Parada> getMapaParadas() {
+        if (ciudadActual == null) {
+            QUERY_LOG.error("Intento de getParadas() cuando ciudadActual es nula.");
+            return java.util.Collections.emptyMap(); 
+        }
+        return ciudadActual.getParadas(); 
+    }
 
     public void cambiarSchema(String nuevoSchema) {
         schemaServicio.cambiarSchema(nuevoSchema);
@@ -123,7 +131,6 @@ public class Coordinador {
 
         QUERY_LOG.info("Usuario cambia de ciudad a {}", nuevaCiudad);
     }
-
     
     public void iniciarAplicacion(String[] args) {
         QUERY_LOG.info("Usuario inicia aplicacion");
@@ -143,5 +150,22 @@ public class Coordinador {
 		ventanaConsultas.start(new Stage());
         ventanaInicio.close(ventana);
     }
-    
+
+    /**
+     * Cierra la ventana de consulta actual y vuelve a mostrar la ventana de inicio.
+     * @param ventanaActual La ventana (Stage) de la Interfaz que se debe cerrar.
+     */
+    public void volverAInicio(Stage ventanaActual) {
+        // Cierra la ventana de la interfaz de consulta
+        ventanaConsultas.close(ventanaActual);
+        
+        // Vuelve a lanzar la ventana de inicio
+        // La implementación de VentanaInicio es una Application, por lo que se puede
+        // llamar a su método start() para volver a crearla.
+        try {
+			ventanaInicio.getClass().getMethod("start", Stage.class).invoke(ventanaInicio, new Stage());
+		} catch (Exception e) {
+			QUERY_LOG.error("No se pudo volver a la ventana de inicio.", e);
+		}
+    }
 }
