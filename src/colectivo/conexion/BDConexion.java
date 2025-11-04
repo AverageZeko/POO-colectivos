@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * se lanzan excepciones {@link IllegalStateException} o {@link RuntimeException}.</p>
  */
 public class BDConexion {
-    private static final Logger BD_LOG = LoggerFactory.getLogger(BDConexion.class);
+    private static final Logger BD_LOG = LoggerFactory.getLogger("BDConexion");
     private static final String RUTA_BD = "resources/postgresql.properties";
     private static Connection conexion = null;
 

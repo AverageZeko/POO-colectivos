@@ -47,5 +47,9 @@
         <appender-ref ref="FILE_DETAILS" /> 
     </logger> 
 
+    <logger name="Logica" level="DEBUG">
+        <appender-ref ref="FILE_DETAILS" /> 
+    </logger> 
+
 
 </configuration>

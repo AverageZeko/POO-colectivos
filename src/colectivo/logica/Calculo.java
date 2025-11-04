@@ -3,6 +3,9 @@ package colectivo.logica;
 import java.time.LocalTime;
 import java.util.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import colectivo.modelo.Linea;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
@@ -13,6 +16,7 @@ import colectivo.modelo.Tramo;
  * Refactorizada para unificar la lógica de conexiones y reducir la duplicación de código.
  */
 public class Calculo {
+    private static final Logger LOGICA_LOG = LoggerFactory.getLogger("Logica");
 
     private final CacheLineas cache = new CacheLineas();
 
@@ -37,6 +41,7 @@ public class Calculo {
                 resultado.addAll(buscarConexiones(origen, destino, diaSemana, horaLlegaParada, tramos));
             }
         }
+        LOGICA_LOG.debug("Recorridos calculados");
         return resultado;
     }
 
