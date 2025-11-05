@@ -22,7 +22,12 @@ import colectivo.util.LocaleInfo;
 import colectivo.util.LocalizacionUtil;
 import javafx.stage.Stage;
 
-// ... (resto de la clase sin cambios)
+/**
+ * Clase central que actúa como mediador entre la interfaz de usuario,
+ * la lógica de negocio y los servicios de datos. Gestiona el estado de
+ * la aplicación, como la ciudad actual y la localización, y coordina las
+ * acciones del usuario.
+ */
 public class Coordinador {
     private static final Logger QUERY_LOG = LoggerFactory.getLogger("Consulta");
     private Map<String, EmpresaColectivos> ciudades;
@@ -34,27 +39,50 @@ public class Coordinador {
     private LocaleInfo localeActual; // Guardar el LocaleInfo actual
     private ResourceBundle bundle;
     
+    /**
+     * Construye un nuevo coordinador, inicializando el mapa de ciudades.
+     */
     public Coordinador() {
         ciudades = new HashMap<>();
     }
 
+    /**
+     * Establece el servicio de esquema a utilizar para cambiar entre ciudades.
+     * @param schema el servicio de esquema.
+     */
     public void setSchemaServicio(SchemaServicio schema) {
         this.schemaServicio = schema;
     }
 
+    /**
+     * Establece el objeto de cálculo para la lógica de búsqueda de recorridos.
+     * @param calculo el objeto de cálculo.
+     */
     public void setCalculo(Calculo calculo) {
     	this.calculo = calculo;
     }
 
+    /**
+     * Establece la ventana de inicio de la aplicación.
+     * @param ventanaInicio la ventana de inicio.
+     */
     public void setVentanaInicio(VentanaInicial ventanaInicio) {
         this.ventanaInicio = ventanaInicio;
     }
 
+    /**
+     * Establece la ventana de consultas de la aplicación.
+     * @param ventanaConsultas la ventana de consultas.
+     */
     public void setVentanaConsultas(VentanaConsultas ventanaConsultas) {
         this.ventanaConsultas = ventanaConsultas;
     }
 
-    
+    /**
+     * Configura la localización (idioma y país) de la aplicación, cargando el
+     * ResourceBundle correspondiente para la internacionalización.
+     * @param localeInfo la información de localización a establecer.
+     */
     public void setLocalizacion(LocaleInfo localeInfo) {
         if (localeInfo == null) {
             QUERY_LOG.warn("setLocalizacion fue llamado con un valor nulo.");
@@ -72,6 +100,10 @@ public class Coordinador {
         }
     }
 
+    /**
+     * Descubre las localizaciones disponibles en la aplicación.
+     * @return una lista de objetos LocaleInfo que representan las localizaciones encontradas.
+     */
     public List<LocaleInfo> descubrirLocalizaciones() {
         return LocalizacionUtil.descubrirLocalizaciones();
     }
@@ -84,10 +116,20 @@ public class Coordinador {
         return localeActual;
     }
 
+    /**
+     * Devuelve el ResourceBundle cargado para la localización actual, que contiene
+     * las cadenas de texto internacionalizadas.
+     * @return el ResourceBundle actual.
+     */
     public ResourceBundle getBundle() {
         return bundle;
     }
 
+    /**
+     * Obtiene un objeto Parada a partir de su identificador.
+     * @param paradaId el ID de la parada.
+     * @return el objeto Parada correspondiente o null si no se encuentra.
+     */
     public Parada getParada(int paradaId) {
         if (ciudadActual == null) {
             QUERY_LOG.error("Intento de getParada({}) cuando ciudadActual es nula.", paradaId);
@@ -96,7 +138,11 @@ public class Coordinador {
         return ciudadActual.getParada(paradaId);
     }
     
-    public Map<Integer, Parada> getParadas() {
+    /**
+     * Obtiene todas las paradas de la ciudad actualmente seleccionada.
+     * @return un mapa de paradas, con su ID como clave.
+     */
+    public Map<Integer, Parada> getMapaParadas() {
         if (ciudadActual == null) {
             QUERY_LOG.error("Intento de getParadas() cuando ciudadActual es nula.");
             return java.util.Collections.emptyMap(); 
@@ -104,10 +150,19 @@ public class Coordinador {
         return ciudadActual.getParadas(); 
     }
 
+    /**
+     * Cambia el esquema de la base de datos activo.
+     * @param nuevoSchema el nombre del nuevo esquema a utilizar.
+     */
     public void cambiarSchema(String nuevoSchema) {
         schemaServicio.cambiarSchema(nuevoSchema);
     }
 
+    /**
+     * Establece la ciudad actual para las consultas. Si la ciudad no ha sido
+     * cargada previamente, la inicializa. Limpia las cachés de la Factory.
+     * @param nuevaCiudad el nombre de la ciudad a establecer como actual.
+     */
     public void setCiudadActual(String nuevaCiudad) {
         cambiarSchema(nuevaCiudad);
         EmpresaColectivos ciudad = ciudades.get(nuevaCiudad);
@@ -124,36 +179,48 @@ public class Coordinador {
         QUERY_LOG.info("Usuario cambia de ciudad a {}", nuevaCiudad);
     }
     
+    /**
+     * Inicia la aplicación lanzando la ventana de inicio.
+     * @param args argumentos de la línea de comandos.
+     */
     public void iniciarAplicacion(String[] args) {
         QUERY_LOG.info("Usuario inicia aplicacion");
         ventanaInicio.lanzarAplicacion(args);
     }
 
 	/**
-	 * [MODIFICADO] Realiza la consulta y DEVUELVE los recorridos encontrados.
-	 * Ya no interactúa directamente con la ventana de consultas.
+	 * Realiza la consulta de recorridos entre un origen y un destino.
+	 * Este método delega el cálculo a la capa de lógica y devuelve los resultados
+	 * sin interactuar directamente con la vista.
 	 *
-	 * @param origen
-	 * @param destino
-	 * @param diaSemana
-	 * @param horaLlegaParada
-	 * @return La lista de posibles rutas.
+	 * @param origen la parada de origen.
+	 * @param destino la parada de destino.
+	 * @param diaSemana el día de la semana para la consulta.
+	 * @param horaLlegaParada la hora de llegada a la parada de origen.
+	 * @return una lista de posibles rutas, donde cada ruta es una lista de recorridos.
 	 */
     public List<List<Recorrido>> consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
         QUERY_LOG.info("Usuario realiza consulta desde {} hasta {}, dia de la semana {} a las {}", origen.getDireccion(), destino.getDireccion(), diaSemana, horaLlegaParada);
         List<List<Recorrido>> recorridos = calculo.calcularRecorrido(
                 origen, destino, diaSemana, horaLlegaParada, ciudadActual.getTramos()
         );
-        // Ya no llama a la ventana, simplemente devuelve el resultado.
         return recorridos;
     }
     
-
+    /**
+     * Cierra la ventana de inicio y abre la ventana de consultas.
+     * @param ventana la ventana actual (de inicio) que se debe cerrar.
+     */
     public void iniciarConsulta(Stage ventana) {
 		ventanaConsultas.start(new Stage());
         ventanaInicio.close(ventana);
     }
 
+    /**
+     * Cierra la ventana de consultas y vuelve a mostrar la ventana de inicio,
+     * limpiando las cachés de datos.
+     * @param ventanaActual la ventana de consultas que se debe cerrar.
+     */
     public void volverAInicio(Stage ventanaActual) {
         ventanaConsultas.close(ventanaActual);
         Factory.clearInstancia(Constantes.TRAMO);

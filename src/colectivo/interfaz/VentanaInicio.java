@@ -31,6 +31,12 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
+/**
+ * Implementación de {@link VentanaInicial} que muestra la pantalla de bienvenida.
+ * Permite al usuario seleccionar una ciudad y un idioma antes de iniciar
+ * la aplicación de consultas.
+ */
 public class VentanaInicio extends Application implements VentanaInicial {
 
     private static Coordinador coordinador;
@@ -51,10 +57,6 @@ public class VentanaInicio extends Application implements VentanaInicial {
         setCoordinadorFinal(coord);
     }
 
-    /**
-     * Establece el coordinador para ser utilizado por la interfaz.
-     * @param coord El coordinador a inyectar.
-     */
     private static void setCoordinadorFinal(Coordinador coord) {
         coordinador = coord;
     }
@@ -65,6 +67,9 @@ public class VentanaInicio extends Application implements VentanaInicial {
         Application.launch(VentanaInicio.class, args);
     }
 
+    /**
+     * Actualiza los textos de la interfaz según el idioma seleccionado.
+     */
     private void actualizarTextos() {
         if (coordinador == null) {
             LOG.error("El coordinador es nulo. No se pueden actualizar los textos.");
@@ -82,6 +87,10 @@ public class VentanaInicio extends Application implements VentanaInicial {
         comboCiudad.setPromptText(bundle.getString("Welcome_CityPrompt"));
     }
 
+    /**
+     * Inicializa y muestra la ventana de inicio.
+     * @param primaryStage El escenario principal de la aplicación.
+     */
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -106,9 +115,7 @@ public class VentanaInicio extends Application implements VentanaInicial {
         comboCiudad.setEditable(true);
         comboCiudad.setMaxWidth(Double.MAX_VALUE);
         
-        // --- LÓGICA DE FILTRADO Y SELECCIÓN MEJORADA ---
         comboCiudad.setOnKeyReleased(event -> {
-            // Solo filtra cuando el usuario está escribiendo, no con teclas como Enter o flechas.
             if (event.getCode().isLetterKey() || event.getCode().isDigitKey() || event.getCode() == KeyCode.BACK_SPACE) {
                 String filtro = comboCiudad.getEditor().getText();
                 ciudadesFiltradas.setPredicate(item -> {
@@ -117,18 +124,14 @@ public class VentanaInicio extends Application implements VentanaInicial {
                     }
                     return item.toLowerCase().contains(filtro.toLowerCase());
                 });
-                comboCiudad.show(); // Muestra la lista filtrada
+                comboCiudad.show(); 
             }
         });
 
-        // Cuando se selecciona un valor, nos aseguramos de que el filtro no lo oculte
         comboCiudad.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
-                // Restablecer el predicado para asegurar que el elemento seleccionado sea visible
                 ciudadesFiltradas.setPredicate(item -> true);
-                // Actualizar el texto del editor para que coincida con la selección
                 comboCiudad.getEditor().setText(newVal);
-                // Opcional: mover el cursor al final
                 comboCiudad.getEditor().end();
             }
         });
@@ -174,6 +177,11 @@ public class VentanaInicio extends Application implements VentanaInicial {
         primaryStage.show();
     }
     
+    /**
+     * Crea un {@link ToggleButton} con la imagen de una bandera para una localización.
+     * @param locale La información de la localización.
+     * @return Un ToggleButton configurado con la bandera y estilos.
+     */
     private ToggleButton crearBotonBandera(LocaleInfo locale) {
         ToggleButton boton = new ToggleButton();
         boton.setUserData(locale);
@@ -204,6 +212,10 @@ public class VentanaInicio extends Application implements VentanaInicial {
         return boton;
     }
 
+    /**
+     * Maneja el evento del botón "Iniciar". Valida la selección y notifica al coordinador.
+     * @param ventanaActual La ventana actual que se cerrará.
+     */
     private void manejarInicio(Stage ventanaActual) {
         etiquetaAdvertencia.setVisible(false);
         ToggleButton seleccionBandera = (ToggleButton) grupoBanderas.getSelectedToggle();

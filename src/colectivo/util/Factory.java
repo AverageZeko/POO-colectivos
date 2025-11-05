@@ -9,15 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * <p>Esta clase decide la implementacion concreta de DAO a utilizar en base al archivo modificable
- * {@code resources/factory.properties} utilizando el patron de diseño Factory </p>
- *
+ * Implementación del patrón de diseño Factory para la creación de instancias de DAO.
+ * <p>Esta clase decide la implementación concreta de DAO a utilizar en base al archivo de configuración
+ * {@code resources/factory.properties}.</p>
  * <p>
- * Las instancias se almacenan en un {@link java.util.concurrent.ConcurrentHashMap} y se crean
- * mediante el metodo {@code computeIfAbsent}, el cual se asegura que
- * solo exista una instancia del objeto en el mapa
+ * Las instancias se almacenan en caché en un {@link java.util.concurrent.ConcurrentHashMap} para asegurar
+ * que solo exista una instancia de cada DAO (patrón Singleton gestionado por la Factory).
+ * La creación es segura en entornos concurrentes gracias a {@code computeIfAbsent}.
  * </p>
- *
  */
 public class Factory {
     private static final Logger FACTORY_LOG = LoggerFactory.getLogger(Factory.class);
@@ -25,7 +24,7 @@ public class Factory {
     private static final String RUTA_FACTORY = "resources/factory.properties";
 
     /**
-     * Devuelve (y si es necesario crea) la instancia asociada a la clave dada. Mediante el uso de {@code computeIfAbsent} y una expresion Lambda
+     * Devuelve una instancia única del objeto DAO solicitado, creándola si no existe.
      * <p>Notas de implementación:
      *  Este método encapsula las excepciones originales utilizando {@link IllegalStateException} y devuelve un mensaje detallando el error junto con la traza de la excepcion real.
      * </p>
@@ -41,7 +40,7 @@ public class Factory {
      * </p>
      *
      * @param nombreObj clave usada para buscar la clase en {@code resources/factory.properties}.
-     *                  Debe coincidir exactamente con la clave definida.
+     *                  Debe coincidir exactamente con la clave definida (ej. "TRAMO", "LINEA").
      * @return la instancia asociada a la clave; nunca devuelve {@code null} si la clave está bien
      *         configurada y la clase tiene un constructor sin argumentos accesible.
      * @throws IllegalStateException si:
@@ -80,6 +79,13 @@ public class Factory {
         return obj;
     }
 
+    /**
+     * Elimina una instancia de DAO de la caché.
+     * La próxima vez que se solicite con {@code getInstancia}, se creará de nuevo.
+     * Útil para cambiar de ciudad y forzar la recarga de datos.
+     *
+     * @param nombreObj La clave de la instancia a eliminar.
+     */
     public static void clearInstancia(String nombreObj) {
         instancias.remove(nombreObj);
     }

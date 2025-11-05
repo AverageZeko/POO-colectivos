@@ -35,23 +35,20 @@ import colectivo.util.Tiempo;
 import javafx.scene.paint.Color;
 
 /**
- * Clase principal de la interfaz de usuario para la aplicación de consulta de colectivos.
- * Gestiona la ventana, la entrada del usuario y la visualización de resultados.
+ * Ventana principal para la consulta de recorridos de colectivos.
+ * Esta clase gestiona la interfaz de usuario donde el usuario puede
+ * seleccionar paradas de origen y destino, un horario, y ver los
+ * resultados del cálculo de rutas.
+ * Implementa {@link VentanaConsultas}.
  */
 public class Interfaz extends Application implements VentanaConsultas {
     
-    /** El coordinador que maneja la lógica de negocio. */
     private static Coordinador coordinador;
-    /** Almacena la lista completa de rutas encontradas en la última consulta. */
     private static List<List<Recorrido>> rutasCompletas;
-    /** Índice de la página de resultados que se está mostrando actualmente. */
     private static int indicePaginaActual;
     
-    /** Almacena la parada de origen de la última consulta para paginación. */
     private static Parada ultimaConsultaParadaOrigen;
-    /** Almacena la parada de destino de la última consulta para paginación. */
     private static Parada ultimaConsultaParadaDestino;
-    /** Almacena la hora de llegada de la última consulta para paginación. */
     private static LocalTime ultimaConsultaHoraLlegada;
 
     private static ComboBox<Parada> comboOrigen;
@@ -73,7 +70,6 @@ public class Interfaz extends Application implements VentanaConsultas {
     private static final double TAMANO_FUENTE_BASE = 12;
     private static final int MAX_INCREMENTOS = 5;
 
-    // Campos para componentes de la UI que necesitan actualizar su texto
     private Label etiquetaOrigen;
     private Label etiquetaDestino;
     private Label etiquetaHora;
@@ -84,6 +80,9 @@ public class Interfaz extends Application implements VentanaConsultas {
     private Button botonVolver;
     private Stage escenarioPrincipal;
 
+    /**
+     * Celda personalizada para mostrar el nombre de una {@link Parada} en un ComboBox.
+     */
     static class ParadaListCell extends ListCell<Parada> {
         @Override
         protected void updateItem(Parada item, boolean empty) {
@@ -101,6 +100,10 @@ public class Interfaz extends Application implements VentanaConsultas {
         coordinador = coord;
     }
     
+    /**
+     * Reinicia el estado de la interfaz a sus valores por defecto.
+     * Limpia los resultados de búsquedas anteriores y selecciones del usuario.
+     */
     private static void resetState() {
         rutasCompletas = null;
         indicePaginaActual = 0;
@@ -124,6 +127,10 @@ public class Interfaz extends Application implements VentanaConsultas {
     }
 
 
+    /**
+     * Actualiza los textos de todos los componentes de la UI según el
+     * {@link ResourceBundle} de la localización actual.
+     */
     private void actualizarTextos() {
         ResourceBundle bundle = coordinador.getBundle();
         if (bundle == null) return; 
@@ -160,6 +167,11 @@ public class Interfaz extends Application implements VentanaConsultas {
         }
     }
 
+    /**
+     * Punto de entrada para la ventana de consultas.
+     * Inicializa y configura todos los componentes de la interfaz de usuario.
+     * @param escenarioPrincipal El {@link Stage} principal para esta ventana.
+     */
     @Override
     public void start(Stage escenarioPrincipal) {
         resetState();
@@ -198,7 +210,7 @@ public class Interfaz extends Application implements VentanaConsultas {
         cajaHora.setAlignment(Pos.CENTER_LEFT);
         
         if (coordinador != null) {
-            Map<Integer, Parada> paradasMap = coordinador.getParadas();
+            Map<Integer, Parada> paradasMap = coordinador.getMapaParadas();
             ObservableList<Parada> paradasLista = FXCollections.observableArrayList(paradasMap.values());
             
             comboOrigen.setItems(paradasLista);
@@ -288,10 +300,7 @@ public class Interfaz extends Application implements VentanaConsultas {
         Scene escena = new Scene(raiz);
         escenarioPrincipal.setScene(escena);
         
-        // --- INICIO DEL CAMBIO ---
-        // Se establece la ventana en modo maximizado
         escenarioPrincipal.setMaximized(true);
-        // --- FIN DEL CAMBIO ---
         
         actualizarEstiloFuente();
         actualizarTextos();
@@ -300,6 +309,11 @@ public class Interfaz extends Application implements VentanaConsultas {
         escenarioPrincipal.show();
     }
     
+    /**
+     * Maneja el evento de clic del botón "Calcular".
+     * Valida la entrada, inicia una tarea en segundo plano para realizar la consulta,
+     * y actualiza la UI con los resultados o un mensaje de error.
+     */
     private void manejarCalculo() {
         ResourceBundle bundle = coordinador.getBundle();
         etiquetaAdvertencia.setVisible(false);
@@ -324,7 +338,7 @@ public class Interfaz extends Application implements VentanaConsultas {
         Task<List<List<Recorrido>>> task = new Task<>() {
             @Override
             protected List<List<Recorrido>> call() throws Exception {
-                Thread.sleep(6000);
+                Thread.sleep(6000); // Simula una espera
 
                 String diaTexto = diaRadio.getText();
                 int diaInt = 0;
@@ -363,6 +377,13 @@ public class Interfaz extends Application implements VentanaConsultas {
     }
 
 
+    /**
+     * Procesa los resultados de la consulta y actualiza la vista.
+     * @param listaRecorridos La lista de rutas encontradas.
+     * @param pOrigen La parada de origen de la consulta.
+     * @param pDestino La parada de destino de la consulta.
+     * @param hLlegada La hora de llegada especificada por el usuario.
+     */
     @Override
     public void resultado(List<List<Recorrido>> listaRecorridos, Parada pOrigen, Parada pDestino, LocalTime hLlegada) {
         rutasCompletas = listaRecorridos;
@@ -378,6 +399,12 @@ public class Interfaz extends Application implements VentanaConsultas {
         }
     }
 
+    /**
+     * Muestra la página de resultados actual en el panel derecho.
+     * @param paradaOrigen Parada de origen de la consulta.
+     * @param paradaDestino Parada de destino de la consulta.
+     * @param horaLlegaParada Hora de llegada a la parada de origen.
+     */
     private static void mostrarPaginaActual(Parada paradaOrigen, Parada paradaDestino, LocalTime horaLlegaParada) {
         panelDerechoContenido.getChildren().clear();
         ResourceBundle bundle = coordinador.getBundle();
@@ -458,6 +485,10 @@ public class Interfaz extends Application implements VentanaConsultas {
         actualizarControlesNavegacion();
     }
 
+    /**
+     * Actualiza el estado y el texto de los controles de navegación de resultados
+     * (botones Anterior/Siguiente, etiqueta de página).
+     */
     private static void actualizarControlesNavegacion() {
         ResourceBundle bundle = coordinador.getBundle();
         if (bundle == null) return;
@@ -477,6 +508,10 @@ public class Interfaz extends Application implements VentanaConsultas {
         botonMapa.setDisable(!hayRutas);
     }
 
+    /**
+     * Cambia a la página de resultados anterior o siguiente.
+     * @param direccion -1 para la página anterior, 1 para la siguiente.
+     */
     private static void cambiarPagina(int direccion) {
         if (rutasCompletas != null) {
             indicePaginaActual += direccion;
@@ -484,6 +519,10 @@ public class Interfaz extends Application implements VentanaConsultas {
         }
     }
     
+    /**
+     * Modifica el tamaño de la fuente de la aplicación.
+     * @param delta El cambio a aplicar al tamaño de la fuente (positivo para aumentar, negativo para disminuir).
+     */
     private static void cambiarFuente(double delta) {
         tamanoFuenteActual += delta;
         tamanoFuenteActual = Math.max(TAMANO_FUENTE_BASE - MAX_INCREMENTOS, tamanoFuenteActual);
@@ -491,12 +530,18 @@ public class Interfaz extends Application implements VentanaConsultas {
         actualizarEstiloFuente();
     }
 
+    /**
+     * Aplica el estilo de fuente actual al nodo raíz de la escena.
+     */
     private static void actualizarEstiloFuente() {
         if (raiz != null) {
             raiz.setStyle("-fx-font-size: " + tamanoFuenteActual + "pt;");
         }
     }
     
+    /**
+     * Abre una nueva ventana {@link VentanaMapa} para mostrar el recorrido actual.
+     */
     private static void mostrarMapa() {
         if (rutasCompletas == null || rutasCompletas.isEmpty()) return;
         
@@ -512,6 +557,10 @@ public class Interfaz extends Application implements VentanaConsultas {
         }
     }
 
+    /**
+     * Cierra la ventana actual y resetea su estado.
+     * @param ventana El {@link Stage} a cerrar.
+     */
     @Override
     public void close(Stage ventana) {
         resetState();

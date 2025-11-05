@@ -12,8 +12,10 @@ import colectivo.modelo.Recorrido;
 import colectivo.modelo.Tramo;
 
 /**
- * Clase encargada de calcular recorridos directos e indirectos entre paradas.
- * Refactorizada para unificar la lógica de conexiones y reducir la duplicación de código.
+ * Clase principal encargada de la lógica de cálculo de rutas entre dos paradas.
+ * Utiliza una caché interna ({@link CacheLineas}) para optimizar los cálculos repetitivos.
+ * La lógica se divide en buscar recorridos directos y, si no se encuentran,
+ * buscar conexiones con transbordo o caminando.
  */
 public class Calculo {
     private static final Logger LOGICA_LOG = LoggerFactory.getLogger("Logica");
@@ -23,6 +25,19 @@ public class Calculo {
     public Calculo() {
     }
 
+    /**
+     * Método principal para calcular las posibles rutas entre un origen y un destino.
+     * Primero intenta encontrar recorridos directos. Si no hay, busca conexiones
+     * que pueden implicar un transbordo o un tramo a pie.
+     *
+     * @param origen La parada de inicio del viaje.
+     * @param destino La parada final del viaje.
+     * @param diaSemana El día de la semana para el cálculo de frecuencias.
+     * @param horaLlegaParada La hora a la que el usuario llega a la parada de origen.
+     * @param tramos Un mapa con todos los tramos del sistema de transporte.
+     * @return Una lista de rutas. Cada ruta es una lista de segmentos ({@link Recorrido}).
+     *         Puede estar vacía si no se encuentra ninguna ruta.
+     */
     public List<List<Recorrido>> calcularRecorrido(
             Parada origen,
             Parada destino,
@@ -45,6 +60,16 @@ public class Calculo {
         return resultado;
     }
 
+    /**
+     * Busca rutas directas (un solo colectivo) entre el origen y el destino.
+     *
+     * @param origen Parada de inicio.
+     * @param destino Parada final.
+     * @param diaSemana Día de la semana.
+     * @param horaLlegaParada Hora de llegada a la parada de origen.
+     * @param tramos Mapa de todos los tramos.
+     * @return Una lista de rutas, donde cada ruta contiene un único segmento de recorrido directo.
+     */
     private List<List<Recorrido>> recorridosDirectos(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada, Map<String, Tramo> tramos) {
         List<List<Recorrido>> resultado = new ArrayList<>();
         for (Linea linea : origen.getLineas()) {
@@ -58,6 +83,16 @@ public class Calculo {
         return resultado;
     }
 
+    /**
+     * Busca rutas indirectas que requieren uno o más transbordos o tramos a pie.
+     *
+     * @param origen Parada de inicio.
+     * @param destino Parada final.
+     * @param diaSemana Día de la semana.
+     * @param horaLlegaParada Hora de llegada a la parada de origen.
+     * @param tramos Mapa de todos los tramos.
+     * @return Una lista de las 2 mejores rutas de conexión encontradas, ordenadas por tiempo total.
+     */
     private List<List<Recorrido>> buscarConexiones(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada, Map<String, Tramo> tramos) {
         List<List<Recorrido>> resultado = new ArrayList<>();
         Set<String> conexionesYaEncontradas = new HashSet<>();
@@ -75,11 +110,8 @@ public class Calculo {
                             if (primerTramo != null) {
                                 LocalTime horaLlegadaIntermedia1 = primerTramo.getHoraSalida().plusSeconds(primerTramo.getDuracion());
                                 
-                                // Generar posibles conexiones intermedias (transbordo o caminata)
                                 List<Recorrido> tramosIntermedios = new ArrayList<>();
-                                // 1. Conexión por transbordo (duración 0)
                                 tramosIntermedios.add(new Recorrido(null, List.of(paradaIntermedia1), horaLlegadaIntermedia1, 0));
-                                // 2. Conexiones por caminata
                                 for (Tramo tramoCaminando : RecorridoUtils.getTramosCaminandoDesde(paradaIntermedia1, tramos)) {
                                     tramosIntermedios.add(new Recorrido(null, List.of(tramoCaminando.getInicio(), tramoCaminando.getFin()), horaLlegadaIntermedia1, tramoCaminando.getTiempo()));
                                 }
@@ -116,6 +148,17 @@ public class Calculo {
         return resultado.size() > 2 ? new ArrayList<>(resultado.subList(0, 2)) : resultado;
     }
 
+    /**
+     * Calcula un único segmento de viaje en colectivo (un {@link Recorrido}).
+     *
+     * @param origenTramo La parada donde se inicia este segmento.
+     * @param destinoTramo La parada donde finaliza este segmento.
+     * @param linea La línea de colectivo a utilizar.
+     * @param diaSemana El día de la semana.
+     * @param horaLlegadaOrigen La hora de llegada a la parada de origen de este tramo.
+     * @param tramos Mapa de todos los tramos.
+     * @return Un objeto {@link Recorrido} si se encuentra un viaje válido, o {@code null} en caso contrario.
+     */
     private Recorrido calcularTramoBus(Parada origenTramo, Parada destinoTramo, Linea linea, int diaSemana, LocalTime horaLlegadaOrigen, Map<String, Tramo> tramos) {
         List<Parada> paradas = linea.getParadas();
         if (paradas != null) {

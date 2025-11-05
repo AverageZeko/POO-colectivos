@@ -11,8 +11,9 @@ import colectivo.interfaz.VentanaInicio;
 import colectivo.util.LocaleInfo;
 
 /**
- * Punto de entrada principal. Se ajustó para inicializar estáticamente el coordinador
- * y asegurar que esté disponible para la vista desde el arranque.
+ * Punto de entrada principal de la aplicación de consultas de colectivos.
+ * Se encarga de inicializar y configurar los componentes clave como el
+ * coordinador, las ventanas de la interfaz de usuario, y los servicios de lógica de negocio.
  */
 public class AplicacionConsultas {
     private Coordinador coordinador;
@@ -22,11 +23,23 @@ public class AplicacionConsultas {
     private Calculo calculo;
     private LocaleInfo defaultLocale;
 
+    /**
+     * Método principal que inicia la aplicación.
+     *
+     * @param args los argumentos de la línea de comandos (no se utilizan).
+     */
     public static void main(String[] args) {
         AplicacionConsultas aplicacion = new AplicacionConsultas();
         aplicacion.iniciar(args);
     }
 
+    /**
+     * Inicializa todos los componentes de la aplicación y establece las dependencias entre ellos.
+     * Configura el coordinador con los servicios necesarios, las ventanas y la localización
+     * por defecto, y luego lanza la ventana inicial.
+     *
+     * @param args los argumentos pasados al método main.
+     */
     public void iniciar(String[] args) {
 		coordinador = new Coordinador();
         ventanaInicio = new VentanaInicio();

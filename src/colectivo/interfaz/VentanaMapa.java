@@ -1,5 +1,4 @@
-package colectivo.interfaz; // O el paquete que estés usando
-
+package colectivo.interfaz; 
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,65 +24,49 @@ import colectivo.modelo.Recorrido;
 
 
 /**
- * Aplicación que muestra un mapa ESTÁTICO de Google (una imagen)
- * con un recorrido específico, controles de navegación y leyenda.
- *
- * VM Arguments necesarios:
- * --add-modules javafx.controls
+ * Ventana que muestra un mapa estático de Google con una ruta específica.
+ * La ruta se dibuja sobre una imagen obtenida de la API de Google Maps Static.
+ * Incluye controles para hacer zoom y moverse por el mapa, y una leyenda
+ * que describe los colores de las líneas y los tramos a pie.
  */
 public class VentanaMapa extends Application {
 
-    // --- Componentes de UI ---
     private ImageView imageView;
     private VBox panelLeyenda;
 
-    // --- Estado actual del mapa ---
     private double currentCenterLat = -42.7745;
     private double currentCenterLng = -65.0446;
-    private int currentZoom = 13; // Zoom por defecto después del auto-ajuste
+    private int currentZoom = 13;
     
-    // --- (NUEVO) Flag para auto-ajuste inicial ---
     private boolean isFirstLoad = true;
     
-    // --- DATOS DEL RECORRIDO ---
     private List<Recorrido> recorridoParaMostrar;
     
-    // --- Paleta de colores para las líneas ---
     private static final String[] COLORES_LINEA = {
         "0x0000FF", "0xFF0000", "0xFFA500", "0x800080", "0xA52A2A", "0x008000"
     };
     private static final String COLOR_CAMINANDO = "0x404040";
     
-    // --- Mapa para construir la leyenda dinámicamente ---
     private Map<String, String> leyendaColores = new HashMap<>();
 
-
     /**
-     * ¡¡¡IMPORTANTE!!!
-     * Debes generar tu propia clave de API en Google Cloud Console
-     * y activar la "Maps Static API".
-     * Pega tu clave aquí abajo.
+     * Clave de API para Google Maps Static API.
+     * ¡¡¡IMPORTANTE!!! Debes generar tu propia clave en Google Cloud Console.
      */
-    private static final String TU_CLAVE_DE_API_AQUI = "AIzaSyCiWk2rBTihKSwummyYVv6mTzc-lFQspQ0"; // <--- ¡PON TU CLAVE AQUÍ!
+    private static final String TU_CLAVE_DE_API_AQUI = "AIzaSyCiWk2rBTihKSwummyYVv6mTzc-lFQspQ0";
     
-    // --- Parámetros del mapa estático ---
     private static final int MAP_WIDTH = 640;
     private static final int MAP_HEIGHT = 640;
 
     /**
-     * Método para que la Interfaz principal nos pase los datos
-     * ANTES de mostrar la ventana.
-     * (Modificado para resetear el flag de carga)
-     * @param recorrido La lista de tramos (Recorrido) a dibujar.
+     * Establece el recorrido que se va a mostrar en el mapa.
+     * Este método debe ser llamado antes de que se muestre la ventana.
+     *
+     * @param recorrido La lista de tramos ({@link Recorrido}) a dibujar.
      */
     public void setRecorrido(List<Recorrido> recorrido) {
         this.recorridoParaMostrar = recorrido;
-        
-        // (NUEVO) Resetear el estado de carga cada vez que se pasa un nuevo recorrido
         this.isFirstLoad = true;
-        
-        // Establecer un centro/zoom por defecto MUY genérico
-        // El cálculo real se hará en construirURL
         this.currentCenterLat = -42.7745;
         this.currentCenterLng = -65.0446;
         this.currentZoom = 13;
@@ -93,19 +76,16 @@ public class VentanaMapa extends Application {
     public void start(Stage stage) {
 
         imageView = new ImageView();
-        imageView.setPreserveRatio(true); // Mantener la proporción
+        imageView.setPreserveRatio(true);
 
-        // --- Layout Principal (BorderPane) ---
         BorderPane root = new BorderPane();
         root.setCenter(imageView);
         
-        // --- Panel Izquierdo: Leyenda ---
         panelLeyenda = new VBox(5);
         panelLeyenda.setPadding(new Insets(10));
         panelLeyenda.setAlignment(Pos.TOP_LEFT);
         root.setLeft(panelLeyenda);
 
-        // --- Panel Derecho: Controles de Navegación ---
         Button zoomInButton = new Button("+");
         Button zoomOutButton = new Button("-");
         Button upButton = new Button("▲");
@@ -113,7 +93,6 @@ public class VentanaMapa extends Application {
         Button leftButton = new Button("◀");
         Button rightButton = new Button("▶");
 
-        // Acciones de los botones
         zoomInButton.setOnAction(e -> changeZoom(1));
         zoomOutButton.setOnAction(e -> changeZoom(-1));
         upButton.setOnAction(e -> moveMap(0.005, 0));
@@ -121,7 +100,6 @@ public class VentanaMapa extends Application {
         leftButton.setOnAction(e -> moveMap(0, -0.005));
         rightButton.setOnAction(e -> moveMap(0, 0.005));
 
-        // Layout de los controles
         HBox zoomControls = new HBox(5, zoomInButton, zoomOutButton);
         zoomControls.setAlignment(Pos.CENTER);
         VBox navButtons = new VBox(5, upButton, new HBox(5, leftButton, rightButton), downButton);
@@ -131,12 +109,10 @@ public class VentanaMapa extends Application {
         allControls.setAlignment(Pos.CENTER);
         allControls.setPadding(new Insets(10));
         
-        root.setRight(allControls); // Controles a la derecha
+        root.setRight(allControls);
 
-        // --- Cargar el mapa inicial ---
         updateMapImage();
 
-        // --- Configuración del Stage ---
         Scene scene = new Scene(root, 900, 680); 
         stage.setTitle("Visor de Mapa del Recorrido");
         stage.setScene(scene);
@@ -144,7 +120,8 @@ public class VentanaMapa extends Application {
     }
 
     /**
-     * Actualiza el panel de la leyenda (panelLeyenda)
+     * Actualiza el panel de la leyenda con los colores y nombres de las líneas
+     * y tramos del recorrido actual.
      */
     private void actualizarLeyenda() {
         panelLeyenda.getChildren().clear();
@@ -155,7 +132,6 @@ public class VentanaMapa extends Application {
 
         for (Map.Entry<String, String> entry : leyendaColores.entrySet()) {
             String nombre = entry.getKey();
-            // Asegurarse que el color tenga el formato #RRGGBB
             String hexColor = entry.getValue().startsWith("0x") ? 
                               entry.getValue().replace("0x", "#") : 
                               "#" + entry.getValue();
@@ -175,12 +151,11 @@ public class VentanaMapa extends Application {
 
 
     /**
-     * Actualiza la imagen del mapa Y la leyenda.
+     * Solicita una nueva imagen del mapa a la API y actualiza la leyenda.
      */
     private void updateMapImage() {
-        // 1. construirURL() genera la URL y RELLENA 'leyendaColores'
         String url = construirURL();
-        System.out.println("Cargando URL de Mapa: " + url); // Para depuración
+        System.out.println("Cargando URL de Mapa: " + url);
 
         Image mapImage;
         if (TU_CLAVE_DE_API_AQUI.equals("AQUI_VA_TU_CLAVE_DE_API")) {
@@ -196,48 +171,47 @@ public class VentanaMapa extends Application {
         }
         
         imageView.setImage(mapImage);
-        
-        // 2. Ahora que 'leyendaColores' está lleno, actualizamos el panel visual
         actualizarLeyenda();
     }
     
-    // --- Métodos de navegación ---
     /**
-     * Cambia el nivel de zoom y recarga el mapa.
+     * Cambia el nivel de zoom del mapa.
+     * @param delta Incremento o decremento del zoom.
      */
     private void changeZoom(int delta) {
         currentZoom += delta;
         if (currentZoom < 1) currentZoom = 1;
         if (currentZoom > 20) currentZoom = 20;
-        updateMapImage(); // Recargar mapa y leyenda
+        updateMapImage();
     }
 
     /**
-     * Mueve el centro del mapa y recarga la imagen.
+     * Desplaza el centro del mapa.
+     * @param latDelta Cambio en la latitud.
+     * @param lngDelta Cambio en la longitud.
      */
     private void moveMap(double latDelta, double lngDelta) {
         currentCenterLat += latDelta;
         currentCenterLng += lngDelta;
-        updateMapImage(); // Recargar mapa y leyenda
+        updateMapImage();
     }
 
 
     /**
-     * (MÉTODO REESCRITO)
-     * Construye la URL. La primera vez, omite center/zoom para auto-ajustar.
-     * Las veces siguientes, usa los valores manuales para pan/zoom.
-     * TAMBIÉN RELLENA el mapa 'leyendaColores'.
+     * Construye la URL para la solicitud a la API de Google Maps Static.
+     * Esta URL incluye el tamaño, tipo de mapa, clave de API, marcadores para
+     * origen/destino y las rutas (paths) para cada tramo del recorrido.
+     * También se encarga de rellenar el mapa `leyendaColores` para la leyenda.
+     *
+     * @return La URL completa para la imagen del mapa.
      */
     private String construirURL() {
-        // 1. Limpiar y rellenar leyenda con paradas
         leyendaColores.clear();
-        // (NUEVO) Añadir referencias de paradas
-        leyendaColores.put("Parada Origen", "0x008000"); // Verde (color:green)
-        leyendaColores.put("Parada Destino", "0xFF0000"); // Rojo (color:red)
+        leyendaColores.put("Parada Origen", "0x008000");
+        leyendaColores.put("Parada Destino", "0xFF0000");
 
         String baseURL = "https://maps.googleapis.com/maps/api/staticmap";
         
-        // Parámetros base
         StringBuilder urlParams = new StringBuilder();
         urlParams.append("?").append(String.format("size=%dx%d", MAP_WIDTH, MAP_HEIGHT));
         urlParams.append("&maptype=roadmap");
@@ -248,7 +222,6 @@ public class VentanaMapa extends Application {
             return "https://via.placeholder.com/" + MAP_WIDTH + "x" + MAP_HEIGHT + ".png?text=No+se+paso+un+recorrido";
         }
 
-        // 3. Recopilar todas las paradas
         List<Parada> todasLasParadas = new ArrayList<>();
         if (!recorridoParaMostrar.isEmpty()) {
             todasLasParadas.addAll(recorridoParaMostrar.get(0).getParadas());
@@ -264,25 +237,17 @@ public class VentanaMapa extends Application {
              return "https://via.placeholder.com/" + MAP_WIDTH + "x" + MAP_HEIGHT + ".png?text=Recorrido+vacio";
         }
 
-        // 4. (NUEVO) Lógica de Centro y Zoom
         if (isFirstLoad) {
-            isFirstLoad = false; // Ya no es la primera carga
-            
-            // Calcular el punto medio para futuros paneos
+            isFirstLoad = false;
             Parada origen = todasLasParadas.get(0);
             Parada destino = todasLasParadas.get(todasLasParadas.size() - 1);
             this.currentCenterLat = (origen.getLatitud() + destino.getLatitud()) / 2.0;
             this.currentCenterLng = (origen.getLongitud() + destino.getLongitud()) / 2.0;
-            // No establecemos zoom, dejamos que Google lo haga
-            
-            // Omitir center y zoom en la URL para que Google Maps auto-ajuste
         } else {
-            // Usar los valores manuales para pan/zoom
             urlParams.append("&").append(String.format("center=%f,%f", currentCenterLat, currentCenterLng));
             urlParams.append("&").append("zoom=").append(currentZoom);
         }
         
-        // 5. Construir los Marcadores (markers=)
         StringBuilder markerParams = new StringBuilder();
         Parada origen = todasLasParadas.get(0);
         markerParams.append("&markers=color:green|label:O|")
@@ -302,7 +267,6 @@ public class VentanaMapa extends Application {
             markerParams.append("&markers=color:blue|size:tiny|").append(intermedios);
         }
 
-        // 6. Construir los Paths y rellenar leyenda
         StringBuilder pathParams = new StringBuilder();
         int colorIndex = 0;
         Map<String, String> coloresDeLineaAsignados = new HashMap<>();
@@ -319,7 +283,7 @@ public class VentanaMapa extends Application {
             String colorHex;
             String nombreLeyenda;
 
-            if (r.getLinea() != null) { // Es un tramo en colectivo
+            if (r.getLinea() != null) {
                 String codigoLinea = r.getLinea().getCodigo();
                 nombreLeyenda = "Línea " + codigoLinea;
                 
@@ -329,12 +293,11 @@ public class VentanaMapa extends Application {
                 }
                 colorHex = coloresDeLineaAsignados.get(codigoLinea);
                 
-            } else { // Es un tramo caminando
+            } else {
                 nombreLeyenda = "Caminando 🚶";
                 colorHex = COLOR_CAMINANDO;
             }
 
-            // Rellenar el mapa que usará la leyenda
             leyendaColores.put(nombreLeyenda, colorHex);
 
             List<Parada> paradasParaPath = new ArrayList<>();
@@ -354,7 +317,6 @@ public class VentanaMapa extends Application {
             paradasTramoAnterior = paradasTramoActual;
         }
         
-        // 7. Unimos todo
         return baseURL + urlParams.toString() + pathParams.toString() + markerParams.toString();
     }
 
