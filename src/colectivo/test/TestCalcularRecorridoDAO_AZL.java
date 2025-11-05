@@ -71,7 +71,7 @@ class TestCalcularRecorridoDAO_AZL {
 	}
 
 	@Test
-	void testDirecto() {
+	void testDirecto1() {
 		// Un viaje directo en la línea 501 A Ida
 		Parada paradaOrigen = paradas.get(35); // Hipólito Yrigoyen X Av. Canerva
 		Parada paradaDestino = paradas.get(51); // Monseñor Caneva 766
@@ -112,6 +112,53 @@ class TestCalcularRecorridoDAO_AZL {
 		assertEquals(LocalTime.of(10, 45), recorridoDirecto.getHoraSalida(), "La hora de salida no coincide.");
 		// Suma de duraciones: 90+60+30+60+30+30+30+30+30+30+30+60+60+30+30+90 = 750 segundos
 		assertEquals(750, recorridoDirecto.getDuracion(), "La duración del viaje no es correcta.");
+	}
+
+	@Test
+	void testDirecto2() {
+		// Un viaje directo en la línea 501 A Ida
+		Parada paradaOrigen = paradas.get(1); // Pellegrini 2100
+		Parada paradaDestino = paradas.get(20); // Burgos 305
+
+		List<List<Recorrido>> recorridos = calculo.calcularRecorrido(paradaOrigen, paradaDestino, diaSemana,
+				horaLlegaParada, tramos);
+
+		assertFalse(recorridos.isEmpty(), "Debería haber al menos una ruta directa.");
+		assertEquals(1, recorridos.size(), "Debería haber exactamente una opción de ruta directa para este caso simple.");
+		assertEquals(1, recorridos.get(0).size(), "La ruta directa debe tener un solo segmento.");
+
+		Recorrido recorridoDirecto = recorridos.get(0).get(0);
+
+		assertEquals(lineas.get("L503I"), recorridoDirecto.getLinea(), "La línea debe ser 503 Ida.");
+		
+		List<Parada> paradasEsperadas = new ArrayList<>();
+		paradasEsperadas.add(paradas.get(1)); // Origen
+		paradasEsperadas.add(paradas.get(2));
+		paradasEsperadas.add(paradas.get(3));
+		paradasEsperadas.add(paradas.get(4));
+		paradasEsperadas.add(paradas.get(5));
+		paradasEsperadas.add(paradas.get(6));
+		paradasEsperadas.add(paradas.get(7));
+		paradasEsperadas.add(paradas.get(8));
+		paradasEsperadas.add(paradas.get(9));
+		paradasEsperadas.add(paradas.get(10));
+		paradasEsperadas.add(paradas.get(11));
+		paradasEsperadas.add(paradas.get(12));
+		paradasEsperadas.add(paradas.get(13));
+		paradasEsperadas.add(paradas.get(14));
+		paradasEsperadas.add(paradas.get(15));
+		paradasEsperadas.add(paradas.get(16));
+		paradasEsperadas.add(paradas.get(17));
+		paradasEsperadas.add(paradas.get(18));
+		paradasEsperadas.add(paradas.get(19));
+		paradasEsperadas.add(paradas.get(20)); // Destino
+
+		assertIterableEquals(paradasEsperadas, recorridoDirecto.getParadas(), "La secuencia de paradas no es la esperada.");
+		
+		// Asumiendo una frecuencia de 15 minutos para el test
+		assertEquals(LocalTime.of(10, 45), recorridoDirecto.getHoraSalida(), "La hora de salida no coincide.");
+		// Suma de duraciones: 60+120+30+90+90+90+30+60+60+60+30+60+30+30+30+30+60+60+30+60 = 1110 segundos
+		assertEquals(1110, recorridoDirecto.getDuracion(), "La duración del viaje no es correcta.");
 	}
 
 	@Test
