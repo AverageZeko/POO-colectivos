@@ -375,3 +375,158 @@ java.util.MissingResourceException: Can't find bundle for base name localizacion
 2025-11-04 19:53 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_AZL'
 2025-11-04 19:53 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
 2025-11-04 19:53 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_AZL
+2025-11-04 20:14 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:14 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:14 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 20:14 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 20:14 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 20:14 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:15 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:15 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 20:15 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:15 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:17 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 405 hasta Avenida Julio Argentino Roca, 936, dia de la semana 3 a las 12:21
+2025-11-04 20:27 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:27 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:27 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 20:27 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 20:27 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 20:27 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:27 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 20:27 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:27 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:27 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 405 hasta Avenida Juan Muzzio, 482, dia de la semana 3 a las 09:12
+2025-11-04 20:43 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:43 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:43 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 20:43 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 20:43 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 20:43 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:43 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 20:43 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:43 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:43 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 405 hasta Abraham Mathews, 2525, dia de la semana 3 a las 07:07
+2025-11-04 20:44 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:44 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:44 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 20:44 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 20:44 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 20:44 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:44 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 20:44 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:44 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:44 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 405 hasta 1 De Marzo, 499, dia de la semana 6 a las 06:06
+2025-11-04 20:45 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:45 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:45 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 20:45 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 20:45 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 20:45 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:45 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 20:45 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:45 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:45 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 405 hasta 1 De Marzo, 499, dia de la semana 2 a las 09:04
+2025-11-04 20:46 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:46 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:46 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 20:46 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 20:46 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 20:46 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:46 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 20:46 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:46 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:46 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 405 hasta 1 De Marzo, 499, dia de la semana 1 a las 06:06
+2025-11-04 20:48 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:48 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:48 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 20:48 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 20:48 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 20:49 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:49 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 20:49 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:49 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:49 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 405 hasta 1 De Marzo, 499, dia de la semana 2 a las 05:04
+2025-11-04 20:53 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:53 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:53 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 20:53 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 20:53 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 20:53 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:53 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 20:53 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:53 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:54 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:54 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:54 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 20:54 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 20:54 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 20:54 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:54 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_AZL'
+2025-11-04 20:54 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:54 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_AZL
+2025-11-04 20:55 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 405 hasta 1 De Marzo, 499, dia de la semana 4 a las 05:05
+2025-11-04 20:58 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:58 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 20:58 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 20:58 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 20:58 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 20:58 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:58 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 20:58 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 20:58 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 21:01 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:01 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 21:01 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 21:01 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 21:01 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 21:01 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:01 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_AZL'
+2025-11-04 21:01 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:01 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_AZL
+2025-11-04 21:01 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:01 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 21:01 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 21:01 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 21:01 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 21:01 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:01 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 21:01 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:01 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 21:03 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:03 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 21:03 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 21:03 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 21:03 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 21:03 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:03 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 21:03 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:03 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 21:03 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:03 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 21:03 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 21:03 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 21:03 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 21:03 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:03 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 21:03 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:03 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 21:05 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 21:05 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:05 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 21:05 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-04 21:05 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-04 21:05 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:05 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-04 21:05 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM

@@ -22,15 +22,7 @@ import colectivo.util.LocaleInfo;
 import colectivo.util.LocalizacionUtil;
 import javafx.stage.Stage;
 
-/**
- * Controlador principal que coordina la interacción entre la interfaz de usuario y la lógica de negocio.
- *
- * <p>Esta clase utiliza el patron de diseño MVC para gestionar los datos de la consulta de recorridos,
- *  incluyendo las ciudades y sus datos, día de la semana y hora de llegada. 
- *  Permite realizar consultas de recorridos y mostrar los resultados.
- *  Asi como la posibilidad de cambiar de ciudad y de idioma de la interfaz</p>
- *
- */
+// ... (resto de la clase sin cambios)
 public class Coordinador {
     private static final Logger QUERY_LOG = LoggerFactory.getLogger("Consulta");
     private Map<String, EmpresaColectivos> ciudades;
@@ -104,7 +96,7 @@ public class Coordinador {
         return ciudadActual.getParada(paradaId);
     }
     
-    public Map<Integer, Parada> getMapaParadas() {
+    public Map<Integer, Parada> getParadas() {
         if (ciudadActual == null) {
             QUERY_LOG.error("Intento de getParadas() cuando ciudadActual es nula.");
             return java.util.Collections.emptyMap(); 
@@ -137,12 +129,23 @@ public class Coordinador {
         ventanaInicio.lanzarAplicacion(args);
     }
 
-    public void consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
+	/**
+	 * [MODIFICADO] Realiza la consulta y DEVUELVE los recorridos encontrados.
+	 * Ya no interactúa directamente con la ventana de consultas.
+	 *
+	 * @param origen
+	 * @param destino
+	 * @param diaSemana
+	 * @param horaLlegaParada
+	 * @return La lista de posibles rutas.
+	 */
+    public List<List<Recorrido>> consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
+        QUERY_LOG.info("Usuario realiza consulta desde {} hasta {}, dia de la semana {} a las {}", origen.getDireccion(), destino.getDireccion(), diaSemana, horaLlegaParada);
         List<List<Recorrido>> recorridos = calculo.calcularRecorrido(
                 origen, destino, diaSemana, horaLlegaParada, ciudadActual.getTramos()
         );
-        ventanaConsultas.resultado(recorridos, origen, destino, horaLlegaParada);
-        QUERY_LOG.info("Usuario realiza consulta desde {} hasta {}, dia de la semana {} a las {}", origen.getDireccion(), destino.getDireccion(), diaSemana, horaLlegaParada);
+        // Ya no llama a la ventana, simplemente devuelve el resultado.
+        return recorridos;
     }
     
 
@@ -151,17 +154,8 @@ public class Coordinador {
         ventanaInicio.close(ventana);
     }
 
-    /**
-     * Cierra la ventana de consulta actual y vuelve a mostrar la ventana de inicio.
-     * @param ventanaActual La ventana (Stage) de la Interfaz que se debe cerrar.
-     */
     public void volverAInicio(Stage ventanaActual) {
-        // Cierra la ventana de la interfaz de consulta
         ventanaConsultas.close(ventanaActual);
-        
-        // Vuelve a lanzar la ventana de inicio
-        // La implementación de VentanaInicio es una Application, por lo que se puede
-        // llamar a su método start() para volver a crearla.
         try {
 			ventanaInicio.getClass().getMethod("start", Stage.class).invoke(ventanaInicio, new Stage());
 		} catch (Exception e) {

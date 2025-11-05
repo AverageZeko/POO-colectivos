@@ -460,3 +460,173 @@ Caused by: java.net.UnknownHostException: pgs.fi.mdn.unp.edu.ar
 2025-11-04 19:53 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
 2025-11-04 19:53 [JavaFX Application Thread] TramoDAO DEBUG - Archivo de tramos cargado
 2025-11-04 19:53 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-04 20:14 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 20:14 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:14 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:14 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 20:14 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 20:14 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 20:14 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:14 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 20:14 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 20:17 [JavaFX Application Thread] Logica DEBUG - Recorridos calculados
+2025-11-04 20:27 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 20:27 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:27 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:27 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 20:27 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 20:27 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 20:27 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:27 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 20:27 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 20:27 [Thread-3] Logica DEBUG - Recorridos calculados
+2025-11-04 20:43 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 20:43 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:43 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:43 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 20:43 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 20:43 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 20:43 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:43 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 20:43 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 20:43 [Thread-3] Logica DEBUG - Recorridos calculados
+2025-11-04 20:44 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 20:44 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:44 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:44 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 20:44 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 20:44 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 20:44 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:44 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 20:44 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 20:44 [Thread-3] Logica DEBUG - Recorridos calculados
+2025-11-04 20:45 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 20:45 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:45 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:45 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 20:45 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 20:45 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 20:45 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:45 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 20:45 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 20:45 [Thread-3] Logica DEBUG - Recorridos calculados
+2025-11-04 20:46 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 20:46 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:46 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:46 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 20:46 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 20:46 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 20:46 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:46 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 20:46 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 20:46 [Thread-3] Logica DEBUG - Recorridos calculados
+2025-11-04 20:48 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 20:48 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:48 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:48 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 20:48 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 20:48 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 20:48 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:48 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 20:48 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 20:49 [Thread-3] Logica DEBUG - Recorridos calculados
+2025-11-04 20:53 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 20:53 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:53 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:53 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 20:53 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 20:53 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 20:53 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:53 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 20:53 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 20:54 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 20:54 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:54 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:54 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 20:54 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 20:54 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 20:54 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:54 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 20:54 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 20:54 [JavaFX Application Thread] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 20:54 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:54 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:54 [JavaFX Application Thread] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 20:54 [JavaFX Application Thread] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 20:54 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-04 20:54 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:54 [JavaFX Application Thread] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 20:54 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-04 20:55 [Thread-3] Logica DEBUG - Recorridos calculados
+2025-11-04 20:58 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 20:58 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:58 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:58 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 20:58 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 20:58 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 20:58 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 20:58 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 20:58 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 21:01 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 21:01 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:01 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:01 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 21:01 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 21:01 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 21:01 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:01 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 21:01 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 21:01 [JavaFX Application Thread] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 21:01 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:01 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:01 [JavaFX Application Thread] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 21:01 [JavaFX Application Thread] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 21:01 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-04 21:01 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:01 [JavaFX Application Thread] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 21:01 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-04 21:01 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 21:01 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:01 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:01 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 21:01 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 21:01 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 21:01 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:01 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 21:01 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 21:03 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 21:03 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:03 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:03 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 21:03 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 21:03 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 21:03 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:03 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 21:03 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 21:03 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 21:03 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:03 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:03 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 21:03 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 21:03 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 21:03 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:03 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 21:03 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 21:05 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 21:05 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:05 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:05 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 21:05 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 21:05 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 21:05 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:05 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 21:05 [main] TramoDAO INFO - Tramos cargados
+2025-11-04 21:05 [main] ParadaDAO DEBUG - Archivo de paradas cargado
+2025-11-04 21:05 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:05 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:05 [main] LineaDAO INFO - Frecuencias cargadas
+2025-11-04 21:05 [main] LineaDAO DEBUG - Archivo de lineas cargado
+2025-11-04 21:05 [main] LineaDAO INFO - Lineas cargadas
+2025-11-04 21:05 [main] ParadaDAO INFO - Paradas cargadas
+2025-11-04 21:05 [main] TramoDAO DEBUG - Archivo de tramos cargado
+2025-11-04 21:05 [main] TramoDAO INFO - Tramos cargados

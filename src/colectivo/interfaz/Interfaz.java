@@ -10,9 +10,9 @@ import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -21,11 +21,11 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import colectivo.controlador.Coordinador;
@@ -66,6 +66,7 @@ public class Interfaz extends Application implements VentanaConsultas {
     private static Button botonSiguiente;
     private static Label etiquetaPagina;
     private static Button botonMapa; 
+    private static ImageView loadingView;
 
     private static BorderPane raiz;
     private static double tamanoFuenteActual = 12;
@@ -80,7 +81,7 @@ public class Interfaz extends Application implements VentanaConsultas {
     private RadioButton lun, mar, mie, jue, vie, sab, dom;
     private Button botonCalcular;
     private Button botonAumentarFuente, botonDisminuirFuente;
-    private Button botonVolver; // <-- BOTÓN VOLVER
+    private Button botonVolver;
     private Stage escenarioPrincipal;
 
     static class ParadaListCell extends ListCell<Parada> {
@@ -100,10 +101,6 @@ public class Interfaz extends Application implements VentanaConsultas {
         coordinador = coord;
     }
     
-    /**
-     * [NUEVO] Reinicia el estado de la interfaz a sus valores por defecto.
-     * Esto limpia los resultados de búsquedas anteriores.
-     */
     private static void resetState() {
         rutasCompletas = null;
         indicePaginaActual = 0;
@@ -165,11 +162,22 @@ public class Interfaz extends Application implements VentanaConsultas {
 
     @Override
     public void start(Stage escenarioPrincipal) {
-        resetState(); // <-- [NUEVO] Limpiar estado al iniciar
+        resetState();
         this.escenarioPrincipal = escenarioPrincipal;
         raiz = new BorderPane();
         raiz.setPadding(new Insets(30));
         
+        try {
+            Image loadingImage = new Image(getClass().getResourceAsStream("/loading.gif"));
+            loadingView = new ImageView(loadingImage);
+            loadingView.setFitWidth(100);
+            loadingView.setFitHeight(100);
+            loadingView.setVisible(false);
+        } catch (Exception e) {
+            System.err.println("Error al cargar el GIF de carga: /loading.gif no encontrado. Asegúrate de que el archivo exista en la carpeta 'resources'.");
+            loadingView = new ImageView();
+        }
+
         VBox panelIzquierdo = new VBox(10);
         panelIzquierdo.setAlignment(Pos.CENTER_LEFT);
 
@@ -190,7 +198,7 @@ public class Interfaz extends Application implements VentanaConsultas {
         cajaHora.setAlignment(Pos.CENTER_LEFT);
         
         if (coordinador != null) {
-            Map<Integer, Parada> paradasMap = coordinador.getMapaParadas();
+            Map<Integer, Parada> paradasMap = coordinador.getParadas();
             ObservableList<Parada> paradasLista = FXCollections.observableArrayList(paradasMap.values());
             
             comboOrigen.setItems(paradasLista);
@@ -206,8 +214,10 @@ public class Interfaz extends Application implements VentanaConsultas {
         etiquetaAdvertencia = new Label();
         etiquetaAdvertencia.setTextFill(Color.RED);
         etiquetaAdvertencia.setVisible(false);
+        
         panelDerechoContenido = new VBox(10);
         panelDerechoContenido.setPadding(new Insets(10));
+        panelDerechoContenido.setAlignment(Pos.TOP_CENTER);
 
         etiquetaOrigen = new Label();
         etiquetaDestino = new Label();
@@ -275,9 +285,13 @@ public class Interfaz extends Application implements VentanaConsultas {
         raiz.setCenter(panelDerechoLayout);
         BorderPane.setMargin(panelIzquierdo, new Insets(0, 20, 0, 0));
 
-        Rectangle2D limitesPantalla = Screen.getPrimary().getVisualBounds();
-        Scene escena = new Scene(raiz, limitesPantalla.getWidth() * 0.6, limitesPantalla.getHeight() * 0.8);
+        Scene escena = new Scene(raiz);
         escenarioPrincipal.setScene(escena);
+        
+        // --- INICIO DEL CAMBIO ---
+        // Se establece la ventana en modo maximizado
+        escenarioPrincipal.setMaximized(true);
+        // --- FIN DEL CAMBIO ---
         
         actualizarEstiloFuente();
         actualizarTextos();
@@ -290,42 +304,64 @@ public class Interfaz extends Application implements VentanaConsultas {
         ResourceBundle bundle = coordinador.getBundle();
         etiquetaAdvertencia.setVisible(false);
         
-        try {
-            Parada paradaOrigen = comboOrigen.getValue();
-            Parada paradaDestino = comboDestino.getValue();
-            String horaSel = comboHora.getValue();
-            String minSel = comboMinuto.getValue();
-            RadioButton diaRadio = (RadioButton) grupoDiasSemana.getSelectedToggle();
+        Parada paradaOrigen = comboOrigen.getValue();
+        Parada paradaDestino = comboDestino.getValue();
+        String horaSel = comboHora.getValue();
+        String minSel = comboMinuto.getValue();
+        RadioButton diaRadio = (RadioButton) grupoDiasSemana.getSelectedToggle();
 
-            if (paradaOrigen == null || paradaDestino == null || horaSel == null || minSel == null || diaRadio == null) {
-                throw new Exception(bundle.getString("Query_MissingInputError"));
+        if (paradaOrigen == null || paradaDestino == null || horaSel == null || minSel == null || diaRadio == null) {
+            etiquetaAdvertencia.setText(bundle.getString("Query_MissingInputError"));
+            etiquetaAdvertencia.setVisible(true);
+            return;
+        }
+        
+        panelDerechoContenido.getChildren().clear();
+        loadingView.setVisible(true);
+        panelDerechoContenido.getChildren().add(loadingView);
+        botonCalcular.setDisable(true);
+
+        Task<List<List<Recorrido>>> task = new Task<>() {
+            @Override
+            protected List<List<Recorrido>> call() throws Exception {
+                Thread.sleep(6000);
+
+                String diaTexto = diaRadio.getText();
+                int diaInt = 0;
+                if (diaTexto.equals(bundle.getString("Query_Monday"))) diaInt = 1;
+                else if (diaTexto.equals(bundle.getString("Query_Tuesday"))) diaInt = 2;
+                else if (diaTexto.equals(bundle.getString("Query_Wednesday"))) diaInt = 3;
+                else if (diaTexto.equals(bundle.getString("Query_Thursday"))) diaInt = 4;
+                else if (diaTexto.equals(bundle.getString("Query_Friday"))) diaInt = 5;
+                else if (diaTexto.equals(bundle.getString("Query_Saturday"))) diaInt = 6;
+                else if (diaTexto.equals(bundle.getString("Query_Sunday"))) diaInt = 7;
+
+                LocalTime hora = LocalTime.parse(horaSel + ":" + minSel);
+                
+                return coordinador.consulta(paradaOrigen, paradaDestino, diaInt, hora);
             }
-            
-            String diaTexto = diaRadio.getText();
-            int diaInt = 0;
-            if (diaTexto.equals(bundle.getString("Query_Monday"))) diaInt = 1;
-            else if (diaTexto.equals(bundle.getString("Query_Tuesday"))) diaInt = 2;
-            else if (diaTexto.equals(bundle.getString("Query_Wednesday"))) diaInt = 3;
-            else if (diaTexto.equals(bundle.getString("Query_Thursday"))) diaInt = 4;
-            else if (diaTexto.equals(bundle.getString("Query_Friday"))) diaInt = 5;
-            else if (diaTexto.equals(bundle.getString("Query_Saturday"))) diaInt = 6;
-            else if (diaTexto.equals(bundle.getString("Query_Sunday"))) diaInt = 7;
+        };
 
-            LocalTime hora = LocalTime.parse(horaSel + ":" + minSel);
-            
+        task.setOnSucceeded(event -> {
+            loadingView.setVisible(false);
+            List<List<Recorrido>> recorridosEncontrados = task.getValue();
             ultimaConsultaParadaOrigen = paradaOrigen;
             ultimaConsultaParadaDestino = paradaDestino;
-            ultimaConsultaHoraLlegada = hora;
-            
-            coordinador.consulta(paradaOrigen, paradaDestino, diaInt, hora);
+            ultimaConsultaHoraLlegada = LocalTime.parse(horaSel + ":" + minSel);
+            resultado(recorridosEncontrados, paradaOrigen, paradaDestino, ultimaConsultaHoraLlegada);
+            botonCalcular.setDisable(false);
+        });
 
-        } catch (Exception e) {
-            etiquetaAdvertencia.setText(e.getMessage());
+        task.setOnFailed(event -> {
+            loadingView.setVisible(false);
+            etiquetaAdvertencia.setText("Error durante el cálculo.");
             etiquetaAdvertencia.setVisible(true);
-            rutasCompletas = null;
-            actualizarControlesNavegacion();
-        }
+            botonCalcular.setDisable(false);
+        });
+        
+        new Thread(task).start();
     }
+
 
     @Override
     public void resultado(List<List<Recorrido>> listaRecorridos, Parada pOrigen, Parada pDestino, LocalTime hLlegada) {
@@ -375,7 +411,7 @@ public class Interfaz extends Application implements VentanaConsultas {
             LocalTime horaLlegadaTramo = horaSalida.plusSeconds(viajeSeg);
             
             String tituloTramo;
-            if (r.getLinea() != null) { // Tramo en colectivo
+            if (r.getLinea() != null) {
                 tramoBox.setStyle("-fx-border-color: lightblue; -fx-border-width: 1; -fx-background-color: #f0f8ff; -fx-border-radius: 5;");
                 long esperaSeg = Duration.between(horaLlegaActual, horaSalida).toSeconds();
                 if (esperaSeg < 0) esperaSeg = 0;
@@ -405,7 +441,7 @@ public class Interfaz extends Application implements VentanaConsultas {
                     tramoBox.getChildren().add(cajaTramosParadas);
                 }
 
-            } else { // Tramo caminando
+            } else {
                 tramoBox.setStyle("-fx-border-color: lightgreen; -fx-border-width: 1; -fx-background-color: #f0fff0; -fx-border-radius: 5;");
                 tituloTramo = bundle.getString("Result_SegmentX") + " " + (t + 1) + " - " + bundle.getString("Result_Walking");
                 tramoBox.getChildren().add(new Label(tituloTramo));
@@ -478,7 +514,7 @@ public class Interfaz extends Application implements VentanaConsultas {
 
     @Override
     public void close(Stage ventana) {
-        resetState(); // <-- [NUEVO] Limpiar estado al cerrar
+        resetState();
         ventana.close();
     }
 }
