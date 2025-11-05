@@ -156,6 +156,9 @@ public class Coordinador {
 
     public void volverAInicio(Stage ventanaActual) {
         ventanaConsultas.close(ventanaActual);
+        Factory.clearInstancia(Constantes.TRAMO);
+        Factory.clearInstancia(Constantes.LINEA);
+        Factory.clearInstancia(Constantes.PARADA);
         try {
 			ventanaInicio.getClass().getMethod("start", Stage.class).invoke(ventanaInicio, new Stage());
 		} catch (Exception e) {

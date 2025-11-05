@@ -43,7 +43,6 @@ public class AplicacionConsultas {
         coordinador.setVentanaConsultas(ventanaConsultas);
         ventanaInicio.setCoordinador(coordinador);
 		ventanaConsultas.setCoordinador(coordinador);
-		coordinador.setCiudadActual(SchemaPostgresqlDAO.getSchema());	// ELIMINAR DESPUES
         coordinador.iniciarAplicacion(args);
 
     }
