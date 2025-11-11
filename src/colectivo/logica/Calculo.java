@@ -45,6 +45,12 @@ public class Calculo {
             LocalTime horaLlegaParada,
             Map<String, Tramo> tramos) {
 
+    	
+    	 if (origen != null && origen.equals(destino)) {
+             LOGICA_LOG.debug("Origen y destino son la misma parada. No se calcula recorrido.");
+             return new ArrayList<>();
+         }
+    	 
         List<List<Recorrido>> resultado = new ArrayList<>();
         if (origen != null && destino != null && horaLlegaParada != null && tramos != null) {
             

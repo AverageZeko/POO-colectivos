@@ -1,0 +1,27 @@
+2025-11-08 18:55 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-08 18:55 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-08 18:55 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-08 18:55 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-08 18:55 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-08 18:55 [c.c.Coordinador] Consulta INFO - Localización seleccionada: en_US. ResourceBundle 'localizacion.label_en_US' cargado con éxito.
+2025-11-08 18:55 [c.c.Coordinador] Consulta INFO - Localización seleccionada: medsea_PIR. ResourceBundle 'localizacion.label_medsea_PIR' cargado con éxito.
+2025-11-08 18:55 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-08 18:55 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-08 18:55 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-08 18:57 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-08 18:57 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-08 18:57 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-08 18:57 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-08 18:57 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-08 18:58 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='colectivo_PM'
+2025-11-08 18:58 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-08 18:58 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_PM
+2025-11-08 18:59 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 25 De Mayo, 299 hasta Dorrego, 416, dia de la semana 6 a las 19:00
+2025-11-08 19:00 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 25 De Mayo, 299 hasta Dorrego, 109, dia de la semana 6 a las 19:00
+2025-11-08 19:00 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-08 19:00 [c.c.Coordinador] Consulta INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-08 19:00 [c.c.Coordinador] Consulta INFO - Localización seleccionada: medsea_PIR. ResourceBundle 'localizacion.label_medsea_PIR' cargado con éxito.
+2025-11-08 19:00 [c.i.VentanaInicio] Consulta INFO - Usuario seleccionó localización='medsea_PIR' y ciudad='colectivo_AZL'
+2025-11-08 19:00 [c.c.Coordinador] Consulta INFO - Localización seleccionada: medsea_PIR. ResourceBundle 'localizacion.label_medsea_PIR' cargado con éxito.
+2025-11-08 19:00 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a colectivo_AZL
+2025-11-08 19:01 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde Pellegrini 2100 hasta Colón 942, dia de la semana 4 a las 08:01

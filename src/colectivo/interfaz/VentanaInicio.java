@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import colectivo.controlador.Coordinador;
 import colectivo.util.LocaleInfo;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -33,13 +32,14 @@ import javafx.stage.Stage;
 
 
 /**
- * Implementación de {@link VentanaInicial} que muestra la pantalla de bienvenida.
+ * Implementación de {@link IVentana} que muestra la pantalla de bienvenida.
  * Permite al usuario seleccionar una ciudad y un idioma antes de iniciar
  * la aplicación de consultas.
  */
-public class VentanaInicio extends Application implements VentanaInicial {
+public class VentanaInicio extends Application implements Mostrable {
 
-    private static Coordinador coordinador;
+    private static GestorDeVentanas gestor;
+    
     private ComboBox<String> comboCiudad;
     private Label etiquetaAdvertencia;
     private ToggleGroup grupoBanderas;
@@ -51,17 +51,12 @@ public class VentanaInicio extends Application implements VentanaInicial {
     private Stage primaryStage;
     private FilteredList<String> ciudadesFiltradas;
 
-
-    @Override
-    public void setCoordinador(Coordinador coord) {
-        setCoordinadorFinal(coord);
+    
+    public void setGestor(GestorDeVentanas gest) {
+        VentanaInicio.gestor = gest;
     }
 
-    private static void setCoordinadorFinal(Coordinador coord) {
-        coordinador = coord;
-    }
 
-    @Override
     public void lanzarAplicacion(String[] args) {
         LOG.info("Lanzando VentanaInicio (Application.launch)");
         Application.launch(VentanaInicio.class, args);
@@ -71,11 +66,11 @@ public class VentanaInicio extends Application implements VentanaInicial {
      * Actualiza los textos de la interfaz según el idioma seleccionado.
      */
     private void actualizarTextos() {
-        if (coordinador == null) {
-            LOG.error("El coordinador es nulo. No se pueden actualizar los textos.");
+        if (gestor == null) {
+            LOG.error("El gestor es nulo. No se pueden actualizar los textos.");
             return;
         }
-        ResourceBundle bundle = coordinador.getBundle();
+        ResourceBundle bundle = gestor.getBundle();
         if (bundle == null) {
             LOG.warn("ResourceBundle es nulo, no se pueden actualizar los textos. Verifica que el idioma por defecto esté bien configurado.");
             return;
@@ -87,6 +82,16 @@ public class VentanaInicio extends Application implements VentanaInicial {
         comboCiudad.setPromptText(bundle.getString("Welcome_CityPrompt"));
     }
 
+    @Override
+    public void mostrar(Stage stage) {
+        start(stage);
+    }
+    
+    @Override
+    public void cerrar(Stage stage) {
+        stage.close();
+    }
+    
     /**
      * Inicializa y muestra la ventana de inicio.
      * @param primaryStage El escenario principal de la aplicación.
@@ -139,7 +144,7 @@ public class VentanaInicio extends Application implements VentanaInicial {
         panelBanderas.setPadding(new Insets(20, 0, 20, 0));
         panelBanderas.setAlignment(Pos.CENTER);
         
-        List<LocaleInfo> localizaciones = coordinador.descubrirLocalizaciones();
+        List<LocaleInfo> localizaciones = gestor.descubrirLocalizaciones();
         if (localizaciones.isEmpty()) {
             LOG.warn("No se encontraron localizaciones. La selección de idioma estará vacía.");
         }
@@ -150,7 +155,7 @@ public class VentanaInicio extends Application implements VentanaInicial {
         btnIniciar.setMaxWidth(Double.MAX_VALUE);
         btnIniciar.setOnAction(e -> manejarInicio(primaryStage));
         
-        LocaleInfo defaultLocale = coordinador.getLocale();
+        LocaleInfo defaultLocale = gestor.getLocale();
         if (defaultLocale != null) {
             for (Node node : panelBanderas.getChildren()) {
                 if (node instanceof ToggleButton) {
@@ -204,7 +209,7 @@ public class VentanaInicio extends Application implements VentanaInicial {
         boton.selectedProperty().addListener((obs, was, is) -> {
             boton.setStyle(is ? styleSelected : styleUnselected);
             if (is) {
-                coordinador.setLocalizacion((LocaleInfo) boton.getUserData());
+                gestor.setLocalizacion((LocaleInfo) boton.getUserData());
                 actualizarTextos();
             }
         });
@@ -213,32 +218,24 @@ public class VentanaInicio extends Application implements VentanaInicial {
     }
 
     /**
-     * Maneja el evento del botón "Iniciar". Valida la selección y notifica al coordinador.
+     * Maneja el evento del botón "Iniciar". Recoge los datos y los pasa al gestor.
      * @param ventanaActual La ventana actual que se cerrará.
      */
     private void manejarInicio(Stage ventanaActual) {
         etiquetaAdvertencia.setVisible(false);
         ToggleButton seleccionBandera = (ToggleButton) grupoBanderas.getSelectedToggle();
         String seleccionCiudad = comboCiudad.getValue();
+        LocaleInfo localeSeleccionado = (seleccionBandera != null) ? (LocaleInfo) seleccionBandera.getUserData() : null;
 
-        if (seleccionBandera == null || seleccionCiudad == null || seleccionCiudad.isEmpty()) {
-            ResourceBundle bundle = coordinador.getBundle();
-            etiquetaAdvertencia.setText(bundle.getString("Welcome_Warning"));
-            etiquetaAdvertencia.setVisible(true);
-            return;
-        }
-
-        LocaleInfo localeSeleccionado = (LocaleInfo) seleccionBandera.getUserData();
-        LOG.info("Usuario seleccionó localización='{}' y ciudad='{}'", localeSeleccionado.codigoCompleto(), seleccionCiudad);
-
-        coordinador.setLocalizacion(localeSeleccionado);
-        coordinador.setCiudadActual(seleccionCiudad);
-
-        coordinador.iniciarConsulta(ventanaActual);
+        gestor.procesarInicio(localeSeleccionado, seleccionCiudad, ventanaActual);
     }
-
-    @Override
-    public void close(Stage ventanaActual) {
-        ventanaActual.close();
+    
+    /**
+     * Muestra un mensaje de advertencia en la interfaz.
+     * @param mensaje El texto a mostrar.
+     */
+    public void mostrarAdvertencia(String mensaje) {
+        etiquetaAdvertencia.setText(mensaje);
+        etiquetaAdvertencia.setVisible(true);
     }
 }

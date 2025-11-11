@@ -10,8 +10,7 @@ import java.util.ResourceBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import colectivo.interfaz.VentanaConsultas;
-import colectivo.interfaz.VentanaInicial;
+import colectivo.interfaz.GestorDeVentanas;
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
 import colectivo.modelo.Parada;
@@ -33,8 +32,7 @@ public class Coordinador {
     private Map<String, EmpresaColectivos> ciudades;
     private EmpresaColectivos ciudadActual;
     private SchemaServicio schemaServicio;
-    private VentanaInicial ventanaInicio;
-    private VentanaConsultas ventanaConsultas;
+    private GestorDeVentanas gestorDeVentanas;
     private Calculo calculo;
     private LocaleInfo localeActual; // Guardar el LocaleInfo actual
     private ResourceBundle bundle;
@@ -63,19 +61,11 @@ public class Coordinador {
     }
 
     /**
-     * Establece la ventana de inicio de la aplicación.
-     * @param ventanaInicio la ventana de inicio.
+     * Establece el gestor de ventanas de la aplicación.
+     * @param gestorDeVentanas el gestor de ventanas.
      */
-    public void setVentanaInicio(VentanaInicial ventanaInicio) {
-        this.ventanaInicio = ventanaInicio;
-    }
-
-    /**
-     * Establece la ventana de consultas de la aplicación.
-     * @param ventanaConsultas la ventana de consultas.
-     */
-    public void setVentanaConsultas(VentanaConsultas ventanaConsultas) {
-        this.ventanaConsultas = ventanaConsultas;
+    public void setGestorDeVentanas(GestorDeVentanas gestorDeVentanas) {
+        this.gestorDeVentanas = gestorDeVentanas;
     }
 
     /**
@@ -185,7 +175,7 @@ public class Coordinador {
      */
     public void iniciarAplicacion(String[] args) {
         QUERY_LOG.info("Usuario inicia aplicacion");
-        ventanaInicio.lanzarAplicacion(args);
+        gestorDeVentanas.lanzarAplicacion(args);
     }
 
 	/**
@@ -208,28 +198,14 @@ public class Coordinador {
     }
     
     /**
-     * Cierra la ventana de inicio y abre la ventana de consultas.
-     * @param ventana la ventana actual (de inicio) que se debe cerrar.
-     */
-    public void iniciarConsulta(Stage ventana) {
-		ventanaConsultas.start(new Stage());
-        ventanaInicio.close(ventana);
-    }
-
-    /**
      * Cierra la ventana de consultas y vuelve a mostrar la ventana de inicio,
      * limpiando las cachés de datos.
      * @param ventanaActual la ventana de consultas que se debe cerrar.
      */
     public void volverAInicio(Stage ventanaActual) {
-        ventanaConsultas.close(ventanaActual);
         Factory.clearInstancia(Constantes.TRAMO);
         Factory.clearInstancia(Constantes.LINEA);
         Factory.clearInstancia(Constantes.PARADA);
-        try {
-			ventanaInicio.getClass().getMethod("start", Stage.class).invoke(ventanaInicio, new Stage());
-		} catch (Exception e) {
-			QUERY_LOG.error("No se pudo volver a la ventana de inicio.", e);
-		}
+        gestorDeVentanas.mostrarVentanaInicio(ventanaActual);
     }
 }

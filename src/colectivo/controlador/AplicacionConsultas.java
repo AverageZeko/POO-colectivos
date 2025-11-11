@@ -4,9 +4,8 @@ import colectivo.logica.Calculo;
 import colectivo.servicio.SchemaServicio;
 import colectivo.servicio.SchemaServicioImplementacion;
 import colectivo.dao.postgresql.SchemaPostgresqlDAO;
+import colectivo.interfaz.GestorDeVentanas;
 import colectivo.interfaz.Interfaz;
-import colectivo.interfaz.VentanaConsultas;
-import colectivo.interfaz.VentanaInicial;
 import colectivo.interfaz.VentanaInicio;
 import colectivo.util.LocaleInfo;
 
@@ -17,8 +16,7 @@ import colectivo.util.LocaleInfo;
  */
 public class AplicacionConsultas {
     private Coordinador coordinador;
-    private VentanaInicial ventanaInicio;
-    private VentanaConsultas ventanaConsultas;
+    private GestorDeVentanas gestorDeVentanas;
     private SchemaServicio schema;
     private Calculo calculo;
     private LocaleInfo defaultLocale;
@@ -42,20 +40,21 @@ public class AplicacionConsultas {
      */
     public void iniciar(String[] args) {
 		coordinador = new Coordinador();
-        ventanaInicio = new VentanaInicio();
-		ventanaConsultas = new Interfaz();
+        gestorDeVentanas = new GestorDeVentanas();
 		calculo = new Calculo();
 		schema = new SchemaServicioImplementacion();
 		defaultLocale = new LocaleInfo("es_ARG", "es", "ARG");
 
+        // Configurar el coordinador con sus dependencias
         coordinador.setSchemaServicio(schema);
 		coordinador.setCalculo(calculo);
 		coordinador.setLocalizacion(defaultLocale);
+        coordinador.setGestorDeVentanas(gestorDeVentanas);
 
-        coordinador.setVentanaInicio(ventanaInicio);
-        coordinador.setVentanaConsultas(ventanaConsultas);
-        ventanaInicio.setCoordinador(coordinador);
-		ventanaConsultas.setCoordinador(coordinador);
+        // Configurar el gestor de ventanas con su dependencia
+        gestorDeVentanas.setCoordinador(coordinador);
+        
+        // Iniciar la aplicación a través del coordinador
         coordinador.iniciarAplicacion(args);
 
     }

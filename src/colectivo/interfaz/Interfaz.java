@@ -28,7 +28,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import colectivo.controlador.Coordinador;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
 import colectivo.util.Tiempo;
@@ -39,11 +38,11 @@ import javafx.scene.paint.Color;
  * Esta clase gestiona la interfaz de usuario donde el usuario puede
  * seleccionar paradas de origen y destino, un horario, y ver los
  * resultados del cálculo de rutas.
- * Implementa {@link VentanaConsultas}.
+ * Implementa {@link IVentana}.
  */
-public class Interfaz extends Application implements VentanaConsultas {
+public class Interfaz extends Application implements Mostrable {
     
-    private static Coordinador coordinador;
+    private static GestorDeVentanas gestor;
     private static List<List<Recorrido>> rutasCompletas;
     private static int indicePaginaActual;
     
@@ -91,13 +90,8 @@ public class Interfaz extends Application implements VentanaConsultas {
         }
     }
 
-    @Override
-    public void setCoordinador(Coordinador coord) {
-        setCoordinadorFinal(coord);
-    }
-
-    private static void setCoordinadorFinal(Coordinador coord) {
-        coordinador = coord;
+    public void setGestor(GestorDeVentanas gest) {
+        Interfaz.gestor = gest;
     }
     
     /**
@@ -132,7 +126,7 @@ public class Interfaz extends Application implements VentanaConsultas {
      * {@link ResourceBundle} de la localización actual.
      */
     private void actualizarTextos() {
-        ResourceBundle bundle = coordinador.getBundle();
+        ResourceBundle bundle = gestor.getBundle();
         if (bundle == null) return; 
 
         escenarioPrincipal.setTitle(bundle.getString("Query_WindowName"));
@@ -165,6 +159,17 @@ public class Interfaz extends Application implements VentanaConsultas {
         } else {
             actualizarControlesNavegacion();
         }
+    }
+    
+    @Override
+    public void mostrar(Stage stage) {
+        start(stage);
+    }
+    
+    @Override
+    public void cerrar(Stage stage) {
+        resetState();
+        stage.close();
     }
 
     /**
@@ -209,8 +214,8 @@ public class Interfaz extends Application implements VentanaConsultas {
         HBox cajaHora = new HBox(5, comboHora, new Label(":"), comboMinuto);
         cajaHora.setAlignment(Pos.CENTER_LEFT);
         
-        if (coordinador != null) {
-            Map<Integer, Parada> paradasMap = coordinador.getMapaParadas();
+        if (gestor != null) {
+            Map<Integer, Parada> paradasMap = gestor.getMapaParadas();
             ObservableList<Parada> paradasLista = FXCollections.observableArrayList(paradasMap.values());
             
             comboOrigen.setItems(paradasLista);
@@ -249,7 +254,7 @@ public class Interfaz extends Application implements VentanaConsultas {
         botonCalcular.setOnAction(event -> manejarCalculo());
         
         botonVolver = new Button();
-        botonVolver.setOnAction(e -> coordinador.volverAInicio(escenarioPrincipal));
+        botonVolver.setOnAction(e -> gestor.solicitarVolverAInicio(escenarioPrincipal));
         
         panelIzquierdo.getChildren().addAll(
             etiquetaOrigen, comboOrigen,
@@ -315,7 +320,7 @@ public class Interfaz extends Application implements VentanaConsultas {
      * y actualiza la UI con los resultados o un mensaje de error.
      */
     private void manejarCalculo() {
-        ResourceBundle bundle = coordinador.getBundle();
+        ResourceBundle bundle = gestor.getBundle();
         etiquetaAdvertencia.setVisible(false);
         
         Parada paradaOrigen = comboOrigen.getValue();
@@ -338,7 +343,8 @@ public class Interfaz extends Application implements VentanaConsultas {
         Task<List<List<Recorrido>>> task = new Task<>() {
             @Override
             protected List<List<Recorrido>> call() throws Exception {
-                Thread.sleep(6000); // Simula una espera
+                // Simula una espera para que el GIF sea visible
+                Thread.sleep(2000); 
 
                 String diaTexto = diaRadio.getText();
                 int diaInt = 0;
@@ -352,7 +358,7 @@ public class Interfaz extends Application implements VentanaConsultas {
 
                 LocalTime hora = LocalTime.parse(horaSel + ":" + minSel);
                 
-                return coordinador.consulta(paradaOrigen, paradaDestino, diaInt, hora);
+                return gestor.solicitarConsulta(paradaOrigen, paradaDestino, diaInt, hora);
             }
         };
 
@@ -384,10 +390,9 @@ public class Interfaz extends Application implements VentanaConsultas {
      * @param pDestino La parada de destino de la consulta.
      * @param hLlegada La hora de llegada especificada por el usuario.
      */
-    @Override
     public void resultado(List<List<Recorrido>> listaRecorridos, Parada pOrigen, Parada pDestino, LocalTime hLlegada) {
         rutasCompletas = listaRecorridos;
-        ResourceBundle bundle = coordinador.getBundle();
+        ResourceBundle bundle = gestor.getBundle();
 
         if (rutasCompletas != null && !rutasCompletas.isEmpty()) {
             indicePaginaActual = 0;
@@ -407,7 +412,7 @@ public class Interfaz extends Application implements VentanaConsultas {
      */
     private static void mostrarPaginaActual(Parada paradaOrigen, Parada paradaDestino, LocalTime horaLlegaParada) {
         panelDerechoContenido.getChildren().clear();
-        ResourceBundle bundle = coordinador.getBundle();
+        ResourceBundle bundle = gestor.getBundle();
         
         List<Recorrido> recorridoCompleto = rutasCompletas.get(indicePaginaActual);
         
@@ -490,7 +495,7 @@ public class Interfaz extends Application implements VentanaConsultas {
      * (botones Anterior/Siguiente, etiqueta de página).
      */
     private static void actualizarControlesNavegacion() {
-        ResourceBundle bundle = coordinador.getBundle();
+        ResourceBundle bundle = gestor.getBundle();
         if (bundle == null) return;
         String de = bundle.getString("Result_Of");
         
@@ -555,15 +560,5 @@ public class Interfaz extends Application implements VentanaConsultas {
             etiquetaAdvertencia.setText("Error al abrir el mapa.");
             etiquetaAdvertencia.setVisible(true);
         }
-    }
-
-    /**
-     * Cierra la ventana actual y resetea su estado.
-     * @param ventana El {@link Stage} a cerrar.
-     */
-    @Override
-    public void close(Stage ventana) {
-        resetState();
-        ventana.close();
     }
 }
