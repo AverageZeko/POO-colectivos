@@ -1,4 +1,4 @@
-package colectivo.controlador;
+package colectivo.app;
 
 /**
  * Contiene las constantes utilizadas en toda la aplicación para
@@ -30,5 +30,9 @@ public class Constantes {
 	 * Nombre de la entidad Frecuencia, utilizado en la lógica de la fábrica (Factory).
 	 */
 	public static final String FRECUENCIA = "FRECUENCIA";
+	/**
+	 * Nombre de la entidad Interfaz, utilizado en la lógica de la fábrica (Factory).
+	 */
+	public static final String GUI = "GUI";
 
 }

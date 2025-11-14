@@ -10,7 +10,13 @@ import javafx.stage.Stage;
  */
 public interface Mostrable {
 
- 
+    void setCoordinador(Coordinador coord);
+    void start(String[] arg);
+
+    // COORDINADOR TENDRIA UNA REFERENCIA A ESTA INTERFAZ.
+    // METODOS QUE ESTAN ABAJO DESAPARECERIAN
+    // LA IDEA ES QUE EL COORDINADOR LLAME AL METODO START Y SE OLVIDE DE MANEJAR LA INTERFAZ
+
     /**
      * Muestra la ventana.
      * @param stage El {@link Stage} sobre el cual se construirá la escena.

@@ -9,7 +9,7 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import colectivo.controlador.Constantes;
+import colectivo.app.Constantes;
 import colectivo.dao.ParadaDAO;
 import colectivo.modelo.Parada;
 
