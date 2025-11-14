@@ -1,6 +1,7 @@
 package colectivo.interfaz.paneles;
 
-import colectivo.interfaz.celdas.ParadaListCell;
+
+import colectivo.interfaz.celdas.ParadasComboBox;
 import colectivo.interfaz.tareas.ConsultaRequest;
 import colectivo.modelo.Parada;
 import javafx.collections.FXCollections;
@@ -153,8 +154,8 @@ public class PanelIzquierdo {
     }
 
     private void configurarComboBoxParada(ComboBox<Parada> comboBox) {
-        comboBox.setCellFactory(param -> new ParadaListCell());
-        comboBox.setButtonCell(new ParadaListCell());
+        comboBox.setCellFactory(param -> new ParadasComboBox());
+        comboBox.setButtonCell(new ParadasComboBox());
     }
 
     private ObservableList<String> generarNumeros(int limite) {

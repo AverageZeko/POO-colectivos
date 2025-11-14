@@ -40,11 +40,7 @@ public class Interfaz extends Application{
     private PanelIzquierdo panelIzquierdo;
     private PanelDerecho panelDerecho;
     private ImageView loadingView;
-
-    // --- INICIO DEL CAMBIO ---
     private Button botonAumentarFuente, botonDisminuirFuente;
-    // --- FIN DEL CAMBIO ---
-
     private double tamanoFuenteActual = 12;
     private static final double TAMANO_FUENTE_BASE = 12;
     private static final int MAX_INCREMENTOS = 5;
@@ -151,10 +147,10 @@ public class Interfaz extends Application{
         panelIzquierdo.actualizarTextos(bundle);
         panelDerecho.actualizarTextos(bundle);
         
-        // --- INICIO DEL CAMBIO ---
+ 
         botonAumentarFuente.setText(bundle.getString("Query_FontPlus"));
         botonDisminuirFuente.setText(bundle.getString("Query_FontMinus"));
-        // --- FIN DEL CAMBIO ---
+    
     }
     
     
