@@ -1,6 +1,6 @@
 package colectivo.modelo;
 
-import colectivo.controlador.Constantes;
+import colectivo.app.Constantes;
 
 /**
  * Representa un segmento o tramo entre dos paradas.

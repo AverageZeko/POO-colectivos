@@ -2,7 +2,7 @@ package colectivo.servicio;
 
 import java.util.Map;
 
-import colectivo.controlador.Constantes;
+import colectivo.app.Constantes;
 import colectivo.dao.ParadaDAO;
 import colectivo.modelo.Parada;
 import colectivo.util.Factory;

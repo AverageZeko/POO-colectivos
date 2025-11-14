@@ -4,21 +4,23 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import colectivo.app.Constantes;
+import colectivo.configuracion.ConfigGlobal;
 import colectivo.interfaz.GestorDeVentanas;
+import colectivo.interfaz.Mostrable;
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
-import colectivo.servicio.SchemaServicio;
+import colectivo.servicio.InterfazServicio;
+import colectivo.servicio.InterfazServicioImplementacion;
 import colectivo.util.Factory;
 import colectivo.util.LocaleInfo;
-import colectivo.util.LocalizacionUtil;
 import javafx.stage.Stage;
 
 /**
@@ -29,27 +31,37 @@ import javafx.stage.Stage;
  */
 public class Coordinador {
     private static final Logger QUERY_LOG = LoggerFactory.getLogger("Consulta");
+    private ConfigGlobal config;
     private Map<String, EmpresaColectivos> ciudades;
     private EmpresaColectivos ciudadActual;
-    private SchemaServicio schemaServicio;
-    private GestorDeVentanas gestorDeVentanas;
+    private GestorDeVentanas gestorInterfaz;
+    private Mostrable interfaz;
     private Calculo calculo;
-    private LocaleInfo localeActual; // Guardar el LocaleInfo actual
-    private ResourceBundle bundle;
-    
+
     /**
      * Construye un nuevo coordinador, inicializando el mapa de ciudades.
      */
     public Coordinador() {
         ciudades = new HashMap<>();
+        config = ConfigGlobal.getConfiguracion();
+		calculo = new Calculo();
+		this.setCalculo(calculo);
+
+        InterfazServicio guiService = new InterfazServicioImplementacion();
+        interfaz = guiService.buscarInterfaz();
+        interfaz.setCoordinador(this);
+        
+        gestorInterfaz = new GestorDeVentanas();
+        this.inicializarInterfaz(gestorInterfaz);
     }
 
-    /**
-     * Establece el servicio de esquema a utilizar para cambiar entre ciudades.
-     * @param schema el servicio de esquema.
-     */
-    public void setSchemaServicio(SchemaServicio schema) {
-        this.schemaServicio = schema;
+
+    public void inicializarInterfaz(GestorDeVentanas gestor) {
+        this.setGestorDeVentanas(gestor);
+        gestor.setCoordinador(this);
+    }
+    public void setConfiguracion(ConfigGlobal config) {
+        this.config = config;
     }
 
     /**
@@ -65,7 +77,7 @@ public class Coordinador {
      * @param gestorDeVentanas el gestor de ventanas.
      */
     public void setGestorDeVentanas(GestorDeVentanas gestorDeVentanas) {
-        this.gestorDeVentanas = gestorDeVentanas;
+        this.gestorInterfaz = gestorDeVentanas;
     }
 
     /**
@@ -74,20 +86,7 @@ public class Coordinador {
      * @param localeInfo la información de localización a establecer.
      */
     public void setLocalizacion(LocaleInfo localeInfo) {
-        if (localeInfo == null) {
-            QUERY_LOG.warn("setLocalizacion fue llamado con un valor nulo.");
-            return;
-        }
-        
-        this.localeActual = localeInfo; // Guardar la referencia
-        try {
-            String nombreBase = localeInfo.getNombreBaseBundle();
-            this.bundle = ResourceBundle.getBundle(nombreBase);
-            QUERY_LOG.info("Localización seleccionada: {}. ResourceBundle '{}' cargado con éxito.", localeInfo.codigoCompleto(), nombreBase);
-        } catch (MissingResourceException e) {
-            QUERY_LOG.error("No se pudo cargar el ResourceBundle para '{}'. Verifica que el archivo .properties exista.", localeInfo.getNombreBaseBundle(), e);
-            this.bundle = null;
-        }
+        config.setLocalizacion(localeInfo);
     }
 
     /**
@@ -95,7 +94,7 @@ public class Coordinador {
      * @return una lista de objetos LocaleInfo que representan las localizaciones encontradas.
      */
     public List<LocaleInfo> descubrirLocalizaciones() {
-        return LocalizacionUtil.descubrirLocalizaciones();
+        return config.descubrirLocalizaciones();
     }
     
     /**
@@ -103,7 +102,7 @@ public class Coordinador {
      * @return El objeto LocaleInfo actual.
      */
     public LocaleInfo getLocale() {
-        return localeActual;
+        return config.getLocale();
     }
 
     /**
@@ -112,7 +111,7 @@ public class Coordinador {
      * @return el ResourceBundle actual.
      */
     public ResourceBundle getBundle() {
-        return bundle;
+        return config.getBundle();
     }
 
     /**
@@ -145,7 +144,7 @@ public class Coordinador {
      * @param nuevoSchema el nombre del nuevo esquema a utilizar.
      */
     public void cambiarSchema(String nuevoSchema) {
-        schemaServicio.cambiarSchema(nuevoSchema);
+        config.cambiarSchema(nuevoSchema);
     }
 
     /**
@@ -175,9 +174,13 @@ public class Coordinador {
      */
     public void iniciarAplicacion(String[] args) {
         QUERY_LOG.info("Usuario inicia aplicacion");
-        gestorDeVentanas.lanzarAplicacion(args);
+        gestorInterfaz.lanzarAplicacion(args);
     }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void iniciar(String[] args) {
+        interfaz.start(args);
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Realiza la consulta de recorridos entre un origen y un destino.
 	 * Este método delega el cálculo a la capa de lógica y devuelve los resultados
@@ -206,6 +209,6 @@ public class Coordinador {
         Factory.clearInstancia(Constantes.TRAMO);
         Factory.clearInstancia(Constantes.LINEA);
         Factory.clearInstancia(Constantes.PARADA);
-        gestorDeVentanas.mostrarVentanaInicio(ventanaActual);
+        gestorInterfaz.mostrarVentanaInicio(ventanaActual);
     }
 }
