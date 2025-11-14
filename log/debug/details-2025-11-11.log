@@ -1,0 +1,440 @@
+2025-11-11 14:34 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 14:34 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 14:34 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 14:34 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 14:34 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 14:34 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 14:34 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 14:34 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 14:34 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 14:34 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 14:34 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 14:34 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 14:34 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 14:34 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 14:34 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 14:34 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-11 14:36 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 14:36 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 14:36 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 14:36 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 14:36 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 14:36 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 14:36 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 14:36 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 14:36 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 14:36 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 14:36 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 14:36 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 14:36 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 14:36 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 14:36 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 14:36 [Thread-4] Logica DEBUG - Origen y destino son la misma parada. No se calcula recorrido.
+2025-11-11 14:36 [Thread-5] Logica DEBUG - Recorridos calculados
+2025-11-11 14:36 [Thread-6] Logica DEBUG - Recorridos calculados
+2025-11-11 14:37 [Thread-7] Logica DEBUG - Recorridos calculados
+2025-11-11 14:37 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-11 16:28 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:28 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 16:28 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 16:28 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 16:28 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 16:28 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 16:28 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:28 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 16:28 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:28 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 16:28 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 16:28 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 16:28 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 16:28 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 16:28 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 16:28 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-11 16:29 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 16:29 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 16:29 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 16:29 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 16:29 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 16:29 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:29 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:29 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:29 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 16:29 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 16:29 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 16:29 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 16:29 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 16:29 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 16:29 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 16:29 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 16:29 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:29 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 16:29 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:29 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 16:29 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 16:29 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 16:29 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 16:29 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 16:29 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 16:29 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-11 16:29 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-11 16:35 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 16:35 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 16:35 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 16:35 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 16:35 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 16:35 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:35 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:35 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:35 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 16:35 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 16:35 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 16:35 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 16:35 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 16:35 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 16:35 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 16:35 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 16:35 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:35 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 16:35 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:35 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 16:35 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 16:35 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 16:35 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 16:35 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 16:35 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 16:35 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-11 16:35 [Thread-5] Logica DEBUG - Recorridos calculados
+2025-11-11 16:35 [Thread-6] Logica DEBUG - Recorridos calculados
+2025-11-11 16:35 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-11 16:37 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 16:37 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 16:37 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 16:37 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 16:37 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 16:37 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:37 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:37 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:37 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 16:37 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 16:37 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 16:37 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 16:37 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 16:37 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 16:37 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 16:37 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 16:37 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:37 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 16:37 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:37 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 16:37 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 16:37 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 16:37 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 16:37 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 16:37 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 16:37 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-11 16:37 [Thread-5] Logica DEBUG - Recorridos calculados
+2025-11-11 16:37 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-11 16:38 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 16:38 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 16:38 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 16:38 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 16:38 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 16:38 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:38 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:38 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:38 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 16:38 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 16:38 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 16:38 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 16:38 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 16:38 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 16:38 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 16:38 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 16:38 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:38 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 16:38 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:38 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 16:38 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 16:38 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 16:38 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 16:38 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 16:38 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 16:38 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-11 16:38 [Thread-5] Logica DEBUG - Recorridos calculados
+2025-11-11 16:38 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-11 16:39 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 16:39 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 16:39 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 16:39 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 16:39 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 16:39 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:39 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:39 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:39 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 16:39 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 16:39 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 16:39 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 16:39 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 16:39 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 16:39 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 16:39 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 16:39 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:39 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 16:39 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:39 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 16:39 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 16:39 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 16:39 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 16:39 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 16:39 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 16:40 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-11 16:40 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-11 16:40 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 16:40 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 16:40 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 16:40 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 16:40 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 16:40 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:40 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:40 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:40 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 16:40 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 16:40 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 16:40 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 16:40 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 16:40 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 16:40 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 16:40 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 16:40 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:40 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 16:40 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:40 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 16:40 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 16:40 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 16:40 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 16:40 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 16:40 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 16:40 [Thread-4] Logica DEBUG - Origen y destino son la misma parada. No se calcula recorrido.
+2025-11-11 16:41 [Thread-5] Logica DEBUG - Recorridos calculados
+2025-11-11 16:41 [Thread-6] Logica DEBUG - Recorridos calculados
+2025-11-11 16:41 [Thread-7] Logica DEBUG - Recorridos calculados
+2025-11-11 16:41 [Thread-8] Logica DEBUG - Recorridos calculados
+2025-11-11 16:41 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-11 16:44 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:44 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 16:44 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 16:44 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 16:44 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 16:44 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 16:44 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 16:44 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-11 16:44 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-11 16:44 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:44 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 16:44 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:44 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 16:44 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 16:44 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 16:44 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 16:44 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 16:44 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 16:44 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-11 16:45 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-11 16:51 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 16:51 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 16:51 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 16:51 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 16:51 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 16:51 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:51 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:51 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:51 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 16:51 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 16:51 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 16:51 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 16:51 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 16:51 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 16:51 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 16:51 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 16:51 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:51 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 16:51 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:51 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 16:51 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 16:51 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 16:51 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 16:51 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 16:51 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 16:52 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-11 16:52 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-11 16:57 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-11 16:57 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-11 16:57 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-11 16:57 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-11 16:57 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-11 16:57 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:57 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:57 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:57 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-11 16:57 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-11 16:57 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-11 16:57 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-11 16:57 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-11 16:57 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-11 16:57 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-11 16:57 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-11 16:57 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-11 16:57 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-11 16:57 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-11 16:57 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-11 16:57 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-11 16:57 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-11 16:57 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-11 16:57 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-11 16:57 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-11 16:57 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-11 16:58 [Thread-5] Logica DEBUG - Recorridos calculados
+2025-11-11 16:58 [Thread-6] Logica DEBUG - Recorridos calculados
+2025-11-11 16:58 [Thread-7] Logica DEBUG - Recorridos calculados
+2025-11-11 16:58 [Thread-8] Logica DEBUG - Recorridos calculados
+2025-11-11 16:58 [Thread-9] Logica DEBUG - Origen y destino son la misma parada. No se calcula recorrido.
+2025-11-11 16:58 [Thread-10] Logica DEBUG - Recorridos calculados
+2025-11-11 16:58 [Thread-11] Logica DEBUG - Recorridos calculados
+2025-11-11 16:58 [Thread-12] Logica DEBUG - Recorridos calculados
+2025-11-11 16:59 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada

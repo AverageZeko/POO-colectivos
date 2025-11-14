@@ -168,10 +168,7 @@ public class Coordinador {
         QUERY_LOG.info("Usuario cambia de ciudad a {}", nuevaCiudad);
     }
     
-    /**
-     * Inicia la aplicación lanzando la ventana de inicio.
-     * @param args argumentos de la línea de comandos.
-     */
+   //este no iria mas y tendria que ser remplazado por iniciar
     public void iniciarAplicacion(String[] args) {
         QUERY_LOG.info("Usuario inicia aplicacion");
         gestorInterfaz.lanzarAplicacion(args);
