@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  * Actúa como un punto central para la navegación de la UI, desacoplando al Coordinador
  * de las implementaciones concretas de las ventanas.
  */
-public class GestorDeVentanas {
+public class GestorDeVentanas implements Mostrable{
 
     private Coordinador coordinador;
     private VentanaInicio ventanaInicio;
@@ -43,7 +43,7 @@ public class GestorDeVentanas {
      * Lanza la aplicación mostrando la ventana inicial.
      * @param args Argumentos de la línea de comandos.
      */
-    public void lanzarAplicacion(String[] args) {
+    public void mostrar(String[] args){
         ventanaInicio.lanzarAplicacion(args);
     }
     
@@ -83,7 +83,7 @@ public class GestorDeVentanas {
      */
     public void mostrarVentanaConsultas(Stage ventanaActual) {
         ventanaInicio.cerrar(ventanaActual);
-        ventanaConsultas.mostrar(new Stage());
+        ventanaConsultas.start(new Stage());
     }
     
     public void solicitarVolverAInicio(Stage ventanaActual) {

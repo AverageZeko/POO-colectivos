@@ -36,7 +36,7 @@ import javafx.stage.Stage;
  * Permite al usuario seleccionar una ciudad y un idioma antes de iniciar
  * la aplicación de consultas.
  */
-public class VentanaInicio extends Application implements Mostrable {
+public class VentanaInicio extends Application{
 
     private static GestorDeVentanas gestor;
     
@@ -82,12 +82,12 @@ public class VentanaInicio extends Application implements Mostrable {
         comboCiudad.setPromptText(bundle.getString("Welcome_CityPrompt"));
     }
 
-    @Override
+    
     public void mostrar(Stage stage) {
         start(stage);
     }
     
-    @Override
+    
     public void cerrar(Stage stage) {
         stage.close();
     }

@@ -31,7 +31,7 @@ import colectivo.modelo.Recorrido;
  * Ensambla y coordina los paneles de consulta (izquierda) y resultados (derecha).
  * Implementa {@link Mostrable}.
  */
-public class Interfaz extends Application implements Mostrable {
+public class Interfaz extends Application{
     
     private GestorDeVentanas gestor;
     private Stage escenarioPrincipal;
@@ -157,12 +157,12 @@ public class Interfaz extends Application implements Mostrable {
         // --- FIN DEL CAMBIO ---
     }
     
-    @Override
+    
     public void mostrar(Stage stage) {
         start(stage);
     }
     
-    @Override
+    
     public void cerrar(Stage stage) {
         stage.close();
     }

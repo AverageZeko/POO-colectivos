@@ -171,11 +171,11 @@ public class Coordinador {
    //este no iria mas y tendria que ser remplazado por iniciar
     public void iniciarAplicacion(String[] args) {
         QUERY_LOG.info("Usuario inicia aplicacion");
-        gestorInterfaz.lanzarAplicacion(args);
+        gestorInterfaz.mostrar(args);
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
     public void iniciar(String[] args) {
-        interfaz.start(args);
+        interfaz.mostrar(args);
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 	/**
