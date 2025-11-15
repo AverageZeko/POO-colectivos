@@ -108,9 +108,9 @@ public class VentanaInicio extends Application{
         etiquetaAdvertencia.setStyle("-fx-text-fill: red; -fx-font-size: 14pt;");
         etiquetaAdvertencia.setVisible(false);
 
-        ObservableList<String> todasLasCiudades = FXCollections.observableArrayList(
-            "colectivo_PM", "colectivo_AZL","colectivo_CO","colectivo_HL"
-        );
+        ObservableList<String> todasLasCiudades =
+                FXCollections.observableArrayList(gestor.getCiudades());
+
         ciudadesFiltradas = new FilteredList<>(todasLasCiudades, p -> true);
         comboCiudad = new ComboBox<>(ciudadesFiltradas);
         

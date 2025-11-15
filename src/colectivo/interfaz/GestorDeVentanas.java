@@ -12,6 +12,7 @@ import colectivo.controlador.Coordinador;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
 import colectivo.util.LocaleInfo;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 /**
@@ -115,4 +116,9 @@ public class GestorDeVentanas implements Mostrable{
     public void setLocalizacion(LocaleInfo localeInfo) {
         coordinador.setLocalizacion(localeInfo);
     }
+
+	public  List<String> getCiudades() {
+		
+		return  coordinador.getCiudades();
+	}
 }

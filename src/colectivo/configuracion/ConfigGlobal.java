@@ -72,7 +72,7 @@ public class ConfigGlobal {
     }
 
     public void cambiarCiudad(String ciudad) {
-        schemaActual = nombresCiudades.get("ciudad");
+    	schemaActual = nombresCiudades.get(ciudad);
     }
 
     public static String getSchema() {
