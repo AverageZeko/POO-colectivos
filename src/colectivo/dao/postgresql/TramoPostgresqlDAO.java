@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import colectivo.app.Constantes;
 import colectivo.conexion.BDConexion;
+import colectivo.controlador.Coordinador;
 import colectivo.dao.ParadaDAO;
 import colectivo.dao.TramoDAO;
 import colectivo.modelo.Parada;
@@ -82,7 +83,7 @@ public class TramoPostgresqlDAO implements TramoDAO{
             Statement schemaStatement = null;
             PreparedStatement selectStatement = null;
             ResultSet rs = null;
-            String schema = SchemaPostgresqlDAO.getSchema();
+            String schema = Coordinador.getSchema();
             try {
                 ParadaDAO paradaDAO = (ParadaDAO) Factory.getInstancia(Constantes.PARADA);
                 Map<Integer, Parada> paradas = paradaDAO.buscarTodos();
@@ -124,6 +125,8 @@ public class TramoPostgresqlDAO implements TramoDAO{
 
             } catch (SQLException e) {
                 TRAMO_DAO_LOG.error("No se pudo realizar la consulta de tramos", e);
+                TRAMO_DAO_LOG.error(schemaStatement.toString());
+                TRAMO_DAO_LOG.error(selectStatement.toString());
                 throw new RuntimeException("No se pudo realizar la consulta de tramos", e);
             }   finally {
                 try {

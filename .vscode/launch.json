@@ -8,7 +8,7 @@
             "type": "java",
             "name": "AplicacionConsultas",
             "request": "launch",
-            "mainClass": "colectivo.controlador.AplicacionConsultas",
+            "mainClass": "colectivo.app.AplicacionConsultas",
             "projectName": "POO-colectivos_84e34458",
             "vmArgs": "--module-path lib/gui --add-modules javafx.swt,javafx.base,javafx.controls,javafx.fxml,javafx.media,javafx.swing,javafx.web -Djava.library.path=lib/gui/bin -Dlogback.configurationFile=file:${workspaceFolder}/log/logback.xml"
         }

@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import colectivo.app.Constantes;
 import colectivo.conexion.BDConexion;
+import colectivo.controlador.Coordinador;
 import colectivo.dao.LineaDAO;
 import colectivo.dao.ParadaDAO;
 import colectivo.modelo.Linea;
@@ -96,7 +97,7 @@ public class LineaPostgresqlDAO implements LineaDAO{
             Statement schemaStatement = null;
             PreparedStatement selectStatement = null;
             ResultSet rs = null;
-            String schema = SchemaPostgresqlDAO.getSchema();
+            String schema = Coordinador.getSchema();
             
             try {
                 ParadaDAO paradaDAO = (ParadaDAO) Factory.getInstancia(Constantes.PARADA);
@@ -152,6 +153,8 @@ public class LineaPostgresqlDAO implements LineaDAO{
 
             } catch (SQLException e) {
                 LINEA_DAO_LOG.error("No se pudo realizar la consulta de lineas", e);
+                LINEA_DAO_LOG.error(schemaStatement.toString());
+                LINEA_DAO_LOG.error(selectStatement.toString());
                 throw new RuntimeException("No se pudo realizar la consulta de lineas", e);
             }   finally {
                 try {

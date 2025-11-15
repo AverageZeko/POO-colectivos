@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import colectivo.conexion.BDConexion;
+import colectivo.controlador.Coordinador;
 import colectivo.dao.ParadaDAO;
 import colectivo.modelo.Parada;
 
@@ -66,7 +67,7 @@ public class ParadaPostgresqlDAO implements ParadaDAO {
             Statement schemaStatement = null;
             PreparedStatement selectStatement = null;
             ResultSet rs = null;
-            String schema = SchemaPostgresqlDAO.getSchema();
+            String schema = Coordinador.getSchema();
             try {
                 con = BDConexion.getConnection();
 
@@ -91,6 +92,8 @@ public class ParadaPostgresqlDAO implements ParadaDAO {
 
             } catch (SQLException e) {
                 PARADA_DAO_LOG.debug("No se pudo realizar la consulta de paradas", e);
+                PARADA_DAO_LOG.error(schemaStatement.toString());
+                PARADA_DAO_LOG.error(selectStatement.toString());
                 throw new RuntimeException("No se pudo realizar la consulta de paradas", e);
             }   finally {
                 try {

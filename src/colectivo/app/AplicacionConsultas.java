@@ -12,6 +12,6 @@ public class AplicacionConsultas {
 
     public static void main(String[] args) {
         coordinador = new Coordinador();
-        coordinador.iniciarAplicacion(args);
+        coordinador.mostrar(args);
     }
 }

@@ -27,6 +27,10 @@
         <appender-ref ref="FILE_QUERY" /> 
     </logger> 
 
+    <logger name="Configuracion" level="DEBUG"> 
+        <appender-ref ref="FILE_QUERY" /> 
+    </logger> 
+
     <logger name="BDConexion" level="DEBUG">
         <appender-ref ref="FILE_DETAILS" /> 
     </logger> 

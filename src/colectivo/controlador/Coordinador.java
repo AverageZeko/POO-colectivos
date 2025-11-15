@@ -17,8 +17,6 @@ import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
-import colectivo.servicio.InterfazServicio;
-import colectivo.servicio.InterfazServicioImplementacion;
 import colectivo.util.Factory;
 import colectivo.util.LocaleInfo;
 import javafx.stage.Stage;
@@ -34,7 +32,6 @@ public class Coordinador {
     private ConfigGlobal config;
     private Map<String, EmpresaColectivos> ciudades;
     private EmpresaColectivos ciudadActual;
-    private GestorDeVentanas gestorInterfaz;
     private Mostrable interfaz;
     private Calculo calculo;
 
@@ -46,19 +43,12 @@ public class Coordinador {
         config = ConfigGlobal.getConfiguracion();
 		calculo = new Calculo();
 		this.setCalculo(calculo);
-
-        InterfazServicio guiService = new InterfazServicioImplementacion();
-        interfaz = guiService.buscarInterfaz();
-        interfaz.setCoordinador(this);
-        
-        gestorInterfaz = new GestorDeVentanas();
-        this.inicializarInterfaz(gestorInterfaz);
+        this.inicializarInterfaz();
     }
 
-
-    public void inicializarInterfaz(GestorDeVentanas gestor) {
-        this.setGestorDeVentanas(gestor);
-        gestor.setCoordinador(this);
+    public void inicializarInterfaz() {
+        interfaz = (Mostrable) Factory.getInstancia(Constantes.GUI);
+        interfaz.setCoordinador(this);
     }
     public void setConfiguracion(ConfigGlobal config) {
         this.config = config;
@@ -70,14 +60,6 @@ public class Coordinador {
      */
     public void setCalculo(Calculo calculo) {
     	this.calculo = calculo;
-    }
-
-    /**
-     * Establece el gestor de ventanas de la aplicación.
-     * @param gestorDeVentanas el gestor de ventanas.
-     */
-    public void setGestorDeVentanas(GestorDeVentanas gestorDeVentanas) {
-        this.gestorInterfaz = gestorDeVentanas;
     }
 
     /**
@@ -139,12 +121,8 @@ public class Coordinador {
         return ciudadActual.getParadas(); 
     }
 
-    /**
-     * Cambia el esquema de la base de datos activo.
-     * @param nuevoSchema el nombre del nuevo esquema a utilizar.
-     */
-    public void cambiarSchema(String nuevoSchema) {
-        config.cambiarSchema(nuevoSchema);
+    public List<String> getCiudades() {
+        return config.getCiudades();
     }
 
     /**
@@ -153,7 +131,7 @@ public class Coordinador {
      * @param nuevaCiudad el nombre de la ciudad a establecer como actual.
      */
     public void setCiudadActual(String nuevaCiudad) {
-        cambiarSchema(nuevaCiudad);
+        config.cambiarCiudad(nuevaCiudad);
         EmpresaColectivos ciudad = ciudades.get(nuevaCiudad);
         if (ciudad == null) {
             ciudad = new EmpresaColectivos();
@@ -168,16 +146,15 @@ public class Coordinador {
         QUERY_LOG.info("Usuario cambia de ciudad a {}", nuevaCiudad);
     }
     
-   //este no iria mas y tendria que ser remplazado por iniciar
-    public void iniciarAplicacion(String[] args) {
-        QUERY_LOG.info("Usuario inicia aplicacion");
-        gestorInterfaz.mostrar(args);
+    public static String getSchema() {
+        return ConfigGlobal.getSchema();
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-    public void iniciar(String[] args) {
+
+    public void mostrar(String[] args) {
+        QUERY_LOG.info("Usuario inicia aplicacion");
         interfaz.mostrar(args);
     }
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Realiza la consulta de recorridos entre un origen y un destino.
 	 * Este método delega el cálculo a la capa de lógica y devuelve los resultados
@@ -206,6 +183,5 @@ public class Coordinador {
         Factory.clearInstancia(Constantes.TRAMO);
         Factory.clearInstancia(Constantes.LINEA);
         Factory.clearInstancia(Constantes.PARADA);
-        gestorInterfaz.mostrarVentanaInicio(ventanaActual);
     }
 }
