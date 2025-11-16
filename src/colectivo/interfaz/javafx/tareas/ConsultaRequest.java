@@ -1,6 +1,5 @@
 package colectivo.interfaz.javafx.tareas;
 
-import colectivo.modelo.Parada;
 import javafx.scene.control.RadioButton;
 
 import java.time.LocalTime;
@@ -8,27 +7,28 @@ import java.util.ResourceBundle;
 
 /**
  * Encapsula los datos de una solicitud de consulta realizada por el usuario.
+ * Usa IDs de paradas para no exponer objetos de dominio en la UI.
  */
 public class ConsultaRequest {
 
-    private final Parada paradaOrigen;
-    private final Parada paradaDestino;
+    private final int idParadaOrigen;
+    private final int idParadaDestino;
     private final RadioButton diaRadio;
     private final LocalTime hora;
 
-    public ConsultaRequest(Parada paradaOrigen, Parada paradaDestino, RadioButton diaRadio, LocalTime hora) {
-        this.paradaOrigen = paradaOrigen;
-        this.paradaDestino = paradaDestino;
+    public ConsultaRequest(int idParadaOrigen, int idParadaDestino, RadioButton diaRadio, LocalTime hora) {
+        this.idParadaOrigen = idParadaOrigen;
+        this.idParadaDestino = idParadaDestino;
         this.diaRadio = diaRadio;
         this.hora = hora;
     }
 
-    public Parada getParadaOrigen() {
-        return paradaOrigen;
+    public int getIdParadaOrigen() {
+        return idParadaOrigen;
     }
 
-    public Parada getParadaDestino() {
-        return paradaDestino;
+    public int getIdParadaDestino() {
+        return idParadaDestino;
     }
 
     public LocalTime getHora() {

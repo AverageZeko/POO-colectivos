@@ -1,7 +1,9 @@
 package colectivo.util;
 
 import colectivo.modelo.Parada;
+
 import colectivo.logica.Recorrido;
+import colectivo.util.ArmadorString;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -140,8 +142,9 @@ public class FormateadorRecorridos {
      * @param bundle resource bundle para textos localizados
      * @return List<List<String>> lista de páginas listas para renderizar por la UI
      */
-    public static List<List<String>> formatear(List<List<Recorrido>> rutasCompletas, LocalTime horaConsulta, ResourceBundle bundle) {
-        List<List<String>> paginas = new ArrayList<>();
+    public static List<List<String>> formatear(List<List<Recorrido>> rutasCompletas, LocalTime horaConsulta, ResourceBundle bundle, ArmadorString armador) {
+        armador.setRutas(rutasCompletas);
+    	List<List<String>> paginas = new ArrayList<>();
         if (rutasCompletas == null || rutasCompletas.isEmpty()) return paginas;
 
         for (int idx = 0; idx < rutasCompletas.size(); idx++) {
@@ -207,6 +210,7 @@ public class FormateadorRecorridos {
 
             paginas.add(lineas);
         }
+        
 
         return paginas;
     }

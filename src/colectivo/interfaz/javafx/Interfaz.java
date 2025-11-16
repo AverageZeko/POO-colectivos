@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import colectivo.interfaz.Mostrable;
 import colectivo.interfaz.javafx.paneles.PanelDerecho;
 import colectivo.interfaz.javafx.paneles.PanelIzquierdo;
 import colectivo.interfaz.javafx.tareas.ConsultaRequest;
@@ -21,15 +20,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import colectivo.modelo.Parada;
-
-
 /**
  * Ventana principal para la consulta de recorridos.
  * Ensambla y coordina los paneles de consulta (izquierda) y resultados (derecha).
- * Implementa {@link Mostrable}.
  *
- * NOTA: Ahora la UI únicamente recibe textos ya formateados para mostrar.
+ * NOTA: La UI únicamente recibe textos ya formateados y metadatos simples (ids, nombres).
  */
 public class Interfaz extends Application{
 
@@ -44,7 +39,6 @@ public class Interfaz extends Application{
     private double tamanoFuenteActual = 12;
     private static final double TAMANO_FUENTE_BASE = 12;
     private static final int MAX_INCREMENTOS = 5;
-
 
     @Override
     public void start(Stage escenarioPrincipal) {
@@ -100,7 +94,7 @@ public class Interfaz extends Application{
     private void inicializarComponentes() {
         if (gestor != null) {
             actualizarEstilosYTextos();
-            Map<Integer, Parada> paradasMap = gestor.getMapaParadas();
+            Map<Integer, String> paradasMap = gestor.getMapaParadasNombres();
             panelIzquierdo.cargarParadas(paradasMap);
         }
     }
@@ -150,11 +144,9 @@ public class Interfaz extends Application{
 
     }
 
-
     public void mostrar(Stage stage) {
         start(stage);
     }
-
 
     public void cerrar(Stage stage) {
         stage.close();
@@ -177,19 +169,16 @@ public class Interfaz extends Application{
      * La UI ya no recibe objetos de negocio. El botón de "Mapa" recibe
      * una representación textual (multilínea) y la muestra en una ventana simple.
      */
-    private void mostrarMapa(String recorridoTexto) {
-        if (recorridoTexto == null || recorridoTexto.isEmpty()) return;
-
-        Stage s = new Stage();
-        BorderPane p = new BorderPane();
-        javafx.scene.control.TextArea ta = new javafx.scene.control.TextArea(recorridoTexto);
-        ta.setEditable(false);
-        ta.setWrapText(true);
-        p.setCenter(ta);
-        Scene sc = new Scene(p, 600, 400);
-        s.setScene(sc);
-        s.setTitle(getBundle() != null ? getBundle().getString("Query_WindowName") : "Mapa");
-        s.show();
+    private void mostrarMapa(int recorrido) {
+    	VentanaMapa ventanaMapa = new VentanaMapa();
+        
+        ventanaMapa.setRecorrido(recorrido);
+        try {
+            ventanaMapa.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            panelDerecho.mostrarError("Error al abrir el mapa.");
+        }
     }
 
     ResourceBundle getBundle() {

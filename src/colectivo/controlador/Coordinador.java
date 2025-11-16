@@ -19,7 +19,7 @@ import colectivo.modelo.Parada;
 import colectivo.util.Factory;
 import colectivo.util.FormateadorRecorridos;
 import colectivo.util.LocaleInfo;
-import javafx.stage.Stage;
+import colectivo.util.ArmadorString;
 
 /**
  * Clase central que actúa como mediador entre la interfaz de usuario,
@@ -34,6 +34,8 @@ public class Coordinador {
     private EmpresaColectivos ciudadActual;
     private Mostrable interfaz;
     private Calculo calculo;
+    private static final String CLAVE_DE_MAPA = "AIzaSyCiWk2rBTihKSwummyYVv6mTzc-lFQspQ0";
+    private ArmadorString armadorString;
 
     /**
      * Construye un nuevo coordinador, inicializando el mapa de ciudades.
@@ -172,8 +174,22 @@ public class Coordinador {
 
         ResourceBundle bundle = getBundle();
         // Formatear aquí: la interfaz recibirá solo strings ya armados
-        return FormateadorRecorridos.formatear(recorridos, horaLlegaParada, bundle);
+        return FormateadorRecorridos.formatear(recorridos, horaLlegaParada, bundle, armadorString);
     }
+    
+    public Map<Integer, String> getMapaParadasNombres() {
+        if (ciudadActual == null) {
+            QUERY_LOG.error("Intento de getMapaParadasNombres() cuando ciudadActual es nula.");
+            return java.util.Collections.emptyMap();
+        }
+        Map<Integer, Parada> paradas = ciudadActual.getParadas();
+        Map<Integer, String> nombres = new HashMap<>(paradas.size());
+        for (Map.Entry<Integer, Parada> e : paradas.entrySet()) {
+            nombres.put(e.getKey(), e.getValue().getDireccion());
+        }
+        return nombres;
+    }
+
     
     /**
      * Limpia la cache de datos de Factory
@@ -183,5 +199,20 @@ public class Coordinador {
         Factory.clearInstancia(Constantes.LINEA);
         Factory.clearInstancia(Constantes.PARADA);
     }
+     
+     public ArmadorString.ResultadoMapa obtenerLink(int zoomDelta, double latDelta, double lngDelta, int ruta) {
+         if (this.armadorString == null) {
+             System.err.println("Error: Coordinador no iniciado. Llamar a iniciarRecorrido() primero.");
+             // Devuelve un resultado de error
+             return new ArmadorString.ResultadoMapa(
+                 "https://via.placeholder.com/640x640.png?text=Error:+Coordinador+no+iniciado",
+                 new java.util.HashMap<>()
+             );
+         }
+         // Delega la llamada al método público del armador
+         return this.armadorString.generarMapa(zoomDelta, latDelta, lngDelta, ruta);
+     }
+     
+     
     
 }

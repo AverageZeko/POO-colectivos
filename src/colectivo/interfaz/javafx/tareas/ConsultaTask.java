@@ -28,8 +28,8 @@ public class ConsultaTask extends Task<List<List<String>>> {
 
         int diaInt = request.getDiaSemana(gestor.getBundle());
         return gestor.solicitarConsulta(
-                request.getParadaOrigen(),
-                request.getParadaDestino(),
+                request.getIdParadaOrigen(),
+                request.getIdParadaDestino(),
                 diaInt,
                 request.getHora()
         );

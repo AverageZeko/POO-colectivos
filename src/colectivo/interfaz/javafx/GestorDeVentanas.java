@@ -15,8 +15,7 @@ import javafx.stage.Stage;
 
 /**
  * GestorDeVentanas: Es la única clase de la capa de interfaz que comunica con el Coordinador.
- * Se asume que el Coordinador devolverá la representación textual ya formateada (List<List<String>>)
- * y por lo tanto la interfaz recibe y renderiza solamente strings.
+ * La interfaz recibe y renderiza solamente strings o metadatos simples (IDs/nombres).
  */
 public class GestorDeVentanas implements Mostrable{
 
@@ -72,22 +71,33 @@ public class GestorDeVentanas implements Mostrable{
         mostrarVentanaInicio(ventanaActual);
     }
 
-    // MÉTODOS DE FACHADA: ahora devuelven la representación textual (List<List<String>>) preparada por el Coordinador
+    // MÉTODOS DE FACHADA
 
-    public java.util.List<java.util.List<String>> solicitarConsulta(Parada origen, Parada destino, int diaSemana, LocalTime hora) {
-        // Se delega a Coordinador, y se espera que Coordinador retorne List<List<String>> ya preparado
+    /**
+     * Solicita una consulta usando IDs de paradas, ocultando objetos de dominio a la UI.
+     */
+    public java.util.List<java.util.List<String>> solicitarConsulta(int idOrigen, int idDestino, int diaSemana, LocalTime hora) {
+        Parada origen = coordinador.getParada(idOrigen);
+        Parada destino = coordinador.getParada(idDestino);
         return coordinador.consulta(origen, destino, diaSemana, hora);
     }
 
-    public Map<Integer, Parada> getMapaParadas() {
-        return coordinador.getMapaParadas();
+    /**
+     * Devuelve un mapa id->nombre(dirección) para poblar la UI.
+     */
+    public Map<Integer, String> getMapaParadasNombres() {
+        Map<Integer, String> nombres = coordinador.getMapaParadasNombres();
+        if (nombres == null || nombres.isEmpty()) {
+            throw new IllegalStateException("No hay nombres de paradas disponibles desde el Coordinador");
+        }
+        return nombres;
     }
 
     public ResourceBundle getBundle() {
         return coordinador.getBundle();
     }
 
-    public java.util.List<LocaleInfo> descubrirLocalizaciones() {
+    public java.util.List<colectivo.util.LocaleInfo> descubrirLocalizaciones() {
         return coordinador.descubrirLocalizaciones();
     }
 
