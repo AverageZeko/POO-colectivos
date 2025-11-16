@@ -1,14 +1,14 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0" scale="1" border="0" version="28.2.7">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0" scale="1" border="0" version="29.0.3">
   <diagram name="Página-1" id="cbDElEv1fS12Vc9QogJ1">
-    <mxGraphModel dx="1034" dy="1739" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1426" dy="1962" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="taK4Hgl8xmj-7yD5E5OV-5" value="" style="swimlane;startSize=0;align=center;strokeWidth=2;" parent="1" vertex="1">
-          <mxGeometry x="120" y="-50" width="1070" height="570" as="geometry" />
+          <mxGeometry x="120" y="-50" width="1100" height="570" as="geometry" />
         </mxCell>
         <mxCell id="LflXMjG5CBFgQegLdkp7-1" value="EmpresaColectivos" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="taK4Hgl8xmj-7yD5E5OV-5" vertex="1">
-          <mxGeometry x="790" y="50" width="240" height="220" as="geometry" />
+          <mxGeometry x="620" y="50" width="240" height="220" as="geometry" />
         </mxCell>
         <mxCell id="Hpd7c55EznQxcUljPXnx-3" value="&lt;div&gt;- paradas : Map&amp;lt;Integer, Parada&amp;gt;&lt;/div&gt;&lt;div&gt;- lineas : &amp;lt;String, Linea&amp;gt;&lt;/div&gt;&lt;div&gt;- tramos : &amp;lt;String, Tramo&amp;gt;&lt;/div&gt;&lt;div&gt;- lineaServicio : LineaServicio&lt;/div&gt;&lt;div&gt;- paradaServicio : ParadaServicio&lt;/div&gt;&lt;div&gt;- tramoServicio : TramoServicio&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="LflXMjG5CBFgQegLdkp7-1" vertex="1">
           <mxGeometry y="40" width="240" height="100" as="geometry" />
@@ -19,7 +19,7 @@
         <mxCell id="Hpd7c55EznQxcUljPXnx-4" value="Calculo" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="taK4Hgl8xmj-7yD5E5OV-5" vertex="1">
           <mxGeometry x="40" y="50" width="540" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="Hpd7c55EznQxcUljPXnx-5" value="- cache : CacheLineas = new CacheLineas()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="Hpd7c55EznQxcUljPXnx-4" vertex="1">
+        <mxCell id="Hpd7c55EznQxcUljPXnx-5" value="&lt;div&gt;&lt;u&gt;- LOGICA_LOG&amp;nbsp;&lt;i&gt;&amp;nbsp;&lt;/i&gt;&lt;/u&gt;&amp;nbsp;: Logger = LoggerFactory.getLogger(&quot;Logica&quot;)&lt;/div&gt;&lt;div&gt;&lt;i&gt;- cache : CacheLineas = new CacheLineas()&lt;/i&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="Hpd7c55EznQxcUljPXnx-4" vertex="1">
           <mxGeometry y="40" width="540" height="40" as="geometry" />
         </mxCell>
         <mxCell id="Hpd7c55EznQxcUljPXnx-6" value="&lt;div&gt;+ calcularRecorrido(Parada, Parada, int, LocalTime, Map&amp;lt;String, Tramo&amp;gt;) : List&amp;lt;List&amp;lt;Recorrido&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;- calcularTramoBus(Parada, Parada, Linea, int, LocalTime, Map&amp;lt;String, Tramo&amp;gt;) : Recorrido&lt;/div&gt;&lt;div&gt;- buscarConexiones(Parada, Parada, int, LocalTime, Map&amp;lt;String, Tramo&amp;gt;) : List&amp;lt;List&amp;lt;Recorrido&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;- recorridosDirectos(Parada, Parada, int, LocalTime, Map&amp;lt;String, Tramo&amp;gt;) :&amp;nbsp;List&amp;lt;List&amp;lt;Recorrido&amp;gt;&amp;gt;&lt;/div&gt;" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="Hpd7c55EznQxcUljPXnx-4" vertex="1">
@@ -28,7 +28,7 @@
         <mxCell id="Hpd7c55EznQxcUljPXnx-15" value="CacheLineas" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="taK4Hgl8xmj-7yD5E5OV-5" vertex="1">
           <mxGeometry x="40" y="300" width="410" height="140" as="geometry" />
         </mxCell>
-        <mxCell id="Hpd7c55EznQxcUljPXnx-16" value="&lt;div&gt;- cacheFrecuencias :&amp;nbsp;Map&amp;lt;String, List&amp;lt;LocalTime&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;- cachePrefixSegundos : Map&amp;lt;String, int[]&amp;gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="Hpd7c55EznQxcUljPXnx-15" vertex="1">
+        <mxCell id="Hpd7c55EznQxcUljPXnx-16" value="&lt;div&gt;&lt;i&gt;- cacheFrecuencias :&amp;nbsp;Map&amp;lt;String, List&amp;lt;LocalTime&amp;gt;&amp;gt;&lt;/i&gt;&lt;/div&gt;&lt;div&gt;&lt;i&gt;- cachePrefixSegundos : Map&amp;lt;String, int[]&amp;gt;&lt;/i&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="Hpd7c55EznQxcUljPXnx-15" vertex="1">
           <mxGeometry y="40" width="410" height="50" as="geometry" />
         </mxCell>
         <mxCell id="Hpd7c55EznQxcUljPXnx-17" value="&lt;div&gt;+ obtenerPrefix(Linea, List&amp;lt;Parada&amp;gt;, Map&amp;lt;String, Tramo&amp;gt;) : int[]&lt;/div&gt;&lt;div&gt;+ obtenerFrecuenciasOrdenadas(Linea, int) : List&amp;lt;LocalTime&gt;&lt;/div&gt;" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="Hpd7c55EznQxcUljPXnx-15" vertex="1">
@@ -46,7 +46,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="J1kE-7o8j04pX4P_0r7X-1" value="&amp;lt;&amp;lt;utility&amp;gt;&amp;gt;&lt;br&gt;RecorridoUtils" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="taK4Hgl8xmj-7yD5E5OV-5" vertex="1">
-          <mxGeometry x="580" y="300" width="450" height="170" as="geometry" />
+          <mxGeometry x="555" y="340" width="450" height="170" as="geometry" />
         </mxCell>
         <mxCell id="J1kE-7o8j04pX4P_0r7X-2" value="" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="J1kE-7o8j04pX4P_0r7X-1" vertex="1">
           <mxGeometry y="50" width="450" as="geometry" />
@@ -54,7 +54,7 @@
         <mxCell id="J1kE-7o8j04pX4P_0r7X-3" value="&lt;div&gt;&lt;u&gt;+ indicesValidos(int, int) : boolean&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ subRecorrido(List&amp;lt;Parada&amp;gt;, int, int) : List&amp;lt;Parada&amp;gt;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ calcularHoraSalidaBinaria(List&amp;lt;LocalTime&amp;gt;, int, LocalTime) : LocalTime&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ calcularTiempoTotalConexion(List&amp;lt;Recorrido&amp;gt;) : int&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ getTramosCaminandoDesde(Parada, Map&amp;lt;String, Tramo&amp;gt;) : List&amp;lt;Tramo&amp;gt;&lt;/u&gt;&lt;/div&gt;" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="J1kE-7o8j04pX4P_0r7X-1" vertex="1">
           <mxGeometry y="50" width="450" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="J1kE-7o8j04pX4P_0r7X-4" value="" style="endArrow=open;endFill=0;endSize=12;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;dashed=1;" parent="taK4Hgl8xmj-7yD5E5OV-5" source="Hpd7c55EznQxcUljPXnx-4" edge="1">
+        <mxCell id="J1kE-7o8j04pX4P_0r7X-4" value="" style="endArrow=open;endFill=0;endSize=12;html=1;rounded=0;exitX=0.922;exitY=1.025;exitDx=0;exitDy=0;dashed=1;entryX=0.196;entryY=0.012;entryDx=0;entryDy=0;entryPerimeter=0;exitPerimeter=0;" parent="taK4Hgl8xmj-7yD5E5OV-5" source="Hpd7c55EznQxcUljPXnx-6" edge="1" target="J1kE-7o8j04pX4P_0r7X-1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="490" y="270" as="sourcePoint" />
             <mxPoint x="640" y="300" as="targetPoint" />
@@ -65,6 +65,15 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="_oyudmHdVxIkLhUO6mLi-2" value="Recorrido" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="taK4Hgl8xmj-7yD5E5OV-5">
+          <mxGeometry x="890" y="60" width="190" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="_oyudmHdVxIkLhUO6mLi-3" value="&lt;div&gt;- horaSalida : LocalTime&lt;/div&gt;&lt;div&gt;- duracion : int&lt;/div&gt;&lt;div&gt;- paradas : List&amp;lt;Parada&amp;gt;&lt;/div&gt;&lt;div&gt;- linea : Linea&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="_oyudmHdVxIkLhUO6mLi-2">
+          <mxGeometry y="30" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="_oyudmHdVxIkLhUO6mLi-4" value="&amp;nbsp;" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;glass=0;shadow=0;" vertex="1" parent="_oyudmHdVxIkLhUO6mLi-2">
+          <mxGeometry y="110" width="190" height="30" as="geometry" />
+        </mxCell>
         <mxCell id="taK4Hgl8xmj-7yD5E5OV-14" value="" style="swimlane;startSize=0;strokeWidth=2;" parent="1" vertex="1">
           <mxGeometry x="120" y="-80" width="150" height="30" as="geometry" />
         </mxCell>
@@ -73,6 +82,9 @@
         </mxCell>
         <mxCell id="Hpd7c55EznQxcUljPXnx-19" value="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="360" y="220" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_oyudmHdVxIkLhUO6mLi-1" value="&lt;div style=&quot;color: #cccccc;background-color: #1f1f1f;font-family: Consolas, &#39;Courier New&#39;, monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;&quot;&gt;&lt;div&gt;&lt;span style=&quot;color: #569cd6;&quot;&gt;private&lt;/span&gt;&lt;span style=&quot;color: #cccccc;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #569cd6;&quot;&gt;static&lt;/span&gt;&lt;span style=&quot;color: #cccccc;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #569cd6;&quot;&gt;final&lt;/span&gt;&lt;span style=&quot;color: #cccccc;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #4ec9b0;&quot;&gt;Logger&lt;/span&gt;&lt;span style=&quot;color: #cccccc;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #4fc1ff;&quot;&gt;LOGICA_LOG&lt;/span&gt;&lt;span style=&quot;color: #cccccc;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #d4d4d4;&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;color: #cccccc;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;color: #4ec9b0;&quot;&gt;LoggerFactory&lt;/span&gt;&lt;span style=&quot;color: #cccccc;&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color: #dcdcaa;&quot;&gt;getLogger&lt;/span&gt;&lt;span style=&quot;color: #cccccc;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #ce9178;&quot;&gt;&quot;Logica&quot;&lt;/span&gt;&lt;span style=&quot;color: #cccccc;&quot;&gt;);&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="-200" width="560" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

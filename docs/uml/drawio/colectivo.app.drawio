@@ -1,0 +1,45 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0" version="29.0.3">
+  <diagram name="Page-1" id="Qy2s1uCnlvG41yonHwXJ">
+    <mxGraphModel dx="1833" dy="547" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uh3l-LPhD8AUZfc5TUu4-1" value="" style="swimlane;startSize=0;align=center;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="190" width="560" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="uh3l-LPhD8AUZfc5TUu4-5" value="AplicacionConsultas" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="uh3l-LPhD8AUZfc5TUu4-1">
+          <mxGeometry x="30" y="20" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="uh3l-LPhD8AUZfc5TUu4-6" value="&lt;u&gt;+ main(String[]) : void&lt;/u&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="uh3l-LPhD8AUZfc5TUu4-5">
+          <mxGeometry y="30" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="uh3l-LPhD8AUZfc5TUu4-18" value="Constantes" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="uh3l-LPhD8AUZfc5TUu4-1">
+          <mxGeometry x="270" y="30" width="270" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="uh3l-LPhD8AUZfc5TUu4-19" value="&lt;div&gt;&lt;u&gt;&lt;i&gt;+ COLECTIVO&amp;nbsp;: int = 1&lt;/i&gt;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;&lt;i&gt;+ CAMINANDO&amp;nbsp;: int = 2&lt;/i&gt;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;&lt;i&gt;+ PARADA&amp;nbsp;: String = &quot;PARADA&quot;&lt;/i&gt;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;&lt;i&gt;+&amp;nbsp;LINEA&amp;nbsp;: String = &quot;LINEA&quot;&lt;/i&gt;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;&lt;i&gt;+ TRAMO&amp;nbsp;: String = &quot;TRAMO&quot;&lt;/i&gt;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;&lt;i&gt;+ FRECUENCIA&amp;nbsp;: String =&amp;nbsp; &quot;FRECUENCIA&quot;&lt;/i&gt;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;&lt;i&gt;+ GUI&amp;nbsp;: String = &quot;GUI&quot;&lt;/i&gt;&lt;/u&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="uh3l-LPhD8AUZfc5TUu4-18">
+          <mxGeometry y="30" width="270" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="uh3l-LPhD8AUZfc5TUu4-14" value="" style="swimlane;startSize=0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="160" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uh3l-LPhD8AUZfc5TUu4-15" value="app" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;" vertex="1" parent="uh3l-LPhD8AUZfc5TUu4-14">
+          <mxGeometry x="30" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="uh3l-LPhD8AUZfc5TUu4-20" value="&lt;div&gt;&amp;lt;&amp;lt;from controlador&amp;gt;&amp;gt;&lt;/div&gt;&lt;div&gt;Coordinador&lt;/div&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=80;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-210" y="200" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="uh3l-LPhD8AUZfc5TUu4-22" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;startArrow=classic;startFill=1;" edge="1" parent="1" source="uh3l-LPhD8AUZfc5TUu4-20" target="uh3l-LPhD8AUZfc5TUu4-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="430" as="sourcePoint" />
+            <mxPoint x="600" y="380" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="uh3l-LPhD8AUZfc5TUu4-23" value="usa" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="uh3l-LPhD8AUZfc5TUu4-22">
+          <mxGeometry x="0.0126" y="1" relative="1" as="geometry">
+            <mxPoint x="-16" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
