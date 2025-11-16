@@ -139,9 +139,7 @@ public class Coordinador {
         }
         ciudadActual = ciudad;
 
-        Factory.clearInstancia(Constantes.TRAMO);
-        Factory.clearInstancia(Constantes.LINEA);
-        Factory.clearInstancia(Constantes.PARADA);
+        limpiarCacheCiudades();
 
         QUERY_LOG.info("Usuario cambia de ciudad a {}", nuevaCiudad);
     }
@@ -178,13 +176,12 @@ public class Coordinador {
     }
     
     /**
-     * Cierra la ventana de consultas y vuelve a mostrar la ventana de inicio,
-     * limpiando las cachés de datos.
-     * @param ventanaActual la ventana de consultas que se debe cerrar.
+     * Limpia la cache de datos de Factory
      */
-    public void volverAInicio(Stage ventanaActual) {
+     public void limpiarCacheCiudades() {
         Factory.clearInstancia(Constantes.TRAMO);
         Factory.clearInstancia(Constantes.LINEA);
         Factory.clearInstancia(Constantes.PARADA);
     }
+    
 }
