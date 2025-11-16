@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import colectivo.modelo.Linea;
 import colectivo.modelo.Parada;
-import colectivo.modelo.Recorrido;
 import colectivo.modelo.Tramo;
 
 /**

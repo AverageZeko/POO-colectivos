@@ -1,9 +1,7 @@
-package colectivo.interfaz.paneles;
+package colectivo.interfaz.javafx.paneles;
 
-
-import colectivo.interfaz.celdas.ParadasComboBox;
-import colectivo.interfaz.tareas.ConsultaRequest;
-import colectivo.modelo.Parada;
+import colectivo.interfaz.javafx.ParadaOpcion;
+import colectivo.interfaz.javafx.tareas.ConsultaRequest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -20,12 +18,13 @@ import java.util.function.Consumer;
 /**
  * Gestiona el panel izquierdo de la interfaz de consulta,
  * que contiene el formulario para seleccionar origen, destino, hora y día.
+ * Ya no usa objetos de dominio Parada; trabaja con IDs y nombres.
  */
 public class PanelIzquierdo {
 
     private VBox layout;
-    private ComboBox<Parada> comboOrigen;
-    private ComboBox<Parada> comboDestino;
+    private ComboBox<ParadaOpcion> comboOrigen;
+    private ComboBox<ParadaOpcion> comboDestino;
     private ComboBox<String> comboHora;
     private ComboBox<String> comboMinuto;
     private ToggleGroup grupoDiasSemana;
@@ -53,11 +52,9 @@ public class PanelIzquierdo {
 
         etiquetaOrigen = new Label();
         comboOrigen = new ComboBox<>();
-        configurarComboBoxParada(comboOrigen);
 
         etiquetaDestino = new Label();
         comboDestino = new ComboBox<>();
-        configurarComboBoxParada(comboDestino);
 
         etiquetaHora = new Label();
         comboHora = new ComboBox<>(generarNumeros(24));
@@ -78,7 +75,7 @@ public class PanelIzquierdo {
 
         botonCalcular = new Button();
         botonCalcular.setOnAction(event -> handleCalcularClick());
-        
+
         botonVolver = new Button();
 
         etiquetaAdvertencia = new Label();
@@ -95,12 +92,12 @@ public class PanelIzquierdo {
             etiquetaAdvertencia
         );
     }
-    
+
     private void handleCalcularClick() {
         etiquetaAdvertencia.setVisible(false);
-        
-        Parada paradaOrigen = comboOrigen.getValue();
-        Parada paradaDestino = comboDestino.getValue();
+
+        ParadaOpcion paradaOrigen = comboOrigen.getValue();
+        ParadaOpcion paradaDestino = comboDestino.getValue();
         String horaSel = comboHora.getValue();
         String minSel = comboMinuto.getValue();
         RadioButton diaRadio = (RadioButton) grupoDiasSemana.getSelectedToggle();
@@ -112,7 +109,12 @@ public class PanelIzquierdo {
         }
 
         LocalTime hora = LocalTime.parse(horaSel + ":" + minSel);
-        ConsultaRequest request = new ConsultaRequest(paradaOrigen, paradaDestino, diaRadio, hora);
+        ConsultaRequest request = new ConsultaRequest(
+            paradaOrigen.getId(),
+            paradaDestino.getId(),
+            diaRadio,
+            hora
+        );
         onCalcular.accept(request);
     }
 
@@ -138,24 +140,23 @@ public class PanelIzquierdo {
             etiquetaAdvertencia.setText(bundle.getString("Query_MissingInputError"));
         }
     }
-    
-    public void cargarParadas(Map<Integer, Parada> paradasMap) {
-        ObservableList<Parada> paradasLista = FXCollections.observableArrayList(paradasMap.values());
+
+    /**
+     * Carga paradas como mapa id -> nombre (dirección) y arma opciones para los ComboBox.
+     */
+    public void cargarParadas(Map<Integer, String> paradasMap) {
+        ObservableList<ParadaOpcion> paradasLista = FXCollections.observableArrayList();
+        paradasMap.forEach((id, nombre) -> paradasLista.add(new ParadaOpcion(id, nombre)));
         comboOrigen.setItems(paradasLista);
         comboDestino.setItems(paradasLista);
     }
-    
+
     public void setBotonCalcularDeshabilitado(boolean deshabilitado) {
         botonCalcular.setDisable(deshabilitado);
     }
 
     public VBox getLayout() {
         return layout;
-    }
-
-    private void configurarComboBoxParada(ComboBox<Parada> comboBox) {
-        comboBox.setCellFactory(param -> new ParadasComboBox());
-        comboBox.setButtonCell(new ParadasComboBox());
     }
 
     private ObservableList<String> generarNumeros(int limite) {

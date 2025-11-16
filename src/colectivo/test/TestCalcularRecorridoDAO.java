@@ -1,6 +1,6 @@
 package colectivo.test;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -19,7 +19,7 @@ import colectivo.dao.TramoDAO;
 import colectivo.logica.Calculo;
 import colectivo.modelo.Linea;
 import colectivo.modelo.Parada;
-import colectivo.modelo.Recorrido;
+import colectivo.logica.Recorrido;
 import colectivo.modelo.Tramo;
 import colectivo.util.Factory;
 

@@ -15,16 +15,15 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import colectivo.configuracion.ConfigGlobal;
 import colectivo.dao.LineaDAO;
 import colectivo.dao.ParadaDAO;
 import colectivo.dao.TramoDAO;
 import colectivo.logica.Calculo;
 import colectivo.modelo.Linea;
 import colectivo.modelo.Parada;
-import colectivo.modelo.Recorrido;
+import colectivo.logica.Recorrido;
 import colectivo.modelo.Tramo;
-import colectivo.servicio.SchemaServicio;
-import colectivo.servicio.SchemaServicioImplementacion;
 import colectivo.util.Factory;
 
 class TestCalcularRecorridoDAO_AZL {
@@ -37,12 +36,12 @@ class TestCalcularRecorridoDAO_AZL {
 	private LocalTime horaLlegaParada;
 	
 	private Calculo calculo;	
-	private SchemaServicio schemaServicio;
+	private ConfigGlobal configuracion;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		schemaServicio = new SchemaServicioImplementacion();
-		schemaServicio.cambiarSchema("colectivo_AZL");
+		configuracion = ConfigGlobal.getConfiguracion();
+		configuracion.cambiarCiudad("Azul");
 
 		paradas = ((ParadaDAO) Factory.getInstancia("PARADA")).buscarTodos();
 		tramos = ((TramoDAO) Factory.getInstancia("TRAMO")).buscarTodos();

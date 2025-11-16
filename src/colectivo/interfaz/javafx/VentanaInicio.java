@@ -1,4 +1,4 @@
-package colectivo.interfaz;
+package colectivo.interfaz.javafx;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,0 +1,28 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0" version="29.0.3">
+  <diagram name="Page-1" id="_ys1l9O7mF9rV0Ljns26">
+    <mxGraphModel dx="1426" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="kPkn-mIBBuUkzSYepYNb-1" value="" style="swimlane;startSize=0;align=center;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="130" y="220" width="500" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="kPkn-mIBBuUkzSYepYNb-2" value="ConfigGlobal" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="kPkn-mIBBuUkzSYepYNb-1">
+          <mxGeometry x="30" y="20" width="420" height="350" as="geometry" />
+        </mxCell>
+        <mxCell id="kPkn-mIBBuUkzSYepYNb-3" value="&lt;div&gt;&lt;u&gt;- RUTA_CIUDADES&lt;/u&gt;: String = &quot;resources/ciudades.properties&quot;&lt;/div&gt;&lt;div&gt;&lt;u&gt;&lt;i&gt;-CONFIG_LOGGER&lt;/i&gt;&lt;/u&gt;: Logger = LoggerFactory.getLogger(&quot;Configuracion&quot;)&lt;/div&gt;&lt;div&gt;&lt;u&gt;- configuracion&lt;/u&gt;: ConfigGlobal&lt;/div&gt;&lt;div&gt;- localeActual: LocaleInfo&lt;/div&gt;&lt;div&gt;- bundle: ResourceBundle&lt;/div&gt;&lt;div&gt;- nombresCiudades: Map&amp;lt;String, String&amp;gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;-schemaActual&lt;/u&gt;: String&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="kPkn-mIBBuUkzSYepYNb-2">
+          <mxGeometry y="30" width="420" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="kPkn-mIBBuUkzSYepYNb-14" value="&lt;div&gt;&lt;u&gt;+ getConfiguracion(): ConfigGlobal&lt;/u&gt;&lt;/div&gt;&lt;div&gt;- ConfigGlobal()&lt;/div&gt;&lt;div&gt;+ getCiudades(): List&amp;lt;String&amp;gt;&lt;/div&gt;&lt;div&gt;+ buscarCiudades(): void&lt;/div&gt;&lt;div&gt;+ cambiarCiudad(String) : void&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ getSchema()&lt;/u&gt;: String&lt;/div&gt;&lt;div&gt;+ setLocalizacion(LocaleInfo) : void&lt;/div&gt;&lt;div&gt;+ descubrirLocalizaciones(): List&amp;lt;LocaleInfo&amp;gt;&lt;/div&gt;&lt;div&gt;+ getLocale(): LocaleInfo&lt;/div&gt;&lt;div&gt;+ getBundle(): ResourceBundle&lt;/div&gt;" style="text;strokeColor=default;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="kPkn-mIBBuUkzSYepYNb-2">
+          <mxGeometry y="170" width="420" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="kPkn-mIBBuUkzSYepYNb-6" value="" style="swimlane;startSize=0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="130" y="190" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kPkn-mIBBuUkzSYepYNb-7" value="configuracion" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=16;" vertex="1" parent="kPkn-mIBBuUkzSYepYNb-6">
+          <mxGeometry x="-5" width="120" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

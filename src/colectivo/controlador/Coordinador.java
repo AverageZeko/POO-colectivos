@@ -11,15 +11,15 @@ import org.slf4j.LoggerFactory;
 
 import colectivo.app.Constantes;
 import colectivo.configuracion.ConfigGlobal;
-import colectivo.interfaz.GestorDeVentanas;
 import colectivo.interfaz.Mostrable;
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
+import colectivo.logica.Recorrido;
 import colectivo.modelo.Parada;
-import colectivo.modelo.Recorrido;
 import colectivo.util.Factory;
+import colectivo.util.FormateadorRecorridos;
 import colectivo.util.LocaleInfo;
-import javafx.stage.Stage;
+import colectivo.util.ArmadorLinkMapa;
 
 /**
  * Clase central que actúa como mediador entre la interfaz de usuario,
@@ -34,6 +34,8 @@ public class Coordinador {
     private EmpresaColectivos ciudadActual;
     private Mostrable interfaz;
     private Calculo calculo;
+    private static final String CLAVE_DE_MAPA = "AIzaSyCiWk2rBTihKSwummyYVv6mTzc-lFQspQ0";
+    private ArmadorLinkMapa armadorLink;
 
     /**
      * Construye un nuevo coordinador, inicializando el mapa de ciudades.
@@ -44,6 +46,7 @@ public class Coordinador {
 		calculo = new Calculo();
 		this.setCalculo(calculo);
         this.inicializarInterfaz();
+        armadorLink = new ArmadorLinkMapa(CLAVE_DE_MAPA);
     }
 
     public void inicializarInterfaz() {
@@ -139,9 +142,7 @@ public class Coordinador {
         }
         ciudadActual = ciudad;
 
-        Factory.clearInstancia(Constantes.TRAMO);
-        Factory.clearInstancia(Constantes.LINEA);
-        Factory.clearInstancia(Constantes.PARADA);
+        limpiarCacheCiudades();
 
         QUERY_LOG.info("Usuario cambia de ciudad a {}", nuevaCiudad);
     }
@@ -166,22 +167,53 @@ public class Coordinador {
 	 * @param horaLlegaParada la hora de llegada a la parada de origen.
 	 * @return una lista de posibles rutas, donde cada ruta es una lista de recorridos.
 	 */
-    public List<List<Recorrido>> consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
+    public List<List<String>> consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
         QUERY_LOG.info("Usuario realiza consulta desde {} hasta {}, dia de la semana {} a las {}", origen.getDireccion(), destino.getDireccion(), diaSemana, horaLlegaParada);
         List<List<Recorrido>> recorridos = calculo.calcularRecorrido(
                 origen, destino, diaSemana, horaLlegaParada, ciudadActual.getTramos()
         );
-        return recorridos;
+
+        ResourceBundle bundle = getBundle();
+        // Formatear aquí: la interfaz recibirá solo strings ya armados
+        return FormateadorRecorridos.formatear(recorridos, horaLlegaParada, bundle, armadorLink);
     }
     
+    public Map<Integer, String> getMapaParadasNombres() {
+        if (ciudadActual == null) {
+            QUERY_LOG.error("Intento de getMapaParadasNombres() cuando ciudadActual es nula.");
+            return java.util.Collections.emptyMap();
+        }
+        Map<Integer, Parada> paradas = ciudadActual.getParadas();
+        Map<Integer, String> nombres = new HashMap<>(paradas.size());
+        for (Map.Entry<Integer, Parada> e : paradas.entrySet()) {
+            nombres.put(e.getKey(), e.getValue().getDireccion());
+        }
+        return nombres;
+    }
+
+    
     /**
-     * Cierra la ventana de consultas y vuelve a mostrar la ventana de inicio,
-     * limpiando las cachés de datos.
-     * @param ventanaActual la ventana de consultas que se debe cerrar.
+     * Limpia la cache de datos de Factory
      */
-    public void volverAInicio(Stage ventanaActual) {
+     public void limpiarCacheCiudades() {
         Factory.clearInstancia(Constantes.TRAMO);
         Factory.clearInstancia(Constantes.LINEA);
         Factory.clearInstancia(Constantes.PARADA);
     }
+     
+     public ArmadorLinkMapa.ResultadoMapa obtenerLink(int zoomDelta, double latDelta, double lngDelta, int ruta) {
+         if (this.armadorLink == null) {
+             System.err.println("Error: Coordinador no iniciado. Llamar a iniciarRecorrido() primero.");
+             // Devuelve un resultado de error
+             return new ArmadorLinkMapa.ResultadoMapa(
+                 "https://via.placeholder.com/640x640.png?text=Error:+Coordinador+no+iniciado",
+                 new java.util.HashMap<>()
+             );
+         }
+         // Delega la llamada al método público del armador
+         return this.armadorLink.generarMapa(zoomDelta, latDelta, lngDelta, ruta);
+     }
+     
+     
+    
 }

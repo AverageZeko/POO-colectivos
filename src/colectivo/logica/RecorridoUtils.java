@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import colectivo.modelo.Parada;
-import colectivo.modelo.Recorrido;
 import colectivo.modelo.Tramo;
+
 
 /**
  * Clase de utilidad con métodos estáticos auxiliares para los cálculos de recorridos.
