@@ -22,7 +22,7 @@ import colectivo.dao.TramoDAO;
 import colectivo.logica.Calculo;
 import colectivo.modelo.Linea;
 import colectivo.modelo.Parada;
-import colectivo.modelo.Recorrido;
+import colectivo.logica.Recorrido;
 import colectivo.modelo.Tramo;
 import colectivo.util.Factory;
 

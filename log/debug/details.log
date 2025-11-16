@@ -1,632 +1,338 @@
-2025-11-15 11:23 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO DEBUG - No se pudo realizar la consulta de paradas
-org.postgresql.util.PSQLException: ERROR: no existe la relación «parada»
-  Position: 50
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2736)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:525)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:139)
-	at colectivo.dao.postgresql.ParadaPostgresqlDAO.buscarTodos(ParadaPostgresqlDAO.java:81)
-	at colectivo.servicio.ParadaServicioImplementacion.buscarParadas(ParadaServicioImplementacion.java:40)
-	at colectivo.logica.EmpresaColectivos.<init>(EmpresaColectivos.java:40)
-	at colectivo.controlador.Coordinador.setCiudadActual(Coordinador.java:137)
-	at colectivo.interfaz.GestorDeVentanas.procesarInicio(GestorDeVentanas.java:67)
-	at colectivo.interfaz.VentanaInicio.manejarInicio(VentanaInicio.java:230)
-	at colectivo.interfaz.VentanaInicio.lambda$5(VentanaInicio.java:156)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
-	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
-	at javafx.graphics@21.0.9/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.notifyMouse(View.java:937)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO ERROR - org.postgresql.jdbc.PgStatement@4900bf38
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO ERROR - SELECT codigo, direccion, latitud, longitud FROM parada
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 11:23 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
-2025-11-15 11:23 [JavaFX Application Thread] LineaDAO ERROR - No se pudo ejecutar la consulta para frecuencias
-org.postgresql.util.PSQLException: ERROR: no existe la relación «linea_frecuencia»
-  Position: 36
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2736)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:525)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:139)
-	at colectivo.dao.postgresql.LineaPostgresqlDAO.buscarFrecuencias(LineaPostgresqlDAO.java:205)
-	at colectivo.dao.postgresql.LineaPostgresqlDAO.buscarTodos(LineaPostgresqlDAO.java:113)
-	at colectivo.servicio.LineaServicioImplementacion.buscarLineas(LineaServicioImplementacion.java:39)
-	at colectivo.logica.EmpresaColectivos.<init>(EmpresaColectivos.java:41)
-	at colectivo.controlador.Coordinador.setCiudadActual(Coordinador.java:137)
-	at colectivo.interfaz.GestorDeVentanas.procesarInicio(GestorDeVentanas.java:67)
-	at colectivo.interfaz.VentanaInicio.manejarInicio(VentanaInicio.java:230)
-	at colectivo.interfaz.VentanaInicio.lambda$5(VentanaInicio.java:156)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
-	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
-	at javafx.graphics@21.0.9/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.notifyMouse(View.java:937)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-11-15 11:23 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 11:23 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 11:23 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
-2025-11-15 11:23 [JavaFX Application Thread] TramoDAO ERROR - No se pudo realizar la consulta de tramos
-org.postgresql.util.PSQLException: ERROR: no existe la relación «tramo»
-  Position: 39
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2736)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:525)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:139)
-	at colectivo.dao.postgresql.TramoPostgresqlDAO.buscarTodos(TramoPostgresqlDAO.java:99)
-	at colectivo.servicio.TramoServicioImplementacion.buscarTramos(TramoServicioImplementacion.java:40)
-	at colectivo.logica.EmpresaColectivos.<init>(EmpresaColectivos.java:42)
-	at colectivo.controlador.Coordinador.setCiudadActual(Coordinador.java:137)
-	at colectivo.interfaz.GestorDeVentanas.procesarInicio(GestorDeVentanas.java:67)
-	at colectivo.interfaz.VentanaInicio.manejarInicio(VentanaInicio.java:230)
-	at colectivo.interfaz.VentanaInicio.lambda$5(VentanaInicio.java:156)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
-	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
-	at javafx.graphics@21.0.9/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.notifyMouse(View.java:937)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-11-15 11:23 [JavaFX Application Thread] TramoDAO ERROR - org.postgresql.jdbc.PgStatement@61a6b008
-2025-11-15 11:23 [JavaFX Application Thread] TramoDAO ERROR - SELECT inicio, fin, tiempo, tipo FROM tramo
-2025-11-15 11:23 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
-2025-11-15 11:23 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 11:23 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
-2025-11-15 11:23 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
-2025-11-15 11:23 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
-2025-11-15 11:23 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO DEBUG - No se pudo realizar la consulta de paradas
-org.postgresql.util.PSQLException: ERROR: no existe la relación «parada»
-  Position: 50
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2736)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:525)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:139)
-	at colectivo.dao.postgresql.ParadaPostgresqlDAO.buscarTodos(ParadaPostgresqlDAO.java:81)
-	at colectivo.servicio.ParadaServicioImplementacion.buscarParadas(ParadaServicioImplementacion.java:40)
-	at colectivo.logica.EmpresaColectivos.<init>(EmpresaColectivos.java:40)
-	at colectivo.controlador.Coordinador.setCiudadActual(Coordinador.java:137)
-	at colectivo.interfaz.GestorDeVentanas.procesarInicio(GestorDeVentanas.java:67)
-	at colectivo.interfaz.VentanaInicio.manejarInicio(VentanaInicio.java:230)
-	at colectivo.interfaz.VentanaInicio.lambda$5(VentanaInicio.java:156)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
-	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
-	at javafx.graphics@21.0.9/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.notifyMouse(View.java:937)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO ERROR - org.postgresql.jdbc.PgStatement@47865e49
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO ERROR - SELECT codigo, direccion, latitud, longitud FROM parada
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
-2025-11-15 11:23 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
-2025-11-15 11:24 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
-2025-11-15 11:55 [JavaFX Application Thread] ParadaDAO INFO - Esquema recibido por ParadaPostgresqlDAO: null
-2025-11-15 11:55 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
-2025-11-15 11:55 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
-2025-11-15 11:55 [JavaFX Application Thread] ParadaDAO DEBUG - No se pudo realizar la consulta de paradas
-org.postgresql.util.PSQLException: ERROR: no existe la relación «parada»
-  Position: 50
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2736)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:525)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:139)
-	at colectivo.dao.postgresql.ParadaPostgresqlDAO.buscarTodos(ParadaPostgresqlDAO.java:83)
-	at colectivo.servicio.ParadaServicioImplementacion.buscarParadas(ParadaServicioImplementacion.java:40)
-	at colectivo.logica.EmpresaColectivos.<init>(EmpresaColectivos.java:40)
-	at colectivo.controlador.Coordinador.setCiudadActual(Coordinador.java:137)
-	at colectivo.interfaz.GestorDeVentanas.procesarInicio(GestorDeVentanas.java:67)
-	at colectivo.interfaz.VentanaInicio.manejarInicio(VentanaInicio.java:230)
-	at colectivo.interfaz.VentanaInicio.lambda$5(VentanaInicio.java:156)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
-	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
-	at javafx.graphics@21.0.9/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.notifyMouse(View.java:937)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-11-15 11:55 [JavaFX Application Thread] ParadaDAO ERROR - org.postgresql.jdbc.PgStatement@4a15df4b
-2025-11-15 11:55 [JavaFX Application Thread] ParadaDAO ERROR - SELECT codigo, direccion, latitud, longitud FROM parada
-2025-11-15 11:55 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
-2025-11-15 11:55 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
-2025-11-15 11:56 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 11:56 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 11:56 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
-2025-11-15 11:56 [JavaFX Application Thread] LineaDAO ERROR - No se pudo ejecutar la consulta para frecuencias
-org.postgresql.util.PSQLException: ERROR: no existe la relación «linea_frecuencia»
-  Position: 36
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2736)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:525)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:139)
-	at colectivo.dao.postgresql.LineaPostgresqlDAO.buscarFrecuencias(LineaPostgresqlDAO.java:205)
-	at colectivo.dao.postgresql.LineaPostgresqlDAO.buscarTodos(LineaPostgresqlDAO.java:113)
-	at colectivo.servicio.LineaServicioImplementacion.buscarLineas(LineaServicioImplementacion.java:39)
-	at colectivo.logica.EmpresaColectivos.<init>(EmpresaColectivos.java:41)
-	at colectivo.controlador.Coordinador.setCiudadActual(Coordinador.java:137)
-	at colectivo.interfaz.GestorDeVentanas.procesarInicio(GestorDeVentanas.java:67)
-	at colectivo.interfaz.VentanaInicio.manejarInicio(VentanaInicio.java:230)
-	at colectivo.interfaz.VentanaInicio.lambda$5(VentanaInicio.java:156)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
-	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
-	at javafx.graphics@21.0.9/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.notifyMouse(View.java:937)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-11-15 11:56 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
-2025-11-15 11:56 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
-2025-11-15 11:57 [JavaFX Application Thread] ParadaDAO DEBUG - Schema obtenido: null
-2025-11-15 11:57 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
-2025-11-15 11:57 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
-2025-11-15 11:57 [JavaFX Application Thread] ParadaDAO DEBUG - No se pudo realizar la consulta de paradas
-org.postgresql.util.PSQLException: ERROR: no existe la relación «parada»
-  Position: 50
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2736)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:525)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:139)
-	at colectivo.dao.postgresql.ParadaPostgresqlDAO.buscarTodos(ParadaPostgresqlDAO.java:85)
-	at colectivo.servicio.ParadaServicioImplementacion.buscarParadas(ParadaServicioImplementacion.java:40)
-	at colectivo.logica.EmpresaColectivos.<init>(EmpresaColectivos.java:40)
-	at colectivo.controlador.Coordinador.setCiudadActual(Coordinador.java:137)
-	at colectivo.interfaz.GestorDeVentanas.procesarInicio(GestorDeVentanas.java:67)
-	at colectivo.interfaz.VentanaInicio.manejarInicio(VentanaInicio.java:230)
-	at colectivo.interfaz.VentanaInicio.lambda$5(VentanaInicio.java:156)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
-	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
-	at javafx.graphics@21.0.9/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.notifyMouse(View.java:937)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-11-15 11:57 [JavaFX Application Thread] ParadaDAO ERROR - org.postgresql.jdbc.PgStatement@1c2442f9
-2025-11-15 11:57 [JavaFX Application Thread] ParadaDAO ERROR - SELECT codigo, direccion, latitud, longitud FROM parada
-2025-11-15 11:57 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
-2025-11-15 11:57 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
-2025-11-15 11:57 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 11:57 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 11:57 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
-2025-11-15 11:57 [JavaFX Application Thread] LineaDAO ERROR - No se pudo ejecutar la consulta para frecuencias
-org.postgresql.util.PSQLException: ERROR: no existe la relación «linea_frecuencia»
-  Position: 36
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2736)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:525)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435)
-	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196)
-	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:139)
-	at colectivo.dao.postgresql.LineaPostgresqlDAO.buscarFrecuencias(LineaPostgresqlDAO.java:205)
-	at colectivo.dao.postgresql.LineaPostgresqlDAO.buscarTodos(LineaPostgresqlDAO.java:113)
-	at colectivo.servicio.LineaServicioImplementacion.buscarLineas(LineaServicioImplementacion.java:39)
-	at colectivo.logica.EmpresaColectivos.<init>(EmpresaColectivos.java:41)
-	at colectivo.controlador.Coordinador.setCiudadActual(Coordinador.java:137)
-	at colectivo.interfaz.GestorDeVentanas.procesarInicio(GestorDeVentanas.java:67)
-	at colectivo.interfaz.VentanaInicio.manejarInicio(VentanaInicio.java:230)
-	at colectivo.interfaz.VentanaInicio.lambda$5(VentanaInicio.java:156)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Node.fireEvent(Node.java:8875)
-	at javafx.controls@21.0.9/javafx.scene.control.Button.fire(Button.java:203)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:207)
-	at javafx.controls@21.0.9/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@21.0.9/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@21.0.9/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
-	at javafx.base@21.0.9/javafx.event.Event.fireEvent(Event.java:198)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$MouseHandler.process(Scene.java:3984)
-	at javafx.graphics@21.0.9/javafx.scene.Scene.processMouseEvent(Scene.java:1890)
-	at javafx.graphics@21.0.9/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2708)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
-	at javafx.graphics@21.0.9/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.handleMouseEvent(View.java:551)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.View.notifyMouse(View.java:937)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics@21.0.9/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:185)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-11-15 11:57 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
-2025-11-15 11:57 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
-2025-11-15 12:01 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
-2025-11-15 12:01 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
-2025-11-15 12:01 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
-2025-11-15 12:01 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
-2025-11-15 12:01 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
-2025-11-15 12:01 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
-2025-11-15 12:01 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 12:01 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 12:01 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
-2025-11-15 12:01 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
-2025-11-15 12:01 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
-2025-11-15 12:01 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
-2025-11-15 12:01 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
-2025-11-15 12:01 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
-2025-11-15 12:01 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
-2025-11-15 12:01 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
-2025-11-15 12:01 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
-2025-11-15 12:01 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
-2025-11-15 12:01 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 12:01 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
-2025-11-15 12:01 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
-2025-11-15 12:01 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
-2025-11-15 12:01 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
-2025-11-15 12:01 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
-2025-11-15 12:01 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
-2025-11-15 12:01 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
-2025-11-15 12:36 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
-2025-11-15 12:36 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
-2025-11-15 12:36 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
-2025-11-15 12:36 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
-2025-11-15 12:36 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
-2025-11-15 12:36 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
-2025-11-15 12:36 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 12:36 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 12:36 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
-2025-11-15 12:36 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
-2025-11-15 12:36 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
-2025-11-15 12:36 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
-2025-11-15 12:36 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
-2025-11-15 12:36 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
-2025-11-15 12:36 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
-2025-11-15 12:36 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
-2025-11-15 12:36 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
-2025-11-15 12:36 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
-2025-11-15 12:36 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 12:36 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
-2025-11-15 12:36 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
-2025-11-15 12:36 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
-2025-11-15 12:36 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
-2025-11-15 12:36 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
-2025-11-15 12:36 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
-2025-11-15 12:36 [Thread-4] Logica DEBUG - Recorridos calculados
-2025-11-15 12:37 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
-2025-11-15 12:39 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
-2025-11-15 12:39 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
-2025-11-15 12:39 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
-2025-11-15 12:39 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
-2025-11-15 12:39 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
-2025-11-15 12:39 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
-2025-11-15 12:39 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 12:39 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 12:39 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
-2025-11-15 12:39 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
-2025-11-15 12:39 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
-2025-11-15 12:39 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
-2025-11-15 12:39 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
-2025-11-15 12:39 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
-2025-11-15 12:39 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
-2025-11-15 12:39 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
-2025-11-15 12:39 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
-2025-11-15 12:39 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
-2025-11-15 12:39 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
-2025-11-15 12:39 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
-2025-11-15 12:39 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
-2025-11-15 12:39 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
-2025-11-15 12:39 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
-2025-11-15 12:39 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
-2025-11-15 12:39 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
-2025-11-15 12:39 [Thread-4] Logica DEBUG - Recorridos calculados
-2025-11-15 12:40 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-16 11:53 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-16 11:53 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-16 11:53 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-16 11:53 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-16 11:53 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-16 11:53 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-16 11:53 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 11:53 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 11:53 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-16 11:53 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-16 11:53 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-16 11:53 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-16 11:53 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-16 11:53 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-16 11:53 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-16 11:53 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-16 11:53 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-16 11:53 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-16 11:53 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 11:53 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-16 11:53 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-16 11:53 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-16 11:53 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-16 11:53 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-16 11:53 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-16 11:53 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-16 11:53 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-16 11:54 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-16 11:54 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-16 11:54 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-16 11:54 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-16 11:54 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-16 11:54 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-16 11:54 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 11:54 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 11:54 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-16 11:54 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-16 11:54 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-16 11:54 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-16 11:54 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-16 11:54 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-16 11:54 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-16 11:54 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-16 11:54 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-16 11:54 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-16 11:54 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 11:54 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-16 11:54 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-16 11:54 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-16 11:54 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-16 11:54 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-16 11:54 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-16 11:54 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-16 11:54 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-16 11:56 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-16 11:56 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-16 11:56 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-16 11:56 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-16 11:56 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-16 11:56 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-16 11:56 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 11:56 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 11:56 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-16 11:56 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-16 11:56 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-16 11:56 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-16 11:56 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-16 11:56 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-16 11:56 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-16 11:56 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-16 11:56 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-16 11:56 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-16 11:56 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 11:56 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-16 11:56 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-16 11:56 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-16 11:56 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-16 11:56 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-16 11:56 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-16 11:56 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-16 11:56 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-16 12:01 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-16 12:01 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-16 12:01 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-16 12:01 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-16 12:01 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-16 12:01 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-16 12:01 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:01 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:01 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-16 12:01 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-16 12:01 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-16 12:01 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-16 12:01 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-16 12:01 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-16 12:01 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-16 12:01 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-16 12:01 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-16 12:01 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-16 12:01 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:01 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-16 12:01 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-16 12:01 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-16 12:01 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-16 12:01 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-16 12:01 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-16 12:02 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-16 12:02 [Thread-5] Logica DEBUG - Recorridos calculados
+2025-11-16 12:02 [Thread-6] Logica DEBUG - Recorridos calculados
+2025-11-16 12:02 [Thread-7] Logica DEBUG - Recorridos calculados
+2025-11-16 12:02 [Thread-8] Logica DEBUG - Recorridos calculados
+2025-11-16 12:02 [Thread-9] Logica DEBUG - Recorridos calculados
+2025-11-16 12:02 [Thread-10] Logica DEBUG - Recorridos calculados
+2025-11-16 12:02 [Thread-11] Logica DEBUG - Recorridos calculados
+2025-11-16 12:02 [Thread-12] Logica DEBUG - Recorridos calculados
+2025-11-16 12:02 [Thread-13] Logica DEBUG - Recorridos calculados
+2025-11-16 12:02 [Thread-14] Logica DEBUG - Recorridos calculados
+2025-11-16 12:03 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-16 12:04 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-16 12:04 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-16 12:04 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-16 12:04 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-16 12:04 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-16 12:04 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-16 12:04 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:04 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:04 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-16 12:04 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-16 12:04 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-16 12:04 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-16 12:04 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-16 12:04 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-16 12:04 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-16 12:04 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-16 12:04 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-16 12:04 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-16 12:04 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:04 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-16 12:04 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-16 12:04 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-16 12:04 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-16 12:04 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-16 12:04 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-16 12:05 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-16 12:05 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-16 12:11 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-16 12:11 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-16 12:11 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-16 12:11 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-16 12:11 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-16 12:11 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-16 12:11 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:11 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:11 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-16 12:11 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-16 12:11 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-16 12:11 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-16 12:11 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-16 12:11 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-16 12:11 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-16 12:11 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-16 12:11 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-16 12:11 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-16 12:11 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:11 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-16 12:11 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-16 12:11 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-16 12:11 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-16 12:11 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-16 12:11 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-16 12:11 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-16 12:11 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-16 12:15 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-16 12:15 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-16 12:15 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-16 12:15 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-16 12:15 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-16 12:15 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-16 12:15 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:15 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:15 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-16 12:15 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-16 12:15 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-16 12:15 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-16 12:15 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-16 12:15 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-16 12:15 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-16 12:15 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-16 12:15 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-16 12:15 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-16 12:15 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:15 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-16 12:15 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-16 12:15 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-16 12:15 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-16 12:15 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-16 12:15 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-16 12:15 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-16 12:15 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-16 12:23 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-16 12:23 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-16 12:23 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-16 12:23 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-16 12:23 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-16 12:23 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-16 12:23 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:23 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:23 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-16 12:23 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-16 12:23 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-16 12:23 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-16 12:23 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-16 12:23 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-16 12:23 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-16 12:23 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-16 12:23 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-16 12:23 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-16 12:23 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 12:23 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-16 12:23 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-16 12:23 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-16 12:23 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-16 12:23 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-16 12:23 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-16 12:23 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-16 12:24 [Thread-5] Logica DEBUG - Recorridos calculados
+2025-11-16 12:24 [Thread-6] Logica DEBUG - Recorridos calculados
+2025-11-16 12:25 [Thread-7] Logica DEBUG - Recorridos calculados
+2025-11-16 12:25 [Thread-8] Logica DEBUG - Recorridos calculados
+2025-11-16 12:25 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-16 16:20 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-16 16:20 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-16 16:20 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-16 16:20 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-16 16:20 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-16 16:20 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-16 16:20 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 16:20 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 16:20 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-16 16:20 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-16 16:20 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-16 16:20 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-16 16:20 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-16 16:20 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-16 16:20 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-16 16:20 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-16 16:20 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-16 16:20 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-16 16:20 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 16:20 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-16 16:20 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-16 16:20 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-16 16:20 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-16 16:20 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-16 16:20 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-16 16:20 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-16 16:20 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-16 16:23 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-16 16:23 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-16 16:23 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-16 16:23 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-16 16:23 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-16 16:23 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-16 16:23 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 16:23 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 16:23 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-16 16:23 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-16 16:23 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-16 16:23 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-16 16:23 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-16 16:23 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-16 16:23 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-16 16:23 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-16 16:23 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-16 16:23 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-16 16:23 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 16:23 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-16 16:23 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-16 16:23 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-16 16:23 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-16 16:23 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-16 16:23 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-16 16:23 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-16 16:23 [Thread-5] Logica DEBUG - Recorridos calculados
+2025-11-16 16:23 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-16 16:30 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-16 16:30 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-16 16:30 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-16 16:30 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-16 16:30 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-16 16:30 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-16 16:30 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 16:30 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 16:30 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-16 16:30 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-16 16:30 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-16 16:30 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-16 16:30 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-16 16:30 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-16 16:30 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-16 16:30 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-16 16:30 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-16 16:30 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-16 16:30 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 16:30 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-16 16:30 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-16 16:30 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-16 16:30 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-16 16:30 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-16 16:30 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-16 16:31 [Thread-4] Logica DEBUG - Recorridos calculados
+2025-11-16 16:33 [JavaFX Application Thread] BDConexion INFO - Conexion establecida a jdbc:postgresql://pgs.fi.mdn.unp.edu.ar:30000/bd1 (user=estudiante)
+2025-11-16 16:33 [JavaFX Application Thread] ParadaDAO DEBUG - Schema elegido
+2025-11-16 16:33 [JavaFX Application Thread] ParadaDAO DEBUG - Consulta realizada para paradas
+2025-11-16 16:33 [JavaFX Application Thread] ParadaDAO DEBUG - ResultSet de paradas cerrado
+2025-11-16 16:33 [JavaFX Application Thread] ParadaDAO DEBUG - PreparedStatement de paradas cerrado
+2025-11-16 16:33 [JavaFX Application Thread] ParadaDAO DEBUG - Statement de schema cerrado
+2025-11-16 16:33 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 16:33 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 16:33 [JavaFX Application Thread] LineaDAO DEBUG - Schema elegido
+2025-11-16 16:33 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para frecuencias de cada linea
+2025-11-16 16:33 [JavaFX Application Thread] LineaDAO INFO - Frecuencias de las lineas cargadas
+2025-11-16 16:33 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para secuencia de cada linea
+2025-11-16 16:33 [JavaFX Application Thread] LineaDAO INFO - Secuencias de cada linea cargadas
+2025-11-16 16:33 [JavaFX Application Thread] LineaDAO DEBUG - Consulta realizada para lineas
+2025-11-16 16:33 [JavaFX Application Thread] LineaDAO DEBUG - ResultSet de lineas cerrado
+2025-11-16 16:33 [JavaFX Application Thread] LineaDAO DEBUG - PreparedStatement de lineas cerrado
+2025-11-16 16:33 [JavaFX Application Thread] LineaDAO DEBUG - Statement de schema cerrado
+2025-11-16 16:33 [JavaFX Application Thread] LineaDAO INFO - Lineas cargadas
+2025-11-16 16:33 [JavaFX Application Thread] ParadaDAO INFO - Paradas cargadas
+2025-11-16 16:33 [JavaFX Application Thread] TramoDAO DEBUG - Schema elegido
+2025-11-16 16:33 [JavaFX Application Thread] TramoDAO DEBUG - Consulta realizada para tramos
+2025-11-16 16:33 [JavaFX Application Thread] TramoDAO DEBUG - ResultSet de tramos cerrado
+2025-11-16 16:33 [JavaFX Application Thread] TramoDAO DEBUG - PreparedStatement de tramos cerrado
+2025-11-16 16:33 [JavaFX Application Thread] TramoDAO DEBUG - Statement de tramos cerrado
+2025-11-16 16:33 [JavaFX Application Thread] TramoDAO INFO - Tramos cargados
+2025-11-16 16:33 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada
+2025-11-16 16:34 [Thread-3] BDConexion INFO - Conexion a la base de datos cerrada

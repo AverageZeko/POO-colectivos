@@ -1,68 +1,122 @@
-2025-11-15 11:22 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:22 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
-2025-11-15 11:22 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
-2025-11-15 11:22 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
-2025-11-15 11:22 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:23 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
-2025-11-15 11:23 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:23 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: en_US. ResourceBundle 'localizacion.label_en_US' cargado con éxito.
-2025-11-15 11:23 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='en_US' y ciudad='Puerto Madryn'
-2025-11-15 11:23 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: en_US. ResourceBundle 'localizacion.label_en_US' cargado con éxito.
-2025-11-15 11:23 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='en_US' y ciudad='Puerto Madryn'
-2025-11-15 11:23 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: en_US. ResourceBundle 'localizacion.label_en_US' cargado con éxito.
-2025-11-15 11:23 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='en_US' y ciudad='Puerto Madryn'
-2025-11-15 11:23 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: en_US. ResourceBundle 'localizacion.label_en_US' cargado con éxito.
-2025-11-15 11:23 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
-2025-11-15 11:23 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:23 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
-2025-11-15 11:23 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
-2025-11-15 11:23 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
-2025-11-15 11:23 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:23 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Caleta Olivia'
-2025-11-15 11:23 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:55 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:55 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
-2025-11-15 11:55 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
-2025-11-15 11:55 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
-2025-11-15 11:55 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:55 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
-2025-11-15 11:55 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:56 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
-2025-11-15 11:56 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:57 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:57 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
-2025-11-15 11:57 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
-2025-11-15 11:57 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
-2025-11-15 11:57 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:57 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Caleta Olivia'
-2025-11-15 11:57 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 11:57 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Caleta Olivia'
-2025-11-15 11:57 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 12:01 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 12:01 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
-2025-11-15 12:01 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
-2025-11-15 12:01 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
-2025-11-15 12:01 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 12:01 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Caleta Olivia'
-2025-11-15 12:01 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 12:01 [c.c.ConfigGlobal] Configuracion INFO - Ciudad seleccionada: Caleta Olivia, schema cargado: colectivo_CO
-2025-11-15 12:01 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Caleta Olivia
-2025-11-15 12:35 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 12:35 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
-2025-11-15 12:35 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
-2025-11-15 12:35 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
-2025-11-15 12:35 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 12:36 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: en_US. ResourceBundle 'localizacion.label_en_US' cargado con éxito.
-2025-11-15 12:36 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='en_US' y ciudad='Caleta Olivia'
-2025-11-15 12:36 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: en_US. ResourceBundle 'localizacion.label_en_US' cargado con éxito.
-2025-11-15 12:36 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Caleta Olivia
-2025-11-15 12:36 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde Alem y Cordoba hasta Arabia Saudita y Papa Francisco, dia de la semana 6 a las 07:07
-2025-11-15 12:39 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 12:39 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
-2025-11-15 12:39 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
-2025-11-15 12:39 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
-2025-11-15 12:39 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 12:39 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
-2025-11-15 12:39 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
-2025-11-15 12:39 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
-2025-11-15 12:39 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 25 De Mayo, 299 hasta Aarón Jenkins, 219, dia de la semana 4 a las 09:07
+2025-11-16 11:53 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 11:53 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-16 11:53 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-16 11:53 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-16 11:53 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 11:53 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-16 11:53 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 11:53 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
+2025-11-16 11:53 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Gobernador Alejandro Maiz, 315, dia de la semana 5 a las 07:06
+2025-11-16 11:54 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 11:54 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-16 11:54 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-16 11:54 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-16 11:54 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 11:54 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-16 11:54 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 11:54 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
+2025-11-16 11:54 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta España, 485, dia de la semana 3 a las 06:05
+2025-11-16 11:56 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 11:56 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-16 11:56 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-16 11:56 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-16 11:56 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 11:56 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-16 11:56 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 11:56 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
+2025-11-16 11:56 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta España, 1431, dia de la semana 5 a las 09:09
+2025-11-16 12:01 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:01 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-16 12:01 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-16 12:01 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-16 12:01 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:01 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-16 12:01 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:01 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
+2025-11-16 12:02 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 405 hasta Comodoro Martín Rivadavia, 750, dia de la semana 5 a las 09:07
+2025-11-16 12:02 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 405 hasta Dorrego, 109, dia de la semana 5 a las 09:07
+2025-11-16 12:02 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Dorrego, 109, dia de la semana 5 a las 09:07
+2025-11-16 12:02 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta España, 1450, dia de la semana 5 a las 09:07
+2025-11-16 12:02 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 25 De Mayo, 299 hasta España, 1450, dia de la semana 5 a las 09:07
+2025-11-16 12:02 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 25 De Mayo, 693 hasta España, 1450, dia de la semana 5 a las 09:07
+2025-11-16 12:02 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde Abraham Mathews, 2525 hasta España, 1450, dia de la semana 5 a las 09:07
+2025-11-16 12:02 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde Abraham Mathews, 2525 hasta Dorrego, 416, dia de la semana 5 a las 09:07
+2025-11-16 12:02 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Dorrego, 416, dia de la semana 5 a las 09:07
+2025-11-16 12:02 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Chiquichan, 22, dia de la semana 5 a las 09:07
+2025-11-16 12:02 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Avenida Juan Muzzio, 482, dia de la semana 5 a las 09:07
+2025-11-16 12:04 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:04 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-16 12:04 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-16 12:04 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-16 12:04 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:04 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-16 12:04 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:04 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
+2025-11-16 12:05 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde Bv, Almirante Brown, 3053 hasta Los Alamos, 3900, dia de la semana 5 a las 07:07
+2025-11-16 12:11 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:11 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-16 12:11 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-16 12:11 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-16 12:11 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:11 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-16 12:11 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:11 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
+2025-11-16 12:11 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Avenida Julio Argentino Roca, 1567, dia de la semana 5 a las 07:05
+2025-11-16 12:14 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:14 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-16 12:14 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-16 12:14 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-16 12:14 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:15 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-16 12:15 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:15 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
+2025-11-16 12:15 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Abraham Mathews, 2525, dia de la semana 3 a las 05:03
+2025-11-16 12:23 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:23 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-16 12:23 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-16 12:23 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-16 12:23 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:23 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-16 12:23 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 12:23 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
+2025-11-16 12:23 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Agustín Pujol, 374, dia de la semana 5 a las 07:07
+2025-11-16 12:24 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Alsua De Corbetto, 638, dia de la semana 5 a las 07:07
+2025-11-16 12:24 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Alto Río Senguer, 1311, dia de la semana 5 a las 07:07
+2025-11-16 12:25 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Alsua De Corbetto, 638, dia de la semana 5 a las 07:07
+2025-11-16 12:25 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Agustín Pujol, 374, dia de la semana 5 a las 07:07
+2025-11-16 16:20 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 16:20 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-16 16:20 [c.i.j.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-16 16:20 [c.i.j.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-16 16:20 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 16:20 [c.i.j.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-16 16:20 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 16:20 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
+2025-11-16 16:20 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 25 De Mayo, 299 hasta Bouchard, 1285, dia de la semana 4 a las 08:06
+2025-11-16 16:22 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 16:22 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-16 16:22 [c.i.j.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-16 16:22 [c.i.j.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-16 16:22 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 16:23 [c.i.j.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-16 16:23 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 16:23 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
+2025-11-16 16:23 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 25 De Mayo, 299 hasta Avenida Juan Xxiii, 1708, dia de la semana 2 a las 09:07
+2025-11-16 16:23 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 25 De Mayo, 299 hasta Avenida Julio Argentino Roca, 1567, dia de la semana 2 a las 09:07
+2025-11-16 16:30 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 16:30 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-16 16:30 [c.i.j.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-16 16:30 [c.i.j.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-16 16:30 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 16:30 [c.i.j.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-16 16:30 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 16:30 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
+2025-11-16 16:31 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 1 De Marzo, 499 hasta Agustín Pujol, 284, dia de la semana 3 a las 08:07
+2025-11-16 16:33 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 16:33 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-16 16:33 [c.i.j.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-16 16:33 [c.i.j.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-16 16:33 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 16:33 [c.i.j.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-16 16:33 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-16 16:33 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
