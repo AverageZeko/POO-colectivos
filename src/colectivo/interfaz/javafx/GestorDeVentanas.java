@@ -1,6 +1,7 @@
 package colectivo.interfaz.javafx;
 
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -11,7 +12,7 @@ import colectivo.controlador.Coordinador;
 import colectivo.interfaz.Mostrable;
 import colectivo.modelo.Parada;
 import colectivo.util.LocaleInfo;
-import colectivo.util.ArmadorLinkMapa;
+
 import javafx.stage.Stage;
 
 /**
@@ -117,13 +118,16 @@ public class GestorDeVentanas implements Mostrable{
     /**
      * Pasa la solicitud de URL del mapa desde VentanaMapa al Coordinador.
      */
-    public ArmadorLinkMapa.ResultadoMapa solicitarMapa(int zoomDelta, double latDelta, double lngDelta, int ruta) {
+    public Map<String, Object> solicitarMapa(int zoomDelta, double latDelta, double lngDelta, int ruta) {
         if (coordinador == null) {
              System.err.println("Gestor no tiene coordinador, no se puede pedir mapa.");
-             return new ArmadorLinkMapa.ResultadoMapa(
-                 "https://via.placeholder.com/640x640.png?text=Error:+Gestor+sin+Coordinador",
-                 new java.util.HashMap<>()
-             );
+          // --- CAMBIO 3: Crear un mapa de error válido ---
+             Map<String, Object> errorMap = new HashMap<>();
+             errorMap.put("link", "https://via.placeholder.com/640x640.png?text=Error:+ArmadorLink+nulo");
+             errorMap.put("leyenda", new HashMap<String, String>());
+             
+             return errorMap;
+             
         }
         return coordinador.obtenerLink(zoomDelta, latDelta, lngDelta, ruta);
     }

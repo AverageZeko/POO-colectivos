@@ -201,16 +201,19 @@ public class Coordinador {
         Factory.clearInstancia(Constantes.PARADA);
     }
      
-     public ArmadorLinkMapa.ResultadoMapa obtenerLink(int zoomDelta, double latDelta, double lngDelta, int ruta) {
+     public Map<String, Object> obtenerLink(int zoomDelta, double latDelta, double lngDelta, int ruta) {
          if (this.armadorLink == null) {
-             System.err.println("Error: Coordinador no iniciado. Llamar a iniciarRecorrido() primero.");
-             // Devuelve un resultado de error
-             return new ArmadorLinkMapa.ResultadoMapa(
-                 "https://via.placeholder.com/640x640.png?text=Error:+Coordinador+no+iniciado",
-                 new java.util.HashMap<>()
-             );
+             System.err.println("Error: armadorLink no fue inicializado en Coordinador.");
+             
+             // --- CAMBIO 3: Crear un mapa de error válido ---
+             Map<String, Object> errorMap = new HashMap<>();
+             errorMap.put("link", "https://via.placeholder.com/640x640.png?text=Error:+ArmadorLink+nulo");
+             errorMap.put("leyenda", new HashMap<String, String>());
+             
+             return errorMap;
          }
-         // Delega la llamada al método público del armador
+         
+         // Esto ahora devuelve correctamente un Map<String, Object>
          return this.armadorLink.generarMapa(zoomDelta, latDelta, lngDelta, ruta);
      }
      

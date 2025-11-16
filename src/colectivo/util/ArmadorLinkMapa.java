@@ -1,7 +1,7 @@
 package colectivo.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashMap; // Importar HashMap
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,6 +26,8 @@ public class ArmadorLinkMapa {
     // --- Datos del Recorrido ---
     private List<List<Recorrido>> todasLasRutas;
     private List<Recorrido> recorridoParaMostrar;
+    
+    // --- CAMBIO: Instanciación corregida ---
     private Map<String, String> leyendaColores = new HashMap<>();
 
     // --- Constantes ---
@@ -37,26 +39,14 @@ public class ArmadorLinkMapa {
     };
     private static final String COLOR_CAMINANDO = "0x404040";
 
-    /**
-     * DTO (Data Transfer Object) público para devolver la URL y la leyenda juntas.
-     */
-    public static class ResultadoMapa {
-        private final String url;
-        private final Map<String, String> leyenda;
-
-        public ResultadoMapa(String url, Map<String, String> leyenda) {
-            this.url = url;
-            this.leyenda = new HashMap<>(leyenda); 
-        }
-        
-        public String getUrl() { return url; }
-        public Map<String, String> getLeyenda() { return leyenda; }
-    }
+    
+    // --- CLASE ELIMINADA ---
+    // Se eliminó la clase interna 'ResultadoMapa'
+    
 
     /**
      * Constructor.
      * @param apiKey Tu clave de API de Google Maps.
-     * @param recorrido El recorrido inicial a mostrar.
      */
     public ArmadorLinkMapa(String apiKey) {
         this.apiKey = apiKey;
@@ -68,7 +58,7 @@ public class ArmadorLinkMapa {
     }
 
     // =========================================================================
-    // --- ÚNICO MÉTODO PÚBLICO ---
+    // --- ÚNICO MÉTODO PÚBLICO (MODIFICADO) ---
     // =========================================================================
 
     /**
@@ -78,11 +68,12 @@ public class ArmadorLinkMapa {
      * @param zoomDelta Cambio en el zoom (+1, -1, o 0)
      * @param latDelta  Cambio en la latitud (ej. 0.005, -0.005, o 0)
      * @param lngDelta  Cambio en la longitud (ej. 0.005, -0.005, o 0)
-     * @return Un nuevo ResultadoMapa con la URL y la leyenda actualizadas.
+     * @return Un Map<String, Object> con las claves "link", "leyenda" y "paradas".
      */
-    public ResultadoMapa generarMapa(int zoomDelta, double latDelta, double lngDelta, int recorrido) {
+    public Map<String, Object> generarMapa(int zoomDelta, double latDelta, double lngDelta, int recorrido) {
+        // --- LÓGICA DE ESTADO (sin cambios) ---
         recorridoParaMostrar = todasLasRutas.get(recorrido);
-        // 1. Actualizar el estado interno
+        
         currentZoom += zoomDelta;
         if (currentZoom < 1) currentZoom = 1;
         if (currentZoom > 20) currentZoom = 20;
@@ -90,23 +81,48 @@ public class ArmadorLinkMapa {
         currentCenterLat += latDelta;
         currentCenterLng += lngDelta;
         
-        // 2. Generar y devolver el resultado
-        String url = construirURL();
-        return new ResultadoMapa(url, this.leyendaColores);
+        // --- LÓGICA DE PARADAS (movida desde construirURL) ---
+        // Se extraen las paradas aquí para poder devolverlas en el mapa
+        List<Parada> todasLasParadas = new ArrayList<>();
+        if (recorridoParaMostrar != null && !recorridoParaMostrar.isEmpty()) {
+            todasLasParadas.addAll(recorridoParaMostrar.get(0).getParadas());
+            for (int i = 1; i < recorridoParaMostrar.size(); i++) {
+                List<Parada> paradasTramo = recorridoParaMostrar.get(i).getParadas();
+                if (paradasTramo != null && paradasTramo.size() > 1) {
+                    todasLasParadas.addAll(paradasTramo.subList(1, paradasTramo.size()));
+                }
+            }
+        }
+
+        // --- CONSTRUCCIÓN DEL MAPA DE RESPUESTA ---
+        
+        // 1. Generar la URL (esto también poblará 'leyendaColores' como efecto secundario)
+        String url = construirURL(todasLasParadas);
+        
+        // 2. Crear el mapa de resultado
+        Map<String, Object> resultado = new HashMap<>();
+        
+        // 3. Poblar el mapa
+        resultado.put("link", url);
+        resultado.put("leyenda", new HashMap<>(this.leyendaColores)); // Se pasa una copia de la leyenda
+        resultado.put("paradas", todasLasParadas); // Se pasan las paradas
+        
+        return resultado;
     }
 
 
     // =========================================================================
-    // --- MÉTODOS PRIVADOS ---
+    // --- MÉTODOS PRIVADOS (MODIFICADO) ---
     // =========================================================================
 
     /**
      * Construye la URL para la solicitud a la API de Google Maps Static.
      * Utiliza el estado interno (currentZoom, etc.) para generar la URL.
      *
+     * @param todasLasParadas La lista de paradas a dibujar (calculada por generarMapa).
      * @return La URL completa (o una URL de placeholder en caso de error).
      */
-    private String construirURL() {
+    private String construirURL(List<Parada> todasLasParadas) { // Recibe la lista de paradas
         leyendaColores.clear();
         leyendaColores.put("Parada Origen", "0x008000");
         leyendaColores.put("Parada Destino", "0xFF0000");
@@ -117,6 +133,7 @@ public class ArmadorLinkMapa {
             return "https://via.placeholder.com/" + MAP_WIDTH + "x" + MAP_HEIGHT + ".png?text=ERROR:+FALTA+API+KEY";
         }
         
+        // El recorrido (para los paths) aún se consulta desde el campo de clase
         if (recorridoParaMostrar == null || recorridoParaMostrar.isEmpty()) {
             return "https://via.placeholder.com/" + MAP_WIDTH + "x" + MAP_HEIGHT + ".png?text=No+se+paso+un+recorrido";
         }
@@ -130,16 +147,9 @@ public class ArmadorLinkMapa {
         urlParams.append("&key=").append(apiKey);
 
         // --- Lógica de Paradas y Centrado ---
-        List<Parada> todasLasParadas = new ArrayList<>();
-        if (!recorridoParaMostrar.isEmpty()) {
-            todasLasParadas.addAll(recorridoParaMostrar.get(0).getParadas());
-            for (int i = 1; i < recorridoParaMostrar.size(); i++) {
-                List<Parada> paradasTramo = recorridoParaMostrar.get(i).getParadas();
-                if (paradasTramo != null && paradasTramo.size() > 1) {
-                    todasLasParadas.addAll(paradasTramo.subList(1, paradasTramo.size()));
-                }
-            }
-        }
+        
+        // La lista 'todasLasParadas' ahora viene como parámetro
+        // Se elimina la lógica de cálculo de 'todasLasParadas' de aquí
 
         if (todasLasParadas.isEmpty()) {
              return "https://via.placeholder.com/" + MAP_WIDTH + "x" + MAP_HEIGHT + ".png?text=Recorrido+vacio";
@@ -177,6 +187,7 @@ public class ArmadorLinkMapa {
         }
 
         // --- Trazado de Rutas (Paths) ---
+        // (Esta lógica sigue usando 'recorridoParaMostrar', lo cual es correcto)
         StringBuilder pathParams = new StringBuilder();
         int colorIndex = 0;
         Map<String, String> coloresDeLineaAsignados = new HashMap<>();
