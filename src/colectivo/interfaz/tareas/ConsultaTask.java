@@ -1,17 +1,16 @@
 package colectivo.interfaz.tareas;
 
-import colectivo.controlador.Coordinador;
 import colectivo.interfaz.GestorDeVentanas;
-import colectivo.modelo.Recorrido;
 import javafx.concurrent.Task;
 
 import java.util.List;
 
 /**
- * Tarea en segundo plano para realizar la consulta al coordinador
- * sin bloquear la interfaz de usuario.
+ * Tarea en segundo plano que solicita a través del Gestor de Ventanas
+ * la consulta ya formateada (List<List<String>>) para que la UI solo
+ * renderice texto listo.
  */
-public class ConsultaTask extends Task<List<List<Recorrido>>> {
+public class ConsultaTask extends Task<List<List<String>>> {
 
     private final GestorDeVentanas gestor;
     private final ConsultaRequest request;
@@ -22,7 +21,7 @@ public class ConsultaTask extends Task<List<List<Recorrido>>> {
     }
 
     @Override
-    protected List<List<Recorrido>> call() throws Exception {
+    protected List<List<String>> call() throws Exception {
         // Simula una espera para que el GIF de carga sea visible
         Thread.sleep(2000);
 

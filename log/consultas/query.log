@@ -47,3 +47,22 @@
 2025-11-15 12:01 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
 2025-11-15 12:01 [c.c.ConfigGlobal] Configuracion INFO - Ciudad seleccionada: Caleta Olivia, schema cargado: colectivo_CO
 2025-11-15 12:01 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Caleta Olivia
+2025-11-15 12:35 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-15 12:35 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-15 12:35 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-15 12:35 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-15 12:35 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-15 12:36 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: en_US. ResourceBundle 'localizacion.label_en_US' cargado con éxito.
+2025-11-15 12:36 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='en_US' y ciudad='Caleta Olivia'
+2025-11-15 12:36 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: en_US. ResourceBundle 'localizacion.label_en_US' cargado con éxito.
+2025-11-15 12:36 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Caleta Olivia
+2025-11-15 12:36 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde Alem y Cordoba hasta Arabia Saudita y Papa Francisco, dia de la semana 6 a las 07:07
+2025-11-15 12:39 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-15 12:39 [c.c.Coordinador] Consulta INFO - Usuario inicia aplicacion
+2025-11-15 12:39 [c.i.VentanaInicio] Consulta INFO - Lanzando VentanaInicio (Application.launch)
+2025-11-15 12:39 [c.i.VentanaInicio] Consulta INFO - Mostrando ventana de inicio dinámica y adaptable.
+2025-11-15 12:39 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-15 12:39 [c.i.GestorDeVentanas] Consulta INFO - Usuario seleccionó localización='es_ARG' y ciudad='Puerto Madryn'
+2025-11-15 12:39 [c.c.ConfigGlobal] Configuracion INFO - Localización seleccionada: es_ARG. ResourceBundle 'localizacion.label_es_ARG' cargado con éxito.
+2025-11-15 12:39 [c.c.Coordinador] Consulta INFO - Usuario cambia de ciudad a Puerto Madryn
+2025-11-15 12:39 [c.c.Coordinador] Consulta INFO - Usuario realiza consulta desde 25 De Mayo, 299 hasta Aarón Jenkins, 219, dia de la semana 4 a las 09:07

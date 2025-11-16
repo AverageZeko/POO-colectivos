@@ -1,6 +1,5 @@
 package colectivo.interfaz;
 
-
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
@@ -23,20 +22,21 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import colectivo.modelo.Parada;
-import colectivo.modelo.Recorrido;
 
 
 /**
  * Ventana principal para la consulta de recorridos.
  * Ensambla y coordina los paneles de consulta (izquierda) y resultados (derecha).
  * Implementa {@link Mostrable}.
+ *
+ * NOTA: Ahora la UI únicamente recibe textos ya formateados para mostrar.
  */
 public class Interfaz extends Application{
-    
+
     private GestorDeVentanas gestor;
     private Stage escenarioPrincipal;
     private BorderPane raiz;
-    
+
     private PanelIzquierdo panelIzquierdo;
     private PanelDerecho panelDerecho;
     private ImageView loadingView;
@@ -51,7 +51,7 @@ public class Interfaz extends Application{
         this.escenarioPrincipal = escenarioPrincipal;
         raiz = new BorderPane();
         raiz.setPadding(new Insets(30));
-        
+
         try {
             Image loadingImage = new Image(getClass().getResourceAsStream("/loading.gif"));
             loadingView = new ImageView(loadingImage);
@@ -71,37 +71,35 @@ public class Interfaz extends Application{
         raiz.setCenter(panelDerecho.getLayout());
         BorderPane.setMargin(panelIzquierdo.getLayout(), new Insets(0, 20, 0, 0));
 
-        // --- INICIO DEL CAMBIO ---
-        // Crear controles de fuente
+        // Controles de fuente
         botonAumentarFuente = new Button();
         botonAumentarFuente.setOnAction(e -> cambiarFuente(1));
         botonDisminuirFuente = new Button();
         botonDisminuirFuente.setOnAction(e -> cambiarFuente(-1));
-        
+
         HBox cajaControlFuente = new HBox(10, botonDisminuirFuente, botonAumentarFuente);
         cajaControlFuente.setAlignment(Pos.CENTER_RIGHT);
-        
-        // Crear panel inferior que combina navegación y controles de fuente
+
+        // Panel inferior que combina navegación y controles de fuente
         BorderPane panelInferior = new BorderPane();
         panelInferior.setCenter(panelDerecho.getNavegacionLayout());
         panelInferior.setRight(cajaControlFuente);
-        
+
         raiz.setBottom(panelInferior);
-        // --- FIN DEL CAMBIO ---
 
         Scene escena = new Scene(raiz);
         escenarioPrincipal.setScene(escena);
         escenarioPrincipal.setMaximized(true);
-        
+
         actualizarEstiloFuente();
         inicializarComponentes();
-        
+
         escenarioPrincipal.show();
     }
-    
+
     private void inicializarComponentes() {
         if (gestor != null) {
-            actualizarTextos();
+            actualizarEstilosYTextos();
             Map<Integer, Parada> paradasMap = gestor.getMapaParadas();
             panelIzquierdo.cargarParadas(paradasMap);
         }
@@ -114,15 +112,15 @@ public class Interfaz extends Application{
         ConsultaTask task = new ConsultaTask(gestor, request);
 
         task.setOnSucceeded(event -> {
-            List<List<Recorrido>> recorridos = task.getValue();
+            List<List<String>> recorridosFormateados = task.getValue();
             Platform.runLater(() -> {
-                panelDerecho.mostrarResultados(recorridos, request.getParadaOrigen(), request.getHora());
+                panelDerecho.mostrarResultados(recorridosFormateados);
                 panelIzquierdo.setBotonCalcularDeshabilitado(false);
             });
         });
 
         task.setOnFailed(event -> {
-             Platform.runLater(() -> {
+            Platform.runLater(() -> {
                 panelDerecho.mostrarError("Error durante el cálculo.");
                 panelIzquierdo.setBotonCalcularDeshabilitado(false);
             });
@@ -134,35 +132,34 @@ public class Interfaz extends Application{
     private void manejarVolver() {
         gestor.solicitarVolverAInicio(escenarioPrincipal);
     }
-    
+
     public void setGestor(GestorDeVentanas gest) {
         this.gestor = gest;
     }
 
-    private void actualizarTextos() {
+    private void actualizarEstilosYTextos() {
         ResourceBundle bundle = getBundle();
-        if (bundle == null) return; 
+        if (bundle == null) return;
 
         escenarioPrincipal.setTitle(bundle.getString("Query_WindowName"));
         panelIzquierdo.actualizarTextos(bundle);
         panelDerecho.actualizarTextos(bundle);
-        
- 
+
         botonAumentarFuente.setText(bundle.getString("Query_FontPlus"));
         botonDisminuirFuente.setText(bundle.getString("Query_FontMinus"));
-    
+
     }
-    
-    
+
+
     public void mostrar(Stage stage) {
         start(stage);
     }
-    
-    
+
+
     public void cerrar(Stage stage) {
         stage.close();
     }
-    
+
     private void cambiarFuente(double delta) {
         tamanoFuenteActual += delta;
         tamanoFuenteActual = Math.max(TAMANO_FUENTE_BASE - MAX_INCREMENTOS, tamanoFuenteActual);
@@ -175,19 +172,24 @@ public class Interfaz extends Application{
             raiz.setStyle("-fx-font-size: " + tamanoFuenteActual + "pt;");
         }
     }
-    
-    private void mostrarMapa(List<Recorrido> recorrido) {
-        if (recorrido == null || recorrido.isEmpty()) return;
-        
-        VentanaMapa ventanaMapa = new VentanaMapa();
-        ventanaMapa.setRecorrido(recorrido);
-        
-        try {
-            ventanaMapa.start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            panelDerecho.mostrarError("Error al abrir el mapa.");
-        }
+
+    /**
+     * La UI ya no recibe objetos de negocio. El botón de "Mapa" recibe
+     * una representación textual (multilínea) y la muestra en una ventana simple.
+     */
+    private void mostrarMapa(String recorridoTexto) {
+        if (recorridoTexto == null || recorridoTexto.isEmpty()) return;
+
+        Stage s = new Stage();
+        BorderPane p = new BorderPane();
+        javafx.scene.control.TextArea ta = new javafx.scene.control.TextArea(recorridoTexto);
+        ta.setEditable(false);
+        ta.setWrapText(true);
+        p.setCenter(ta);
+        Scene sc = new Scene(p, 600, 400);
+        s.setScene(sc);
+        s.setTitle(getBundle() != null ? getBundle().getString("Query_MapWindowTitle") : "Mapa");
+        s.show();
     }
 
     ResourceBundle getBundle() {

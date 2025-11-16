@@ -18,6 +18,7 @@ import colectivo.logica.EmpresaColectivos;
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
 import colectivo.util.Factory;
+import colectivo.util.FormateadorRecorridos;
 import colectivo.util.LocaleInfo;
 import javafx.stage.Stage;
 
@@ -166,12 +167,15 @@ public class Coordinador {
 	 * @param horaLlegaParada la hora de llegada a la parada de origen.
 	 * @return una lista de posibles rutas, donde cada ruta es una lista de recorridos.
 	 */
-    public List<List<Recorrido>> consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
+    public List<List<String>> consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
         QUERY_LOG.info("Usuario realiza consulta desde {} hasta {}, dia de la semana {} a las {}", origen.getDireccion(), destino.getDireccion(), diaSemana, horaLlegaParada);
         List<List<Recorrido>> recorridos = calculo.calcularRecorrido(
                 origen, destino, diaSemana, horaLlegaParada, ciudadActual.getTramos()
         );
-        return recorridos;
+
+        ResourceBundle bundle = getBundle();
+        // Formatear aquí: la interfaz recibirá solo strings ya armados
+        return FormateadorRecorridos.formatear(recorridos, horaLlegaParada, bundle);
     }
     
     /**

@@ -158,7 +158,7 @@ public class VentanaMapa extends Application {
         System.out.println("Cargando URL de Mapa: " + url);
 
         Image mapImage;
-        if (TU_CLAVE_DE_API_AQUI.equals("AQUI_VA_TU_CLAVE_DE_API")) {
+        if (TU_CLAVE_DE_API_AQUI.equals("AIzaSyCiWk2rBTihKSwummyYVv6mTzc-lFQspQ0")) {
             System.err.println("ERROR: Falta la clave de API de Google Maps.");
             mapImage = new Image("https://via.placeholder.com/" + MAP_WIDTH + "x" + MAP_HEIGHT + ".png?text=ERROR:+FALTA+API+KEY");
         } else if (url.startsWith("https://via.placeholder.com")) {
