@@ -188,7 +188,7 @@ public class Interfaz extends Application{
         p.setCenter(ta);
         Scene sc = new Scene(p, 600, 400);
         s.setScene(sc);
-        s.setTitle(getBundle() != null ? getBundle().getString("Query_MapWindowTitle") : "Mapa");
+        s.setTitle(getBundle() != null ? getBundle().getString("Query_WindowName") : "Mapa");
         s.show();
     }
 

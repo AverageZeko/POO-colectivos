@@ -68,7 +68,8 @@ public class GestorDeVentanas implements Mostrable{
     }
 
     public void solicitarVolverAInicio(Stage ventanaActual) {
-        coordinador.volverAInicio(ventanaActual);
+        coordinador.limpiarCacheCiudades();
+        mostrarVentanaInicio(ventanaActual);
     }
 
     // MÉTODOS DE FACHADA: ahora devuelven la representación textual (List<List<String>>) preparada por el Coordinador
