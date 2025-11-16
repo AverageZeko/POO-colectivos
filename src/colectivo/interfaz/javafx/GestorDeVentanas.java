@@ -11,6 +11,7 @@ import colectivo.controlador.Coordinador;
 import colectivo.interfaz.Mostrable;
 import colectivo.modelo.Parada;
 import colectivo.util.LocaleInfo;
+import colectivo.util.ArmadorLinkMapa;
 import javafx.stage.Stage;
 
 /**
@@ -22,12 +23,15 @@ public class GestorDeVentanas implements Mostrable{
     private Coordinador coordinador;
     private VentanaInicio ventanaInicio;
     private Interfaz ventanaConsultas;
+    
+    private VentanaMapa ventanaMapa;
 
     private static final Logger LOG = LoggerFactory.getLogger("Consulta");
 
     public GestorDeVentanas() {
         this.ventanaInicio = new VentanaInicio();
         this.ventanaConsultas = new Interfaz();
+        this.ventanaMapa = new VentanaMapa();
     }
 
     public void setCoordinador(Coordinador coordinador) {
@@ -35,6 +39,7 @@ public class GestorDeVentanas implements Mostrable{
         // Inyecta el gestor en las ventanas para que puedan comunicarse hacia arriba.
         this.ventanaInicio.setGestor(this);
         this.ventanaConsultas.setGestor(this);
+        this.ventanaMapa.setGestor(this);
     }
 
     public void mostrar(String[] args){
@@ -65,11 +70,27 @@ public class GestorDeVentanas implements Mostrable{
         ventanaInicio.cerrar(ventanaActual);
         ventanaConsultas.start(new Stage());
     }
+    
+    public void mostrarVentanaMapa(int recorrido) {
+        try {
+            // Preparamos la ventana con el índice del recorrido
+            ventanaMapa.setRecorrido(recorrido);
+            // Lanzamos la ventana (VentanaMapa.start() será llamada)
+            ventanaMapa.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOG.error("Error al lanzar VentanaMapa", e);
+        }
+    }
 
     public void solicitarVolverAInicio(Stage ventanaActual) {
         coordinador.limpiarCacheCiudades();
         mostrarVentanaInicio(ventanaActual);
     }
+    
+    
+    
+    
 
     // MÉTODOS DE FACHADA
 
@@ -92,6 +113,21 @@ public class GestorDeVentanas implements Mostrable{
         }
         return nombres;
     }
+    
+    /**
+     * Pasa la solicitud de URL del mapa desde VentanaMapa al Coordinador.
+     */
+    public ArmadorLinkMapa.ResultadoMapa solicitarMapa(int zoomDelta, double latDelta, double lngDelta, int ruta) {
+        if (coordinador == null) {
+             System.err.println("Gestor no tiene coordinador, no se puede pedir mapa.");
+             return new ArmadorLinkMapa.ResultadoMapa(
+                 "https://via.placeholder.com/640x640.png?text=Error:+Gestor+sin+Coordinador",
+                 new java.util.HashMap<>()
+             );
+        }
+        return coordinador.obtenerLink(zoomDelta, latDelta, lngDelta, ruta);
+    }
+    
 
     public ResourceBundle getBundle() {
         return coordinador.getBundle();

@@ -19,7 +19,7 @@ import colectivo.modelo.Parada;
 import colectivo.util.Factory;
 import colectivo.util.FormateadorRecorridos;
 import colectivo.util.LocaleInfo;
-import colectivo.util.ArmadorString;
+import colectivo.util.ArmadorLinkMapa;
 
 /**
  * Clase central que actúa como mediador entre la interfaz de usuario,
@@ -35,7 +35,7 @@ public class Coordinador {
     private Mostrable interfaz;
     private Calculo calculo;
     private static final String CLAVE_DE_MAPA = "AIzaSyCiWk2rBTihKSwummyYVv6mTzc-lFQspQ0";
-    private ArmadorString armadorString;
+    private ArmadorLinkMapa armadorLink;
 
     /**
      * Construye un nuevo coordinador, inicializando el mapa de ciudades.
@@ -46,6 +46,7 @@ public class Coordinador {
 		calculo = new Calculo();
 		this.setCalculo(calculo);
         this.inicializarInterfaz();
+        armadorLink = new ArmadorLinkMapa(CLAVE_DE_MAPA);
     }
 
     public void inicializarInterfaz() {
@@ -174,7 +175,7 @@ public class Coordinador {
 
         ResourceBundle bundle = getBundle();
         // Formatear aquí: la interfaz recibirá solo strings ya armados
-        return FormateadorRecorridos.formatear(recorridos, horaLlegaParada, bundle, armadorString);
+        return FormateadorRecorridos.formatear(recorridos, horaLlegaParada, bundle, armadorLink);
     }
     
     public Map<Integer, String> getMapaParadasNombres() {
@@ -200,17 +201,17 @@ public class Coordinador {
         Factory.clearInstancia(Constantes.PARADA);
     }
      
-     public ArmadorString.ResultadoMapa obtenerLink(int zoomDelta, double latDelta, double lngDelta, int ruta) {
-         if (this.armadorString == null) {
+     public ArmadorLinkMapa.ResultadoMapa obtenerLink(int zoomDelta, double latDelta, double lngDelta, int ruta) {
+         if (this.armadorLink == null) {
              System.err.println("Error: Coordinador no iniciado. Llamar a iniciarRecorrido() primero.");
              // Devuelve un resultado de error
-             return new ArmadorString.ResultadoMapa(
+             return new ArmadorLinkMapa.ResultadoMapa(
                  "https://via.placeholder.com/640x640.png?text=Error:+Coordinador+no+iniciado",
                  new java.util.HashMap<>()
              );
          }
          // Delega la llamada al método público del armador
-         return this.armadorString.generarMapa(zoomDelta, latDelta, lngDelta, ruta);
+         return this.armadorLink.generarMapa(zoomDelta, latDelta, lngDelta, ruta);
      }
      
      

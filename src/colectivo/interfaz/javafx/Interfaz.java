@@ -170,14 +170,10 @@ public class Interfaz extends Application{
      * una representación textual (multilínea) y la muestra en una ventana simple.
      */
     private void mostrarMapa(int recorrido) {
-    	VentanaMapa ventanaMapa = new VentanaMapa();
-        
-        ventanaMapa.setRecorrido(recorrido);
-        try {
-            ventanaMapa.start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            panelDerecho.mostrarError("Error al abrir el mapa.");
+    	if (gestor != null) {
+            gestor.mostrarVentanaMapa(recorrido);
+        } else {
+            panelDerecho.mostrarError("Error: Gestor no disponible para abrir mapa.");
         }
     }
 

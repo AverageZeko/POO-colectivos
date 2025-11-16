@@ -15,7 +15,7 @@ import colectivo.logica.Recorrido;
  * Mantiene el estado interno (zoom, centro) y lo actualiza a través
  * de su ÚNICO método público: generarMapa().
  */
-public class ArmadorString {
+public class ArmadorLinkMapa {
 
     // --- Estado Interno del Mapa ---
     private double currentCenterLat = -42.7745;
@@ -58,7 +58,7 @@ public class ArmadorString {
      * @param apiKey Tu clave de API de Google Maps.
      * @param recorrido El recorrido inicial a mostrar.
      */
-    public ArmadorString(String apiKey) {
+    public ArmadorLinkMapa(String apiKey) {
         this.apiKey = apiKey;
         
     }
@@ -112,7 +112,7 @@ public class ArmadorString {
         leyendaColores.put("Parada Destino", "0xFF0000");
 
         // --- Verificaciones de Errores ---
-        if (apiKey == null || apiKey.isEmpty() || apiKey.equals("AIzaSyCiWk2rBTihKSwummyYVv6mTzc-lFQspQ0")) {
+        if (apiKey == null || apiKey.isEmpty()) {
             System.err.println("ERROR: Falta la clave de API de Google Maps.");
             return "https://via.placeholder.com/" + MAP_WIDTH + "x" + MAP_HEIGHT + ".png?text=ERROR:+FALTA+API+KEY";
         }

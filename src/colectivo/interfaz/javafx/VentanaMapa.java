@@ -19,9 +19,8 @@ import javafx.stage.Stage;
 import java.util.Map;
 import colectivo.logica.Recorrido;
 // Importa las clases nuevas
-import colectivo.controlador.Coordinador;
-import colectivo.util.ArmadorString;
-
+import colectivo.interfaz.javafx.GestorDeVentanas; 
+import colectivo.util.ArmadorLinkMapa;
 /**
  * Ventana que muestra un mapa estático de Google con una ruta específica.
  * Esta clase se encarga ÚNICAMENTE de la presentación (Vista).
@@ -35,7 +34,7 @@ public class VentanaMapa extends Application {
     private VBox panelLeyenda;
 
     // --- Lógica y Datos ---
-    private Coordinador coordinador;
+    private GestorDeVentanas gestor;
    
     public void setRecorrido(int recorrido) {
     	this.recorrido = recorrido;
@@ -43,8 +42,8 @@ public class VentanaMapa extends Application {
     /**
      * Método para inyectar el coordinador desde la interfaz principal.
      */
-    public void setCoordinador(Coordinador coordinador) {
-        this.coordinador = coordinador;
+    public void setGestor(GestorDeVentanas gestor) {
+        this.gestor = gestor;
     }
 
     /**
@@ -57,14 +56,13 @@ public class VentanaMapa extends Application {
     @Override
     public void start(Stage stage) {
 
-        // --- Verificación de dependencias ---
-        if (coordinador == null) {
-            System.err.println("FATAL: VentanaMapa iniciada sin Coordinador.");
+        // --- CAMBIO EN VERIFICACIÓN DE DEPENDENCIAS ---
+        if (gestor == null) {
+            System.err.println("FATAL: VentanaMapa iniciada sin GestorDeVentanas.");
             return;
         }
       
-
-        // --- Configuración de la Interfaz ---
+        // ... (Configuración de la Interfaz: imageView, root, panelLeyenda... SIN CAMBIOS)
         imageView = new ImageView();
         imageView.setPreserveRatio(true);
 
@@ -83,15 +81,16 @@ public class VentanaMapa extends Application {
         Button leftButton = new Button("◀");
         Button rightButton = new Button("▶");
 
-        // --- Conexión de Controles al Coordinador ---
-        // Llama a la función pública única del coordinador
-        zoomInButton.setOnAction(e -> actualizarUI(coordinador.obtenerLink(1, 0, 0,recorrido)));
-        zoomOutButton.setOnAction(e -> actualizarUI(coordinador.obtenerLink(-1, 0, 0,recorrido)));
-        upButton.setOnAction(e -> actualizarUI(coordinador.obtenerLink(0, 0.005, 0,recorrido)));
-        downButton.setOnAction(e -> actualizarUI(coordinador.obtenerLink(0, -0.005, 0,recorrido)));
-        leftButton.setOnAction(e -> actualizarUI(coordinador.obtenerLink(0, 0, -0.005,recorrido)));
-        rightButton.setOnAction(e -> actualizarUI(coordinador.obtenerLink(0, 0, 0.005,recorrido)));
+        // --- CAMBIO EN CONEXIÓN DE CONTROLES ---
+        // Llama a la función pública del GESTOR
+        zoomInButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(1, 0, 0,recorrido)));
+        zoomOutButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(-1, 0, 0,recorrido)));
+        upButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(0, 0.005, 0,recorrido)));
+        downButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(0, -0.005, 0,recorrido)));
+        leftButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(0, 0, -0.005,recorrido)));
+        rightButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(0, 0, 0.005,recorrido)));
 
+        // ... (Creación de HBox, VBox... SIN CAMBIOS)
         HBox zoomControls = new HBox(5, zoomInButton, zoomOutButton);
         zoomControls.setAlignment(Pos.CENTER);
         VBox navButtons = new VBox(5, upButton, new HBox(5, leftButton, rightButton), downButton);
@@ -103,11 +102,9 @@ public class VentanaMapa extends Application {
         
         root.setRight(allControls);
 
-        // --- Carga Inicial ---
-        
-        
-        // 2. Obtener el primer mapa (con deltas cero)
-        ArmadorString.ResultadoMapa primerResultado = coordinador.obtenerLink(0, 0, 0,recorrido);
+        // --- CAMBIO EN CARGA INICIAL ---
+        // 2. Obtener el primer mapa (con deltas cero) del GESTOR
+        ArmadorLinkMapa.ResultadoMapa primerResultado = gestor.solicitarMapa(0, 0, 0,recorrido);
         actualizarUI(primerResultado);
 
         Scene scene = new Scene(root, 900, 680); 
@@ -120,7 +117,7 @@ public class VentanaMapa extends Application {
      * Método centralizado para actualizar la UI basado en un nuevo resultado.
      * @param resultado El objeto que contiene la nueva URL y la leyenda.
      */
-    private void actualizarUI(ArmadorString.ResultadoMapa resultado) {
+    private void actualizarUI(ArmadorLinkMapa.ResultadoMapa resultado) {
         mostrarImagen(resultado.getUrl());
         actualizarLeyenda(resultado.getLeyenda());
     }
