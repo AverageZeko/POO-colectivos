@@ -2,6 +2,7 @@ package colectivo.util;
 
 import colectivo.modelo.Parada;
 import colectivo.modelo.Recorrido;
+
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -11,8 +12,124 @@ import java.util.ResourceBundle;
 /**
  * Formatea List<List<Recorrido>> -> List<List<String>>.
  * La UI solo recibirá la salida de este formateador.
+ *
+ * Además, expone utilidades de parsing para delegar al formateador
+ * la detección de tramos y advertencias desde las líneas ya formateadas.
  */
 public class FormateadorRecorridos {
+
+    // ------------------------------
+    // Modelo simple para la UI (render)
+    // ------------------------------
+
+    /** Marcador de tipo de tramo para ayudar a la UI a aplicar estilos. */
+    public enum TipoTramo {
+        COLECTIVO, CAMINANDO, DESCONOCIDO
+    }
+
+    /** Marcador común de ítem en una página parseada. */
+    public interface ItemPagina { }
+
+    /** Línea simple (fuera de un tramo), con flag de advertencia. */
+    public static final class LineaSimple implements ItemPagina {
+        public final String texto;
+        public final boolean advertencia;
+        public LineaSimple(String texto, boolean advertencia) {
+            this.texto = texto;
+            this.advertencia = advertencia;
+        }
+    }
+
+    /** Segmento (tramo) con encabezado y líneas internas. */
+    public static final class SegmentoFormateado implements ItemPagina {
+        public final TipoTramo tipo;
+        public final String encabezado;
+        public final List<String> lineas; // líneas que pertenecen al segmento
+
+        public SegmentoFormateado(TipoTramo tipo, String encabezado) {
+            this.tipo = tipo;
+            this.encabezado = encabezado;
+            this.lineas = new ArrayList<>();
+        }
+    }
+
+    /** Página parseada lista para renderizar (lista en orden de líneas y segmentos). */
+    public static final class PaginaEstructurada {
+        public final List<ItemPagina> items = new ArrayList<>();
+    }
+
+    /**
+     * Parsea una página de líneas ya formateadas y construye una estructura de ítems
+     * (líneas simples y segmentos) para que la UI solo itere y aplique estilos.
+     *
+     * No crea nodos JavaFX: mantiene el desac acoplamiento con la capa UI.
+     */
+    public static PaginaEstructurada parsearPagina(List<String> lineas, ResourceBundle bundle) {
+        PaginaEstructurada pagina = new PaginaEstructurada();
+        if (lineas == null || lineas.isEmpty() || bundle == null) {
+            return pagina;
+        }
+
+        final String segPrefix = bundle.getString("Result_SegmentX");
+        final String walkingText = bundle.getString("Result_Walking");
+        final String lineText = bundle.getString("Result_LineX");
+        final String transferWarning = bundle.getString("Result_TransferWarning");
+
+        SegmentoFormateado segmentoActual = null;
+
+        for (String linea : lineas) {
+            if (linea == null || linea.trim().isEmpty()) {
+                // ignorar separadores vacíos
+                continue;
+            }
+
+            // Inicio de segmento
+            if (linea.startsWith(segPrefix)) {
+                // Cerrar el segmento anterior si estaba abierto
+                if (segmentoActual != null) {
+                    pagina.items.add(segmentoActual);
+                }
+                // Determinar tipo
+                TipoTramo tipo = TipoTramo.DESCONOCIDO;
+                if (linea.contains(walkingText)) {
+                    tipo = TipoTramo.CAMINANDO;
+                } else if (linea.contains(lineText)) {
+                    tipo = TipoTramo.COLECTIVO;
+                }
+                segmentoActual = new SegmentoFormateado(tipo, linea);
+                continue;
+            }
+
+            // Advertencia de trasbordo
+            if (linea.trim().equals(transferWarning)) {
+                // Cerrar segmento si corresponde antes de agregar línea suelta
+                if (segmentoActual != null) {
+                    pagina.items.add(segmentoActual);
+                    segmentoActual = null;
+                }
+                pagina.items.add(new LineaSimple(linea, true));
+                continue;
+            }
+
+            // Resto de líneas
+            if (segmentoActual != null) {
+                segmentoActual.lineas.add(linea);
+            } else {
+                pagina.items.add(new LineaSimple(linea, false));
+            }
+        }
+
+        // Agregar último segmento si quedó abierto
+        if (segmentoActual != null) {
+            pagina.items.add(segmentoActual);
+        }
+
+        return pagina;
+    }
+
+    // ------------------------------
+    // Formateador original de negocio -> texto
+    // ------------------------------
 
     /**
      * Convierte las rutas (cada ruta = lista de tramos Recorrido) a páginas
@@ -59,8 +176,8 @@ public class FormateadorRecorridos {
                     lineas.add("  " + bundle.getString("Result_FinalStop") + " " + tramoDestino.getDireccion());
                     lineas.add("  " + bundle.getString("Result_UserTimeOfArrival") + " " + horaLlegaActual);
                     lineas.add("  " + bundle.getString("Result_TimeOfDeparture") + " " + horaSalida);
-                    lineas.add("  " + bundle.getString("Result_WaitTime") + " " + Tiempo.segundosATiempo((int) esperaSeg));
-                    lineas.add("  " + bundle.getString("Result_TravelTime") + " " + Tiempo.segundosATiempo(viajeSeg));
+                    lineas.add("  " + bundle.getString("Result_WaitTime") + " " + LocalTime.ofSecondOfDay(esperaSeg));
+                    lineas.add("  " + bundle.getString("Result_TravelTime") + " " + LocalTime.ofSecondOfDay(viajeSeg));
 
                     if (paradasTramo.size() > 1) {
                         lineas.add("    " + bundle.getString("Result_Stops") + ":");
@@ -81,7 +198,7 @@ public class FormateadorRecorridos {
                     lineas.add("  " + bundle.getString("Result_WalkFrom") + " " + tramoOrigen.getDireccion());
                     lineas.add("  " + bundle.getString("Result_WalkTo") + " " + tramoDestino.getDireccion());
                     lineas.add("  " + bundle.getString("Result_WalkStart") + " " + horaSalida);
-                    lineas.add("  " + bundle.getString("Result_WalkDuration") + " " + Tiempo.segundosATiempo(viajeSeg));
+                    lineas.add("  " + bundle.getString("Result_WalkDuration") + " " + LocalTime.ofSecondOfDay(viajeSeg));
                 }
 
                 lineas.add("  " + bundle.getString("Result_ArrivalTime") + " " + horaLlegadaTramo);

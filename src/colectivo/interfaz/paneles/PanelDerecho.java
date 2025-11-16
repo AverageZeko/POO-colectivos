@@ -1,5 +1,10 @@
 package colectivo.interfaz.paneles;
 
+import colectivo.util.FormateadorRecorridos;
+import colectivo.util.FormateadorRecorridos.LineaSimple;
+import colectivo.util.FormateadorRecorridos.PaginaEstructurada;
+import colectivo.util.FormateadorRecorridos.SegmentoFormateado;
+import colectivo.util.FormateadorRecorridos.TipoTramo;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -17,8 +22,9 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * Panel derecho: ahora está completamente desacoplado de la lógica de negocio.
- * Recibe únicamente datos ya formateados (listas de strings) y los renderiza.
+ * Panel derecho: ahora más delgado.
+ * Delegamos el parsing de las líneas en FormateadorRecorridos.parsearPagina(...)
+ * para obtener una estructura lista para renderizar.
  */
 public class PanelDerecho {
 
@@ -55,6 +61,7 @@ public class PanelDerecho {
 
         ScrollPane panelScroll = new ScrollPane(contenido);
         panelScroll.setFitToWidth(true);
+        panelScroll.setFitToHeight(true); // permite centrar el GIF verticalmente
         panelScroll.setStyle("-fx-background-color: transparent;");
         layout.setCenter(panelScroll);
 
@@ -66,7 +73,6 @@ public class PanelDerecho {
         botonMapa = new Button();
         botonMapa.setOnAction(e -> {
             if (paginas != null && !paginas.isEmpty()) {
-                // Enviar la página actual ya formada como texto multilínea
                 StringBuilder sb = new StringBuilder();
                 for (String linea : paginas.get(indicePaginaActual)) {
                     sb.append(linea).append(System.lineSeparator());
@@ -91,24 +97,28 @@ public class PanelDerecho {
 
     public void mostrarCargando(Node loadingView) {
         contenido.getChildren().clear();
+        contenido.setAlignment(Pos.CENTER); // centrar GIF
         loadingView.setVisible(true);
         contenido.getChildren().add(loadingView);
     }
 
     public void mostrarError(String mensaje) {
         contenido.getChildren().clear();
+        contenido.setAlignment(Pos.TOP_LEFT);
         etiquetaAdvertencia.setText(mensaje);
         etiquetaAdvertencia.setVisible(true);
         contenido.getChildren().add(etiquetaAdvertencia);
     }
 
     /**
-     * Ahora recibe la información ya formateada: una lista de "páginas", cada página es una lista de líneas.
+     * Recibe la información ya formateada (por página, líneas),
+     * la parsea a estructura y la renderiza.
      */
     public void mostrarResultados(List<List<String>> paginasFormateadas) {
         this.paginas = paginasFormateadas;
         this.indicePaginaActual = 0;
         contenido.getChildren().clear();
+        contenido.setAlignment(Pos.TOP_LEFT);
 
         if (paginas != null && !paginas.isEmpty()) {
             mostrarPaginaActual();
@@ -121,12 +131,62 @@ public class PanelDerecho {
 
     private void mostrarPaginaActual() {
         contenido.getChildren().clear();
+        contenido.setAlignment(Pos.TOP_LEFT);
         ResourceBundle bundle = bundleSupplier.get();
         List<String> lineas = paginas.get(indicePaginaActual);
 
-        for (String linea : lineas) {
-            Label l = new Label(linea);
-            contenido.getChildren().add(l);
+        // DELEGADO: parseo y clasificación de ítems
+        PaginaEstructurada parsed = FormateadorRecorridos.parsearPagina(lineas, bundle);
+
+        for (FormateadorRecorridos.ItemPagina item : parsed.items) {
+            if (item instanceof LineaSimple) {
+                LineaSimple ls = (LineaSimple) item;
+                Label l = new Label(ls.texto);
+                if (ls.advertencia) {
+                    l.setTextFill(Color.RED);
+                }
+                contenido.getChildren().add(l);
+            } else if (item instanceof SegmentoFormateado) {
+                SegmentoFormateado seg = (SegmentoFormateado) item;
+
+                VBox segmentoBox = new VBox(4);
+                segmentoBox.setPadding(new Insets(8));
+
+                // Fondo + borde según tipo
+                if (seg.tipo == TipoTramo.CAMINANDO) {
+                    segmentoBox.setStyle(
+                        "-fx-background-color: #E8F5E9; " +
+                        "-fx-background-radius: 6; " +
+                        "-fx-border-color: #43A047; " +
+                        "-fx-border-width: 2; " +
+                        "-fx-border-radius: 6;"
+                    );
+                } else if (seg.tipo == TipoTramo.COLECTIVO) {
+                    segmentoBox.setStyle(
+                        "-fx-background-color: #E6F0FF; " +
+                        "-fx-background-radius: 6; " +
+                        "-fx-border-color: #1E88E5; " +
+                        "-fx-border-width: 2; " +
+                        "-fx-border-radius: 6;"
+                    );
+                } else {
+                    segmentoBox.setStyle(
+                        "-fx-background-color: #F5F5F5; " +
+                        "-fx-background-radius: 6; " +
+                        "-fx-border-color: #BDBDBD; " +
+                        "-fx-border-width: 2; " +
+                        "-fx-border-radius: 6;"
+                    );
+                }
+
+                segmentoBox.getChildren().add(new Label(seg.encabezado));
+                for (String ln : seg.lineas) {
+                    segmentoBox.getChildren().add(new Label(ln));
+                }
+
+                contenido.getChildren().add(segmentoBox);
+                VBox.setMargin(segmentoBox, new Insets(6, 0, 6, 0));
+            }
         }
 
         actualizarControlesNavegacion();
