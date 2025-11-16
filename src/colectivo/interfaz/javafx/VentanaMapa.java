@@ -15,16 +15,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-
+import java.util.HashMap; // Importación añadida para manejo de errores
 import java.util.Map;
-import colectivo.logica.Recorrido;
+// import colectivo.logica.Recorrido; // <- Correctamente comentado/eliminado
 // Importa las clases nuevas
 import colectivo.interfaz.javafx.GestorDeVentanas; 
-import colectivo.util.ArmadorLinkMapa;
+
+// --- CAMBIO: Importación eliminada ---
+// import colectivo.util.ArmadorLinkMapa; // <- Esta línea se elimina
+
 /**
  * Ventana que muestra un mapa estático de Google con una ruta específica.
  * Esta clase se encarga ÚNICAMENTE de la presentación (Vista).
- * Llama al Coordinador para todas las operaciones de lógica.
+ * Llama al GestorDeVentanas para todas las operaciones de lógica.
  */
 public class VentanaMapa extends Application {
 
@@ -40,40 +43,29 @@ public class VentanaMapa extends Application {
     	this.recorrido = recorrido;
     }
     /**
-     * Método para inyectar el coordinador desde la interfaz principal.
+     * Método para inyectar el gestor.
      */
     public void setGestor(GestorDeVentanas gestor) {
         this.gestor = gestor;
     }
-
-    /**
-     * Establece el recorrido que se va a mostrar en el mapa.
-     * Este método debe ser llamado antes de que se muestre la ventana.
-     *
-     * @param recorrido La lista de tramos ({@link Recorrido}) a dibujar.
-     */
   
     @Override
     public void start(Stage stage) {
 
-        // --- CAMBIO EN VERIFICACIÓN DE DEPENDENCIAS ---
         if (gestor == null) {
             System.err.println("FATAL: VentanaMapa iniciada sin GestorDeVentanas.");
             return;
         }
       
-        // ... (Configuración de la Interfaz: imageView, root, panelLeyenda... SIN CAMBIOS)
+        // ... (Creación de UI, botones, etc. - Sin cambios)
         imageView = new ImageView();
         imageView.setPreserveRatio(true);
-
         BorderPane root = new BorderPane();
         root.setCenter(imageView);
-        
         panelLeyenda = new VBox(5);
         panelLeyenda.setPadding(new Insets(10));
         panelLeyenda.setAlignment(Pos.TOP_LEFT);
         root.setLeft(panelLeyenda);
-
         Button zoomInButton = new Button("+");
         Button zoomOutButton = new Button("-");
         Button upButton = new Button("▲");
@@ -81,8 +73,8 @@ public class VentanaMapa extends Application {
         Button leftButton = new Button("◀");
         Button rightButton = new Button("▶");
 
-        // --- CAMBIO EN CONEXIÓN DE CONTROLES ---
-        // Llama a la función pública del GESTOR
+        // Los botones ya llaman a gestor.solicitarMapa(...)
+        // Esta parte es correcta y no necesita cambios.
         zoomInButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(1, 0, 0,recorrido)));
         zoomOutButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(-1, 0, 0,recorrido)));
         upButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(0, 0.005, 0,recorrido)));
@@ -90,21 +82,20 @@ public class VentanaMapa extends Application {
         leftButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(0, 0, -0.005,recorrido)));
         rightButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(0, 0, 0.005,recorrido)));
 
-        // ... (Creación de HBox, VBox... SIN CAMBIOS)
+        // ... (Layout de controles - Sin cambios)
         HBox zoomControls = new HBox(5, zoomInButton, zoomOutButton);
         zoomControls.setAlignment(Pos.CENTER);
         VBox navButtons = new VBox(5, upButton, new HBox(5, leftButton, rightButton), downButton);
         navButtons.setAlignment(Pos.CENTER);
-        
         VBox allControls = new VBox(20, zoomControls, navButtons);
         allControls.setAlignment(Pos.CENTER);
         allControls.setPadding(new Insets(10));
-        
         root.setRight(allControls);
 
         // --- CAMBIO EN CARGA INICIAL ---
         // 2. Obtener el primer mapa (con deltas cero) del GESTOR
-        ArmadorLinkMapa.ResultadoMapa primerResultado = gestor.solicitarMapa(0, 0, 0,recorrido);
+        // El tipo de retorno ahora es Map<String, Object>
+        Map<String, Object> primerResultado = gestor.solicitarMapa(0, 0, 0,recorrido);
         actualizarUI(primerResultado);
 
         Scene scene = new Scene(root, 900, 680); 
@@ -115,16 +106,36 @@ public class VentanaMapa extends Application {
 
     /**
      * Método centralizado para actualizar la UI basado en un nuevo resultado.
-     * @param resultado El objeto que contiene la nueva URL y la leyenda.
+     * --- CAMBIO: El parámetro ahora es Map<String, Object> ---
      */
-    private void actualizarUI(ArmadorLinkMapa.ResultadoMapa resultado) {
-        mostrarImagen(resultado.getUrl());
-        actualizarLeyenda(resultado.getLeyenda());
+    private void actualizarUI(Map<String, Object> resultado) {
+        if (resultado == null) {
+            System.err.println("actualizarUI recibió un resultado nulo.");
+            return;
+        }
+
+        // --- CAMBIO: Extraer datos del Map con casting ---
+        String url = (String) resultado.get("link");
+
+        // Casteo seguro para la leyenda
+        @SuppressWarnings("unchecked")
+        Map<String, String> leyenda = (Map<String, String>) resultado.get("leyenda");
+
+        // Manejo de nulos
+        if (url == null) {
+            url = "https://via.placeholder.com/640x640.png?text=Error:+URL+nula";
+        }
+        if (leyenda == null) {
+            leyenda = new HashMap<>(); // Evita NullPointerException
+        }
+
+        mostrarImagen(url);
+        actualizarLeyenda(leyenda);
     }
 
     /**
      * Recibe la URL (ya sea real o de placeholder) y la muestra.
-     * @param url La URL de la imagen a cargar.
+     * (Sin cambios)
      */
     private void mostrarImagen(String url) {
         System.out.println("Cargando URL de Mapa: " + url);
@@ -135,7 +146,7 @@ public class VentanaMapa extends Application {
     /**
      * Actualiza el panel de la leyenda con los colores y nombres
      * recibidos desde el armador de strings.
-     * @param leyendaColores El mapa de [Nombre, ColorHex] para mostrar.
+     * (Sin cambios)
      */
     private void actualizarLeyenda(Map<String, String> leyendaColores) {
         panelLeyenda.getChildren().clear();
@@ -164,7 +175,4 @@ public class VentanaMapa extends Application {
             panelLeyenda.getChildren().add(filaLeyenda);
         }
     }
-    
-    // El método main() se elimina, ya que esta ventana ahora
-    // debe ser instanciada y lanzada por otra clase (como tu 'Interfaz' principal).
 }
