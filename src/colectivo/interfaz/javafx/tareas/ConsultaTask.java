@@ -1,9 +1,10 @@
-package colectivo.interfaz.tareas;
+package colectivo.interfaz.javafx.tareas;
 
-import colectivo.interfaz.GestorDeVentanas;
 import javafx.concurrent.Task;
 
 import java.util.List;
+
+import colectivo.interfaz.javafx.GestorDeVentanas;
 
 /**
  * Tarea en segundo plano que solicita a través del Gestor de Ventanas

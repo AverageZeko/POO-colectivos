@@ -1,7 +1,7 @@
 package colectivo.util;
 
 import colectivo.modelo.Parada;
-import colectivo.modelo.Recorrido;
+import colectivo.logica.Recorrido;
 
 import java.time.Duration;
 import java.time.LocalTime;

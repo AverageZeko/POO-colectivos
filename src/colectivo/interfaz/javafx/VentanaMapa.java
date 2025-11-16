@@ -1,4 +1,4 @@
-package colectivo.interfaz; 
+package colectivo.interfaz.javafx; 
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 import colectivo.modelo.Parada;
-import colectivo.modelo.Recorrido;
+import colectivo.logica.Recorrido;
 
 
 /**

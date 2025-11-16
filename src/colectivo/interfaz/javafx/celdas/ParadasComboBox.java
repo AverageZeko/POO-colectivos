@@ -1,4 +1,4 @@
-package colectivo.interfaz.celdas;
+package colectivo.interfaz.javafx.celdas;
 
 import colectivo.modelo.Parada;
 import javafx.scene.control.ListCell;

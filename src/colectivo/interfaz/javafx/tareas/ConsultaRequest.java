@@ -1,4 +1,4 @@
-package colectivo.interfaz.tareas;
+package colectivo.interfaz.javafx.tareas;
 
 import colectivo.modelo.Parada;
 import javafx.scene.control.RadioButton;

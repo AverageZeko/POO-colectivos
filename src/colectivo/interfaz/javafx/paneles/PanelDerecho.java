@@ -1,4 +1,4 @@
-package colectivo.interfaz.paneles;
+package colectivo.interfaz.javafx.paneles;
 
 import colectivo.util.FormateadorRecorridos;
 import colectivo.util.FormateadorRecorridos.LineaSimple;

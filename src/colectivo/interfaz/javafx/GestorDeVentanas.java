@@ -1,7 +1,6 @@
-package colectivo.interfaz;
+package colectivo.interfaz.javafx;
 
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -9,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import colectivo.controlador.Coordinador;
+import colectivo.interfaz.Mostrable;
 import colectivo.modelo.Parada;
 import colectivo.util.LocaleInfo;
 import javafx.stage.Stage;

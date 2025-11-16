@@ -11,12 +11,11 @@ import org.slf4j.LoggerFactory;
 
 import colectivo.app.Constantes;
 import colectivo.configuracion.ConfigGlobal;
-import colectivo.interfaz.GestorDeVentanas;
 import colectivo.interfaz.Mostrable;
 import colectivo.logica.Calculo;
 import colectivo.logica.EmpresaColectivos;
+import colectivo.logica.Recorrido;
 import colectivo.modelo.Parada;
-import colectivo.modelo.Recorrido;
 import colectivo.util.Factory;
 import colectivo.util.FormateadorRecorridos;
 import colectivo.util.LocaleInfo;

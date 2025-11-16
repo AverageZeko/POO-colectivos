@@ -1,7 +1,6 @@
 package colectivo.interfaz;
 
 import colectivo.controlador.Coordinador;
-import javafx.stage.Stage;
 
 /**
  * Define el contrato común para todas las ventanas principales de la aplicación.

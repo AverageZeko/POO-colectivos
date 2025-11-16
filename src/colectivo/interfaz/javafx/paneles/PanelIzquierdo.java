@@ -1,8 +1,8 @@
-package colectivo.interfaz.paneles;
+package colectivo.interfaz.javafx.paneles;
 
 
-import colectivo.interfaz.celdas.ParadasComboBox;
-import colectivo.interfaz.tareas.ConsultaRequest;
+import colectivo.interfaz.javafx.celdas.ParadasComboBox;
+import colectivo.interfaz.javafx.tareas.ConsultaRequest;
 import colectivo.modelo.Parada;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

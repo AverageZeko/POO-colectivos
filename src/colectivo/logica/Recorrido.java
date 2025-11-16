@@ -1,7 +1,10 @@
-package colectivo.modelo;
+package colectivo.logica;
 
 import java.time.LocalTime;
 import java.util.List;
+
+import colectivo.modelo.Linea;
+import colectivo.modelo.Parada;
 
 /**
  * Representa un segmento de un viaje, que puede ser en colectivo o caminando.

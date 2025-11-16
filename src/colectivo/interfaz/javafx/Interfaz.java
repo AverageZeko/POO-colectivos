@@ -1,14 +1,14 @@
-package colectivo.interfaz;
+package colectivo.interfaz.javafx;
 
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import colectivo.interfaz.paneles.PanelDerecho;
-import colectivo.interfaz.paneles.PanelIzquierdo;
-import colectivo.interfaz.tareas.ConsultaRequest;
-import colectivo.interfaz.tareas.ConsultaTask;
+import colectivo.interfaz.Mostrable;
+import colectivo.interfaz.javafx.paneles.PanelDerecho;
+import colectivo.interfaz.javafx.paneles.PanelIzquierdo;
+import colectivo.interfaz.javafx.tareas.ConsultaRequest;
+import colectivo.interfaz.javafx.tareas.ConsultaTask;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
