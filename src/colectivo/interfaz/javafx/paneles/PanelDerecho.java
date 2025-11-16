@@ -37,10 +37,10 @@ public class PanelDerecho {
     private List<List<String>> paginas;
     private int indicePaginaActual;
 
-    private Consumer<String> onMostrarMapa;
+    private Consumer<Integer> onMostrarMapa;
     private Supplier<ResourceBundle> bundleSupplier;
 
-    public PanelDerecho(Consumer<String> onMostrarMapa, Supplier<ResourceBundle> bundleSupplier) {
+    public PanelDerecho(Consumer<Integer> onMostrarMapa, Supplier<ResourceBundle> bundleSupplier) {
         this.onMostrarMapa = onMostrarMapa;
         this.bundleSupplier = bundleSupplier;
         crearLayout();
@@ -73,14 +73,10 @@ public class PanelDerecho {
         botonMapa = new Button();
         botonMapa.setOnAction(e -> {
             if (paginas != null && !paginas.isEmpty()) {
-                StringBuilder sb = new StringBuilder();
-                for (String linea : paginas.get(indicePaginaActual)) {
-                    sb.append(linea).append(System.lineSeparator());
-                }
-                onMostrarMapa.accept(sb.toString());
+                // Simplemente pasa el índice actual
+                onMostrarMapa.accept(indicePaginaActual); 
             }
         });
-
         cajaNavegacion = new HBox(10, botonAnterior, etiquetaPagina, botonSiguiente, botonMapa);
         cajaNavegacion.setAlignment(Pos.CENTER);
         cajaNavegacion.setPadding(new Insets(10));
