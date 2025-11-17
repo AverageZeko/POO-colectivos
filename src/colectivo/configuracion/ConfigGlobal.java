@@ -1,3 +1,4 @@
+
 package colectivo.configuracion;
 
 import java.io.IOException;
@@ -16,15 +17,37 @@ import org.slf4j.LoggerFactory;
 import colectivo.util.LocaleInfo;
 import colectivo.util.LocalizacionUtil;
 
+/**
+ * ConfigGlobal gestiona la configuración global de la aplicación, incluyendo la localización,
+ * el manejo de ciudades y el esquema de base de datos actual.
+ * Implementa el patrón Singleton para asegurar una única instancia.
+ */
 public class ConfigGlobal {
+    /** Ruta al archivo de propiedades de ciudades. */
     private static final String RUTA_CIUDADES = "resources/ciudades.properties";
+
+    /** Logger para mensajes de configuración. */
     private static final Logger CONFIG_LOGGER = LoggerFactory.getLogger("Configuracion");
+
+    /** Instancia única de ConfigGlobal (Singleton). */
     private static ConfigGlobal configuracion;
+
+    /** Localización actual de la aplicación. */
     private LocaleInfo localeActual;
+
+    /** ResourceBundle para internacionalización. */
     private ResourceBundle bundle;
+
+    /** Mapa de nombres de ciudades a esquemas. */
     private Map<String, String> nombresCiudades;
+
+    /** Esquema de base de datos actual. */
     private static String schemaActual;
 
+    /**
+     * Devuelve la instancia única de ConfigGlobal.
+     * @return Instancia de ConfigGlobal.
+     */
     public static ConfigGlobal getConfiguracion() {
         if (configuracion == null) {
             configuracion = new ConfigGlobal();
@@ -39,6 +62,10 @@ public class ConfigGlobal {
         buscarCiudades();
     }
 
+    /**
+     * Devuelve la lista de nombres de ciudades disponibles.
+     * @return Lista de nombres de ciudades.
+     */
     public List<String> getCiudades() {
         ArrayList<String> listaCiudades = new ArrayList<>();
         for (String ciudad : nombresCiudades.keySet()) {
@@ -71,10 +98,18 @@ public class ConfigGlobal {
         
     }
 
+    /**
+     * Cambia el esquema de base de datos actual según la ciudad seleccionada.
+     * @param ciudad Nombre de la ciudad seleccionada.
+     */
     public void cambiarCiudad(String ciudad) {
     	schemaActual = nombresCiudades.get(ciudad);
     }
 
+    /**
+     * Devuelve el esquema de base de datos actual.
+     * @return Nombre del esquema actual.
+     */
     public static String getSchema() {
         return schemaActual;
     }

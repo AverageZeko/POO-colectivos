@@ -49,10 +49,17 @@ public class Coordinador {
         armadorLink = new ArmadorLinkMapa(CLAVE_DE_MAPA);
     }
 
+    /**
+     * Crea una referencia a la implementacion concreta de Mostrable a traves del Factory y crea la referencia entre esta y el coordinador
+     */
     public void inicializarInterfaz() {
         interfaz = (Mostrable) Factory.getInstancia(Constantes.GUI);
         interfaz.setCoordinador(this);
     }
+
+    /**
+     * Simplemente establece la relacion entre la configuracion y el coordinador
+     */
     public void setConfiguracion(ConfigGlobal config) {
         this.config = config;
     }
@@ -124,6 +131,10 @@ public class Coordinador {
         return ciudadActual.getParadas(); 
     }
 
+    /**
+     * Obtiene una lista con los nombres de todas las ciudades en la base de datos
+     * @return una lista con los nombres de cada ciudad
+     */
     public List<String> getCiudades() {
         return config.getCiudades();
     }
@@ -147,10 +158,18 @@ public class Coordinador {
         QUERY_LOG.info("Usuario cambia de ciudad a {}", nuevaCiudad);
     }
     
+    /**
+     * Metodo para obtener el schema de la base de datos
+     * @return un String representando el esquema actual
+     */
     public static String getSchema() {
         return ConfigGlobal.getSchema();
     }
 
+    /**
+     * Metodo para iniciar la interfaz grafica
+     * @param args los argumentos de ejecucion
+     */
     public void mostrar(String[] args) {
         QUERY_LOG.info("Usuario inicia aplicacion");
         interfaz.mostrar(args);
@@ -165,7 +184,7 @@ public class Coordinador {
 	 * @param destino la parada de destino.
 	 * @param diaSemana el día de la semana para la consulta.
 	 * @param horaLlegaParada la hora de llegada a la parada de origen.
-	 * @return una lista de posibles rutas, donde cada ruta es una lista de recorridos.
+	 * @return una lista de posibles rutas, donde cada ruta es una lista de String.
 	 */
     public List<List<String>> consulta(Parada origen, Parada destino, int diaSemana, LocalTime horaLlegaParada) {
         QUERY_LOG.info("Usuario realiza consulta desde {} hasta {}, dia de la semana {} a las {}", origen.getDireccion(), destino.getDireccion(), diaSemana, horaLlegaParada);
@@ -174,10 +193,15 @@ public class Coordinador {
         );
 
         ResourceBundle bundle = getBundle();
-        // Formatear aquí: la interfaz recibirá solo strings ya armados
         return FormateadorRecorridos.formatear(recorridos, horaLlegaParada, bundle, armadorLink);
     }
     
+    /**
+     * Devuelve un mapa que asocia el identificador de cada parada (Integer) con su dirección (String)
+     * para la ciudad actualmente seleccionada.
+     * @return mapa que mapea el ID de la parada ({@code Integer}) a su dirección ({@code String}),
+     *         o un mapa vacío si no hay ciudad actual.
+     */
     public Map<Integer, String> getMapaParadasNombres() {
         if (ciudadActual == null) {
             QUERY_LOG.error("Intento de getMapaParadasNombres() cuando ciudadActual es nula.");
@@ -193,29 +217,39 @@ public class Coordinador {
 
     
     /**
-     * Limpia la cache de datos de Factory
+     * Limpia la cache de datos del mapa en Factory
      */
-     public void limpiarCacheCiudades() {
+    public void limpiarCacheCiudades() {
         Factory.clearInstancia(Constantes.TRAMO);
         Factory.clearInstancia(Constantes.LINEA);
         Factory.clearInstancia(Constantes.PARADA);
     }
      
-     public Map<String, Object> obtenerLink(int zoomDelta, double latDelta, double lngDelta, int ruta) {
-         if (this.armadorLink == null) {
-             System.err.println("Error: armadorLink no fue inicializado en Coordinador.");
+    /**
+     * Obtiene un mapa de datos que contiene un enlace (URL) y metadatos para la visualización
+     * de un mapa/imagen a partir de los deltas de zoom y posición y una ruta identificada.
+     *
+     * @param zoomDelta incremento/decremento de zoom a aplicar (puede ser positivo o negativo)
+     * @param latDelta  desplazamiento en latitud (grados) que debe reflejarse en el enlace generado
+     * @param lngDelta  desplazamiento en longitud (grados) que debe reflejarse en el enlace generado
+     * @param ruta      identificador de la ruta para la que se genera el enlace (por ejemplo, número de línea)
+     * @return un {@code Map<String,Object>} con los datos necesarios para mostrar el enlace y sus metadatos;
+     *         en caso de error por falta de inicialización de {@code armadorLink}, devuelve un mapa con
+     *         una URL de marcador de posición en la clave {@code "link"} y una {@code "leyenda"} vacía.
+     */
+    public Map<String, Object> obtenerLink(int zoomDelta, double latDelta, double lngDelta, int ruta) {
+        if (this.armadorLink == null) {
+            System.err.println("Error: armadorLink no fue inicializado en Coordinador.");
              
-             // --- CAMBIO 3: Crear un mapa de error válido ---
-             Map<String, Object> errorMap = new HashMap<>();
-             errorMap.put("link", "https://via.placeholder.com/640x640.png?text=Error:+ArmadorLink+nulo");
-             errorMap.put("leyenda", new HashMap<String, String>());
+            Map<String, Object> errorMap = new HashMap<>();
+            errorMap.put("link", "https://via.placeholder.com/640x640.png?text=Error:+ArmadorLink+nulo");
+            errorMap.put("leyenda", new HashMap<String, String>());
              
-             return errorMap;
-         }
+            return errorMap;
+        }
          
-         // Esto ahora devuelve correctamente un Map<String, Object>
-         return this.armadorLink.generarMapa(zoomDelta, latDelta, lngDelta, ruta);
-     }
+        return this.armadorLink.generarMapa(zoomDelta, latDelta, lngDelta, ruta);
+    }
      
      
     

@@ -32,36 +32,64 @@ import javafx.stage.Stage;
 
 
 /**
- * Implementación de {@link IVentana} que muestra la pantalla de bienvenida.
- * Permite al usuario seleccionar una ciudad y un idioma antes de iniciar
- * la aplicación de consultas.
+ * VentanaInicio muestra la pantalla de bienvenida de la aplicación.
+ * Permite al usuario seleccionar una ciudad y un idioma antes de iniciar la aplicación de consultas.
+ * Gestiona la interacción inicial y la configuración de localización.
  */
-public class VentanaInicio extends Application{
+public class VentanaInicio extends Application {
 
+    /** Gestor de ventanas para la comunicación con la lógica de negocio. */
     private static GestorDeVentanas gestor;
-    
+
+    /** ComboBox para seleccionar la ciudad. */
     private ComboBox<String> comboCiudad;
+
+    /** Etiqueta para mostrar advertencias. */
     private Label etiquetaAdvertencia;
+
+    /** Grupo de botones para seleccionar el idioma (banderas). */
     private ToggleGroup grupoBanderas;
 
+    /** Logger para mensajes de consulta. */
     private static final Logger LOG = LoggerFactory.getLogger("Consulta");
-    
-    private Label lblCiudad, lblIdioma;
+
+    /** Etiqueta para la ciudad. */
+    private Label lblCiudad;
+
+    /** Etiqueta para el idioma. */
+    private Label lblIdioma;
+
+    /** Botón para iniciar la aplicación. */
     private Button btnIniciar;
+
+    /** Escenario principal de la aplicación. */
     private Stage primaryStage;
+
+    /** Lista filtrada de ciudades para el ComboBox. */
     private FilteredList<String> ciudadesFiltradas;
 
     
+    /**
+     * Establece el gestor de ventanas para la ventana de inicio.
+     * @param gest Gestor de ventanas.
+     */
     public void setGestor(GestorDeVentanas gest) {
         VentanaInicio.gestor = gest;
     }
 
 
+    /**
+     * Lanza la aplicación mostrando la ventana de inicio.
+     * @param args Argumentos de la línea de comandos.
+     */
     public void lanzarAplicacion(String[] args) {
         LOG.info("Lanzando VentanaInicio (Application.launch)");
         Application.launch(VentanaInicio.class, args);
     }
 
+    /**
+     * Actualiza los textos de la interfaz según el idioma seleccionado.
+     */
     /**
      * Actualiza los textos de la interfaz según el idioma seleccionado.
      */
@@ -83,11 +111,19 @@ public class VentanaInicio extends Application{
     }
 
     
+    /**
+     * Muestra la ventana de inicio.
+     * @param stage Escenario de JavaFX.
+     */
     public void mostrar(Stage stage) {
         start(stage);
     }
     
     
+    /**
+     * Cierra la ventana de inicio.
+     * @param stage Escenario de JavaFX a cerrar.
+     */
     public void cerrar(Stage stage) {
         stage.close();
     }

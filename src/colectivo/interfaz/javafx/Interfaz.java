@@ -21,25 +21,49 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /**
- * Ventana principal para la consulta de recorridos.
+ * Interfaz es la ventana principal para la consulta de recorridos.
  * Ensambla y coordina los paneles de consulta (izquierda) y resultados (derecha).
- *
- * NOTA: La UI únicamente recibe textos ya formateados y metadatos simples (ids, nombres).
+ * La UI únicamente recibe textos ya formateados y metadatos simples (ids, nombres).
  */
-public class Interfaz extends Application{
+public class Interfaz extends Application {
 
+    /** Gestor de ventanas para la comunicación con la lógica de negocio. */
     private GestorDeVentanas gestor;
+
+    /** Escenario principal de la aplicación. */
     private Stage escenarioPrincipal;
+
+    /** Layout principal de la ventana. */
     private BorderPane raiz;
 
+    /** Panel izquierdo para la consulta de datos. */
     private PanelIzquierdo panelIzquierdo;
+
+    /** Panel derecho para mostrar resultados. */
     private PanelDerecho panelDerecho;
+
+    /** Vista de carga (GIF). */
     private ImageView loadingView;
-    private Button botonAumentarFuente, botonDisminuirFuente;
+
+    /** Botón para aumentar el tamaño de fuente. */
+    private Button botonAumentarFuente;
+
+    /** Botón para disminuir el tamaño de fuente. */
+    private Button botonDisminuirFuente;
+
+    /** Tamaño actual de la fuente. */
     private double tamanoFuenteActual = 12;
+
+    /** Tamaño base de la fuente. */
     private static final double TAMANO_FUENTE_BASE = 12;
+
+    /** Máximo de incrementos permitidos para el tamaño de fuente. */
     private static final int MAX_INCREMENTOS = 5;
 
+    /**
+     * Inicializa y muestra la ventana principal de la aplicación.
+     * @param escenarioPrincipal Escenario principal de JavaFX.
+     */
     @Override
     public void start(Stage escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
@@ -91,6 +115,9 @@ public class Interfaz extends Application{
         escenarioPrincipal.show();
     }
 
+    /**
+     * Inicializa los componentes de la interfaz y carga las paradas.
+     */
     private void inicializarComponentes() {
         if (gestor != null) {
             actualizarEstilosYTextos();
@@ -99,6 +126,10 @@ public class Interfaz extends Application{
         }
     }
 
+    /**
+     * Maneja la solicitud de cálculo de recorridos.
+     * @param request Solicitud de consulta realizada por el usuario.
+     */
     private void manejarCalculo(ConsultaRequest request) {
         panelDerecho.mostrarCargando(loadingView);
         panelIzquierdo.setBotonCalcularDeshabilitado(true);
@@ -123,14 +154,24 @@ public class Interfaz extends Application{
         new Thread(task).start();
     }
 
+    /**
+     * Maneja la acción de volver a la ventana de inicio.
+     */
     private void manejarVolver() {
         gestor.solicitarVolverAInicio(escenarioPrincipal);
     }
 
+    /**
+     * Establece el gestor de ventanas para la interfaz.
+     * @param gest Gestor de ventanas.
+     */
     public void setGestor(GestorDeVentanas gest) {
         this.gestor = gest;
     }
 
+    /**
+     * Actualiza los estilos y textos de la interfaz según el ResourceBundle.
+     */
     private void actualizarEstilosYTextos() {
         ResourceBundle bundle = getBundle();
         if (bundle == null) return;
@@ -144,14 +185,26 @@ public class Interfaz extends Application{
 
     }
 
+    /**
+     * Muestra la ventana principal en el escenario dado.
+     * @param stage Escenario de JavaFX.
+     */
     public void mostrar(Stage stage) {
         start(stage);
     }
 
+    /**
+     * Cierra la ventana principal.
+     * @param stage Escenario de JavaFX a cerrar.
+     */
     public void cerrar(Stage stage) {
         stage.close();
     }
 
+    /**
+     * Cambia el tamaño de la fuente de la interfaz.
+     * @param delta Incremento o decremento del tamaño de fuente.
+     */
     private void cambiarFuente(double delta) {
         tamanoFuenteActual += delta;
         tamanoFuenteActual = Math.max(TAMANO_FUENTE_BASE - MAX_INCREMENTOS, tamanoFuenteActual);
@@ -159,6 +212,9 @@ public class Interfaz extends Application{
         actualizarEstiloFuente();
     }
 
+    /**
+     * Actualiza el estilo de fuente en el layout principal.
+     */
     private void actualizarEstiloFuente() {
         if (raiz != null) {
             raiz.setStyle("-fx-font-size: " + tamanoFuenteActual + "pt;");
@@ -166,17 +222,21 @@ public class Interfaz extends Application{
     }
 
     /**
-     * La UI ya no recibe objetos de negocio. El botón de "Mapa" recibe
-     * una representación textual (multilínea) y la muestra en una ventana simple.
+     * Muestra la ventana de mapa para el recorrido especificado.
+     * @param recorrido Índice del recorrido a mostrar en el mapa.
      */
     private void mostrarMapa(int recorrido) {
-    	if (gestor != null) {
+        if (gestor != null) {
             gestor.mostrarVentanaMapa(recorrido);
         } else {
             panelDerecho.mostrarError("Error: Gestor no disponible para abrir mapa.");
         }
     }
 
+    /**
+     * Devuelve el ResourceBundle actual para internacionalización.
+     * @return ResourceBundle actual.
+     */
     ResourceBundle getBundle() {
         return gestor.getBundle();
     }

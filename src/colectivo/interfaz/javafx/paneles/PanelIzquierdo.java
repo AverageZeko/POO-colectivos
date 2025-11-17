@@ -22,30 +22,95 @@ import java.util.function.Consumer;
  */
 public class PanelIzquierdo {
 
+    /**
+     * Layout principal del panel izquierdo.
+     */
     private VBox layout;
+
+    /**
+     * ComboBox para seleccionar la parada de origen.
+     */
     private ComboBox<ParadaOpcion> comboOrigen;
+
+    /**
+     * ComboBox para seleccionar la parada de destino.
+     */
     private ComboBox<ParadaOpcion> comboDestino;
+
+    /**
+     * ComboBox para seleccionar la hora.
+     */
     private ComboBox<String> comboHora;
+
+    /**
+     * ComboBox para seleccionar los minutos.
+     */
     private ComboBox<String> comboMinuto;
+
+    /**
+     * Grupo de botones para seleccionar el día de la semana.
+     */
     private ToggleGroup grupoDiasSemana;
+
+    /**
+     * Etiqueta para mostrar mensajes de advertencia o error.
+     */
     private Label etiquetaAdvertencia;
+
+    /**
+     * Botón para ejecutar la consulta.
+     */
     private Button botonCalcular;
+
+    /**
+     * Botón para volver a la pantalla anterior.
+     */
     private Button botonVolver;
 
+    /**
+     * Etiqueta para la parada de origen.
+     */
     private Label etiquetaOrigen;
+
+    /**
+     * Etiqueta para la parada de destino.
+     */
     private Label etiquetaDestino;
+
+    /**
+     * Etiqueta para la hora.
+     */
     private Label etiquetaHora;
+
+    /**
+     * Etiqueta para el día de la semana.
+     */
     private Label etiquetaDia;
+
+    /**
+     * Botones de selección para cada día de la semana.
+     */
     private RadioButton lun, mar, mie, jue, vie, sab, dom;
 
+    /**
+     * Acción a ejecutar al calcular la consulta.
+     */
     private Consumer<ConsultaRequest> onCalcular;
 
+    /**
+     * Constructor del PanelIzquierdo.
+     * @param onCalcular Acción a ejecutar al calcular la consulta.
+     * @param onVolver Acción a ejecutar al volver a la pantalla anterior.
+     */
     public PanelIzquierdo(Consumer<ConsultaRequest> onCalcular, Runnable onVolver) {
         this.onCalcular = onCalcular;
         crearLayout();
         botonVolver.setOnAction(e -> onVolver.run());
     }
 
+    /**
+     * Inicializa el layout y los controles del panel izquierdo.
+     */
     private void crearLayout() {
         layout = new VBox(10);
         layout.setAlignment(Pos.CENTER_LEFT);
@@ -93,6 +158,9 @@ public class PanelIzquierdo {
         );
     }
 
+    /**
+     * Maneja el evento de clic en el botón calcular.
+     */
     private void handleCalcularClick() {
         etiquetaAdvertencia.setVisible(false);
 
@@ -103,7 +171,7 @@ public class PanelIzquierdo {
         RadioButton diaRadio = (RadioButton) grupoDiasSemana.getSelectedToggle();
 
         if (paradaOrigen == null || paradaDestino == null || horaSel == null || minSel == null || diaRadio == null) {
-            etiquetaAdvertencia.setText("Faltan datos para la consulta."); // Se actualizará en actualizarTextos
+            etiquetaAdvertencia.setText("Faltan datos para la consulta.");
             etiquetaAdvertencia.setVisible(true);
             return;
         }
@@ -118,6 +186,10 @@ public class PanelIzquierdo {
         onCalcular.accept(request);
     }
 
+    /**
+     * Actualiza los textos de los controles del panel izquierdo según el ResourceBundle.
+     * @param bundle ResourceBundle con los textos traducidos.
+     */
     public void actualizarTextos(ResourceBundle bundle) {
         etiquetaOrigen.setText(bundle.getString("Query_InitialStopQuestion"));
         etiquetaDestino.setText(bundle.getString("Query_FinalStopQuestion"));
@@ -143,6 +215,7 @@ public class PanelIzquierdo {
 
     /**
      * Carga paradas como mapa id -> nombre (dirección) y arma opciones para los ComboBox.
+     * @param paradasMap Mapa de IDs de parada a nombres.
      */
     public void cargarParadas(Map<Integer, String> paradasMap) {
         ObservableList<ParadaOpcion> paradasLista = FXCollections.observableArrayList();
@@ -151,14 +224,27 @@ public class PanelIzquierdo {
         comboDestino.setItems(paradasLista);
     }
 
+    /**
+     * Habilita o deshabilita el botón calcular.
+     * @param deshabilitado true para deshabilitar, false para habilitar.
+     */
     public void setBotonCalcularDeshabilitado(boolean deshabilitado) {
         botonCalcular.setDisable(deshabilitado);
     }
 
+    /**
+     * Devuelve el layout principal del panel izquierdo.
+     * @return VBox del panel izquierdo.
+     */
     public VBox getLayout() {
         return layout;
     }
 
+    /**
+     * Genera una lista de números formateados con dos dígitos.
+     * @param limite Límite superior (exclusivo).
+     * @return ObservableList de números como String.
+     */
     private ObservableList<String> generarNumeros(int limite) {
         ObservableList<String> numeros = FXCollections.observableArrayList();
         for (int i = 0; i < limite; i++) {
@@ -167,6 +253,11 @@ public class PanelIzquierdo {
         return numeros;
     }
 
+    /**
+     * Crea un RadioButton y lo agrega al grupo especificado.
+     * @param grupo ToggleGroup al que se agrega el RadioButton.
+     * @return RadioButton creado.
+     */
     private RadioButton crearRadioButton(ToggleGroup grupo) {
         RadioButton rb = new RadioButton();
         rb.setToggleGroup(grupo);

@@ -3,7 +3,6 @@ package colectivo.util;
 import colectivo.modelo.Parada;
 
 import colectivo.logica.Recorrido;
-import colectivo.util.ArmadorLinkMapa;
 
 import java.time.Duration;
 import java.time.LocalTime;

@@ -9,65 +9,79 @@ import colectivo.modelo.Parada;
 import colectivo.logica.Recorrido;
 
 /**
- * Clase de lógica que maneja el estado del mapa y construye la URL
- * de la API de Google Static Maps.
- *
- * Mantiene el estado interno (zoom, centro) y lo actualiza a través
- * de su ÚNICO método público: generarMapa().
+ * ArmadorLinkMapa maneja el estado del mapa y construye la URL de la API de Google Static Maps.
+ * Mantiene el estado interno (zoom, centro) y lo actualiza a través de su único método público: generarMapa().
  */
 public class ArmadorLinkMapa {
 
-    // --- Estado Interno del Mapa ---
+    /** Latitud del centro actual del mapa. */
     private double currentCenterLat = -42.7745;
+
+    /** Longitud del centro actual del mapa. */
     private double currentCenterLng = -65.0446;
+
+    /** Nivel de zoom actual del mapa. */
     private int currentZoom = 13;
+
+    /** Indica si es la primera carga del mapa. */
     private boolean isFirstLoad = true;
 
-    // --- Datos del Recorrido ---
+    /** Todas las rutas disponibles para mostrar. */
     private List<List<Recorrido>> todasLasRutas;
+
+    /** Recorrido seleccionado para mostrar en el mapa. */
     private List<Recorrido> recorridoParaMostrar;
-    
-    // --- CAMBIO: Instanciación corregida ---
+
+    /** Leyenda de colores para las líneas y caminatas. */
     private Map<String, String> leyendaColores = new HashMap<>();
 
-    // --- Constantes ---
+    /** Clave de API de Google Maps. */
     private final String apiKey;
+
+    /** Ancho del mapa en píxeles. */
     private static final int MAP_WIDTH = 640;
+
+    /** Alto del mapa en píxeles. */
     private static final int MAP_HEIGHT = 640;
+
+    /** Colores disponibles para las líneas de colectivo. */
     private static final String[] COLORES_LINEA = {
         "0x0000FF", "0xFF0000", "0xFFA500", "0x800080", "0xA52A2A", "0x008000"
     };
+
+    /** Color para los tramos caminando. */
     private static final String COLOR_CAMINANDO = "0x404040";
 
-    
-    // --- CLASE ELIMINADA ---
-    // Se eliminó la clase interna 'ResultadoMapa'
-    
+    // =========================================================================
+    // --- CONSTRUCTOR ---
+    // =========================================================================
 
     /**
-     * Constructor.
-     * @param apiKey Tu clave de API de Google Maps.
+     * Crea un nuevo ArmadorLinkMapa con la clave de API especificada.
+     * @param apiKey Clave de API de Google Maps.
      */
     public ArmadorLinkMapa(String apiKey) {
         this.apiKey = apiKey;
-        
-    }
-    
-    public void setRutas(List<List<Recorrido>> todasLasRutas) {
-    	this.todasLasRutas = todasLasRutas;
     }
 
     // =========================================================================
-    // --- ÚNICO MÉTODO PÚBLICO (MODIFICADO) ---
+    // --- MÉTODOS PUBLICOS ---
     // =========================================================================
 
     /**
-     * Genera un nuevo resultado de mapa aplicando los cambios de
-     * zoom y localización (deltas) al estado actual.
-     *
+     * Establece las rutas disponibles para mostrar en el mapa.
+     * @param todasLasRutas Lista de rutas.
+     */
+    public void setRutas(List<List<Recorrido>> todasLasRutas) {
+        this.todasLasRutas = todasLasRutas;
+    }
+
+    /**
+     * Genera un nuevo resultado de mapa aplicando los cambios de zoom y localización (deltas) al estado actual.
      * @param zoomDelta Cambio en el zoom (+1, -1, o 0)
      * @param latDelta  Cambio en la latitud (ej. 0.005, -0.005, o 0)
      * @param lngDelta  Cambio en la longitud (ej. 0.005, -0.005, o 0)
+     * @param recorrido Índice del recorrido a mostrar.
      * @return Un Map<String, Object> con las claves "link", "leyenda" y "paradas".
      */
     public Map<String, Object> generarMapa(int zoomDelta, double latDelta, double lngDelta, int recorrido) {
@@ -112,17 +126,16 @@ public class ArmadorLinkMapa {
 
 
     // =========================================================================
-    // --- MÉTODOS PRIVADOS (MODIFICADO) ---
+    // --- MÉTODOS PRIVADOS ---
     // =========================================================================
 
     /**
      * Construye la URL para la solicitud a la API de Google Maps Static.
      * Utiliza el estado interno (currentZoom, etc.) para generar la URL.
-     *
      * @param todasLasParadas La lista de paradas a dibujar (calculada por generarMapa).
      * @return La URL completa (o una URL de placeholder en caso de error).
      */
-    private String construirURL(List<Parada> todasLasParadas) { // Recibe la lista de paradas
+    private String construirURL(List<Parada> todasLasParadas) {
         leyendaColores.clear();
         leyendaColores.put("Parada Origen", "0x008000");
         leyendaColores.put("Parada Destino", "0xFF0000");

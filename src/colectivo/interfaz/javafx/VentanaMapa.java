@@ -15,14 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.util.HashMap; // Importación añadida para manejo de errores
+import java.util.HashMap;
 import java.util.Map;
-// import colectivo.logica.Recorrido; // <- Correctamente comentado/eliminado
-// Importa las clases nuevas
-import colectivo.interfaz.javafx.GestorDeVentanas; 
-
-// --- CAMBIO: Importación eliminada ---
-// import colectivo.util.ArmadorLinkMapa; // <- Esta línea se elimina
 
 /**
  * Ventana que muestra un mapa estático de Google con una ruta específica.
@@ -57,7 +51,7 @@ public class VentanaMapa extends Application {
             return;
         }
       
-        // ... (Creación de UI, botones, etc. - Sin cambios)
+        //Creación de UI, botones, etc.
         imageView = new ImageView();
         imageView.setPreserveRatio(true);
         BorderPane root = new BorderPane();
@@ -73,8 +67,6 @@ public class VentanaMapa extends Application {
         Button leftButton = new Button("◀");
         Button rightButton = new Button("▶");
 
-        // Los botones ya llaman a gestor.solicitarMapa(...)
-        // Esta parte es correcta y no necesita cambios.
         zoomInButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(1, 0, 0,recorrido)));
         zoomOutButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(-1, 0, 0,recorrido)));
         upButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(0, 0.005, 0,recorrido)));
@@ -82,7 +74,7 @@ public class VentanaMapa extends Application {
         leftButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(0, 0, -0.005,recorrido)));
         rightButton.setOnAction(e -> actualizarUI(gestor.solicitarMapa(0, 0, 0.005,recorrido)));
 
-        // ... (Layout de controles - Sin cambios)
+        //Layout de controles
         HBox zoomControls = new HBox(5, zoomInButton, zoomOutButton);
         zoomControls.setAlignment(Pos.CENTER);
         VBox navButtons = new VBox(5, upButton, new HBox(5, leftButton, rightButton), downButton);
@@ -92,9 +84,6 @@ public class VentanaMapa extends Application {
         allControls.setPadding(new Insets(10));
         root.setRight(allControls);
 
-        // --- CAMBIO EN CARGA INICIAL ---
-        // 2. Obtener el primer mapa (con deltas cero) del GESTOR
-        // El tipo de retorno ahora es Map<String, Object>
         Map<String, Object> primerResultado = gestor.solicitarMapa(0, 0, 0,recorrido);
         actualizarUI(primerResultado);
 
@@ -106,7 +95,6 @@ public class VentanaMapa extends Application {
 
     /**
      * Método centralizado para actualizar la UI basado en un nuevo resultado.
-     * --- CAMBIO: El parámetro ahora es Map<String, Object> ---
      */
     private void actualizarUI(Map<String, Object> resultado) {
         if (resultado == null) {
@@ -135,7 +123,6 @@ public class VentanaMapa extends Application {
 
     /**
      * Recibe la URL (ya sea real o de placeholder) y la muestra.
-     * (Sin cambios)
      */
     private void mostrarImagen(String url) {
         System.out.println("Cargando URL de Mapa: " + url);
@@ -146,7 +133,6 @@ public class VentanaMapa extends Application {
     /**
      * Actualiza el panel de la leyenda con los colores y nombres
      * recibidos desde el armador de strings.
-     * (Sin cambios)
      */
     private void actualizarLeyenda(Map<String, String> leyendaColores) {
         panelLeyenda.getChildren().clear();
